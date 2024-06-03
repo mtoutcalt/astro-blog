@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
+import kibbybabyImg from '../assets/kibbybaby.jpg';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -18,7 +19,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<p>
 				Welcome to Fark's playground.
 			</p>
-			<Image src="assets/kibbybaby.jpg" alt="fluffy kitten" width="800" height="800" />
+			<Image src={kibbybabyImg} alt="fluffy kitten" width="800" height="800" />
 		</main>
 		<Footer />
 	</body>
