@@ -5,4 +5,4 @@ pubDate: 'Jun 03 2024'
 heroImage: '/gilmore.jpg'
 ---
 
-Hi dad!
+<mark>Hi dad!</mark>

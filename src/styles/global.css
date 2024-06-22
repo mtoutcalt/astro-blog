@@ -5,7 +5,7 @@
  */
 
 :root {
-	--accent: #daff23;
+	--accent: #045404;
 	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
@@ -18,7 +18,7 @@
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
+	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }

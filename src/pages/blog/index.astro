@@ -89,6 +89,9 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
+				<a href="/blog/favs">My Favorite Blogs</a>
+			</section>
+			<section>
 				<ul>
 					{
 						posts.map((post) => (
