@@ -50,7 +50,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.last-updated-on {
 				font-style: italic;
+				font-size: 12px;
+			}
+			@media (max-width: 720px) {
+			.last-updated-on {
 				font-size: 10px;
+			}
 			}
 		</style>
 	</head>
@@ -74,19 +79,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<div class="prose">
 					<div class="title">
 						<div class="date">
-							{
-								updatedDate ? (
+							<span >
+								<FormattedDate date={pubDate} />
+							</span>
+								{updatedDate &&
 									<span class="last-updated-on">
-										Updated{" "}
-										<FormattedDate date={updatedDate} />
-									</span>
-								) : (
-								<span class="last-updated-on">
-										Posted{" "}
-										<FormattedDate date={pubDate} />
-									</span>
-								)
-							}
+										 ( Updated:{" "}
+										<FormattedDate date={updatedDate} />)
+									</span>}
 						</div>
 						<h1>{title}</h1>
 						<hr />
