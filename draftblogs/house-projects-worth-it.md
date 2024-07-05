@@ -23,9 +23,49 @@ pubDate: 'Jul 01 2022'
 
 
 ### (CVV) Cost Value Report - Zonda data - https://www.remodeling.hw.net/cost-vs-value/2024/
+Only projects with cost fully recouped:
 * new garage door
-* new appliances
-* new siding - especially faux brick, or fiber cement siding - only in front
 * new steel front door
-* new outdoor deck
+* manufactured stone veneer
 
+90% or above:
+* Grand entrance - nicer door with glass features
+* Minor kitchen remodel - midrange - only indoor project above 75% recoup
+    * The kitchen must be dated, laminate countertops, replace outdated appliances, leave cabinet boxes in place but replace fronts, new flooring and painting, new sink
+    * Major kitchen remodel where you're spending up to $80k is more like 49% recoup - custom cabinets, new island, everything is redone
+
+80% or above:
+* Siding replacement - fiber cement - 88% vs. vinyl 80%
+* Adding a NEW wooden deck
+
+Bathroom:
+Remodel for midrange - 73%
+* Data is showing you spend $25k and recoupe $18k so loss of $7k
+* replace all fixtures, porcelain tub into ceramix tiled, ceramic tile, new sink and counter, new standard toilet
+* Like all these projects, this recoup is assuming youre existing bathroom is noticeably out-dated and dysfunctional
+
+Others:
+* Get a heat pump - 66%
+* Rpelace windows - 67% for vinyl and 62% for wood
+* New roof - asphalt shingles - 56%
+
+
+Regional Differences:
+* Mostly the same as nationwide
+* New England - kitchen remodel goes up to 110% - is that becuase lots of old houses with outdated kitchens?
+* Siding replacement - fiber cement has 3% higher but even vinyl siding goes from 80% national to 115% regional - harsh winters, have simple and durable siding - lots of old wooden houses
+    * siding has lower recoup in the south which gives evidence to my theory
+* garage door replacement - 314% regional!
+
+
+Summary:
+* In almost every case, indoor renovation projects will not make you money
+    * exceptions - your current room needs to be in bad shape, severly outdated for this to be true, and the evergreen advice of kitchen and bathrooms being the most effective is true
+    * You're better off being tactical.  Update applicances.  Neurtral colors.  New paint job.  Keep your cabinets and update hardware or paint job.  New faucet.
+* outdoor projects, first impressions, specifically in the front, can make a huge difference
+* If you have an old garage door, get a new one now
+    * wood to fiberglass with windows
+* If you don't have a wooden deck or patio in your backyard and you have the space, it's probably worth it
+* Regional matters a little, mostly for outdoor projects, weather and culture (how old are houses) can mean hardy weather in the north having nicer siding, garage doors, front doors can make huge difference
+* Replacing the bottom third of your front siding with manufactured stone veneer can pay off
+* Keep in mind the energy savings with upgrades like better garages, front doors, siding, heat pumps.  Also government rebates.
