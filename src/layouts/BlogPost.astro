@@ -30,9 +30,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.prose {
 				width: 1200px;
-				max-width: calc(100% - 2em);
+				max-width: calc(100% - 1em);
 				margin: auto;
-				padding: 1em;
+				padding: 0em;
 				color: rgb(var(--gray-dark));
 			}
 			.title {
@@ -61,7 +61,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				}
 				.date {
 					font-size: 14px;
-			}
+				}
+				main {
+					width: calc(100% - 2em);
+					max-width: 100%;
+					margin: 0;
+				}
 			}
 		</style>
 	</head>
