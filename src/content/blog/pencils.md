@@ -2,6 +2,9 @@
 title: 'Pencils Review'
 description: 'I like pencils'
 pubDate: 'Jul 07 2024'
+tags:
+  - personal
+  - misc
 ---
 
 I still like to write on physical paper with pencils.  I've stumbled on <a href="https://www.sciencedaily.com/releases/2021/03/210319080820.htm" target="_blank">studies</a> talking about the cognitive benefits of doing this, but is that going to change anybody's behavior?  To be romantic for a sec, I feel like the words I write with pencils belong to me.  There's something about the slower physical constraint of writing that seems to make my choosing of words matter more, and that seems to lead to either better quality writing...or just the perception of it.

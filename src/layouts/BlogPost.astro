@@ -7,7 +7,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
 ---
 
 <html lang="en">
@@ -52,6 +52,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-style: italic;
 				font-size: 12px;
 			}
+			.tag {
+			 margin-right: 0.5em;
+			 font-size: 12px;
+			}
+			.tagheader {
+			margin-top: 1em;
+			 font-size: 12px;
+			}
 			@media (max-width: 720px) {
 				.last-updated-on {
 					font-size: 10px;
@@ -92,6 +100,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<div class="date">
 							<span >
 								<FormattedDate date={pubDate} />
+								<div class="tagheader">
+									Tags:
+									{tags?.map((tag) => (
+									  <span key={tag} class="tag">#{tag}</span>
+									))}
+								</div>
 							</span>
 								{updatedDate &&
 									<span class="last-updated-on">
