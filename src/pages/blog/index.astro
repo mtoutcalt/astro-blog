@@ -14,9 +14,6 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
@@ -53,15 +50,15 @@ const posts = (await getCollection('blog')).sort(
 			.blogheader-card {
 				margin-bottom: 2em;
   				border-radius: 5px;
-  				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 				display: flex;
     			flex-direction: column;
 
-				background-color: #ffff99; /* Yellow color for the note */ 
-				padding: 20px; /* Add some space between the border and content */
+				background-color: #f7f7be; /* Yellow color for the note #ffff99*/ 
+				padding: 1em; /* Add some space between the border and content */
 				border: none; /* Remove default border */
 				box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a slight shadow for depth */
 				text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.2), -0.5px -0.5px 0 rgba(0, 0, 0, 0.2);
+				text-align: center;
 			}
 
 			.permanent-marker-regular {
