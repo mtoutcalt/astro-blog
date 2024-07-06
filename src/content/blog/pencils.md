@@ -15,13 +15,13 @@ This is going to be me over time trying different pencils and commenting on whic
 ---
 #### Ticonderoga - 2 HB Soft Black - <a href="https://www.amazon.com/gp/product/B002HI5H8S/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1" target="_blank">Link (no affiliate)</a>
 
-These are the nostalgic, American-made pencils from my childhood.  The box literally says _'World's BEST PENCIL'_.  They're even made in my homestate of Wisconsin.  What a thrill.
+These are the nostalgic, American-made pencils from my childhood.  The box literally says **World's BEST PENCIL**.  They're even made in my homestate of Wisconsin.  What a thrill.
 ```markdown
 - Feel on Paper: B
 - Look on Paper: B
 - Eraser: A-
 - Smell: C
-- Feel in hands: B+ (slick)
+- Feel in hands: B+ (slick) 
 - Sharpening: A- (clean, easy to get very sharp point)
 - Cost: A+
 ```

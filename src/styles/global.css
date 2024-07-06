@@ -18,7 +18,7 @@
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 700;
+	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
 }
@@ -46,7 +46,7 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 20px;
+	font-size: 24px;
 	line-height: 1.5;
 }
 main {
