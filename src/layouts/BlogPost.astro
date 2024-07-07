@@ -100,12 +100,12 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 						<div class="date">
 							<span >
 								<FormattedDate date={pubDate} />
-								<div class="tagheader">
+								{tags && <div class="tagheader">
 									Tags:
 									{tags?.map((tag) => (
 									  <span key={tag} class="tag">#{tag}</span>
 									))}
-								</div>
+								</div>}
 							</span>
 								{updatedDate &&
 									<span class="last-updated-on">
