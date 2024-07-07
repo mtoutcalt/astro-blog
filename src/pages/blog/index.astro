@@ -47,26 +47,6 @@ const posts = (await getCollection('blog')).sort(
 			ul li a:hover .title {
 				color: rgb(var(--black));
 			}
-			.blogheader-card {
-				margin-bottom: 2em;
-  				border-radius: 5px;
-				display: flex;
-    			flex-direction: column;
-
-				background-color: #f7f7be; /* Yellow color for the note #ffff99*/ 
-				padding: 1em; /* Add some space between the border and content */
-				border: none; /* Remove default border */
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a slight shadow for depth */
-				text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.2), -0.5px -0.5px 0 rgba(0, 0, 0, 0.2);
-				text-align: center;
-			}
-
-			.permanent-marker-regular {
-				font-family: "Permanent Marker", cursive;
-				font-weight: 400;
-				font-style: normal;
-			}
-
 
 			@media (max-width: 720px) {
 				ul {
@@ -85,12 +65,6 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<section class="blogheader-card permanent-marker-regular">
-				<p>Resources across the web:</p>
-				<a href="/blog/favblogs">My Favorite Blogs</a>
-				<a href="/blog/favbooks">My Favorite Books</a>
-				<hr>
-			</section>
 			<section>
 				<h4 class="post-header">Posts</h4>
 				<ul>
