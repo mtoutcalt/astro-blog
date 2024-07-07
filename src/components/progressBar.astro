@@ -1,0 +1,44 @@
+<div class="progress-bar-container">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<style>
+.progress-bar-container {
+    position: fixed;
+    top: 0; /* Position at the top of the viewport */
+    left: 0; /* Position at the left of the viewport */
+    width: 100%; /* Set the container width */
+    height: 5px; /* Set the container height */
+    background-color: rgb(var(--gray-dark)); /* Set the background color */
+    z-index: 10; /* Set a higher z-index to ensure it stays on top */
+}
+
+.progress-bar {
+  height: 100%; /* Set the progress bar height */
+  background-color: #045404; /* match accent color */
+}
+</style>
+
+<script>
+    const progressBar = document.querySelector('.progress-bar');
+
+    window.addEventListener('scroll', () => {
+    if (window.scrollY === 0) {
+        // Reset progress on scroll to top
+        progressBar.setAttribute('aria-valuenow', 0);
+        progressBar.style.width = '0%';
+        return;
+    }
+
+    const articleHeight = document.body.scrollHeight;
+    const scrolled = window.scrollY;
+    const viewportHeight = window.innerHeight;
+
+    // Calculate progress percentage
+    const progress = (scrolled / (articleHeight - viewportHeight)) * 100;
+
+    // Update aria value and progress bar width
+    progressBar.setAttribute('aria-valuenow', progress);
+    progressBar.style.width = `${progress}%`;
+    });
+</script>
