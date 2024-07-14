@@ -1,6 +1,6 @@
 ---
-title: 'Notes on gold investment'
-description: 'Notes about gold and commodities
+title: 'Investing Notes - Gold'
+description: 'Notes about gold and commodities'
 pubDate: 'Jul 14 2024'
 tags:
   - notes
@@ -37,4 +37,3 @@ In the short term uncertainty comes from weather, wars, pandemics, and other une
     * Futures contracts 
 * General 'recommendation' is have 5-10% of your money in commodities to benefit from these patterns.  For example in 2022 during rising inflation commodities were the best performing asset class
 * Most commodities tend to rise and fall together, so best bet is to invest in a variety instead of a single metal
-
