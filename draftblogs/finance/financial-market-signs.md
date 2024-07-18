@@ -7,7 +7,7 @@ pubDate: 'Jul 01 2022'
 Signs of market health and what's to come (and bellwether stocks)
 
 * Utilities are safer but can lag the broader market
-    * Show investments in AI, defense industry
+    * Show investments in AI, defense industry - power hungry GPUs
     * risks for power companies can be weather events like wildfires
 * Industry - companies that make nuts/bolts - quick to report quarterly earnings - tells you industrial investment
 * Transportation - indicator of consumer spending and manufacturing spending 

@@ -69,3 +69,37 @@ Summary:
 * Regional matters a little, mostly for outdoor projects, weather and culture (how old are houses) can mean hardy weather in the north having nicer siding, garage doors, front doors can make huge difference
 * Replacing the bottom third of your front siding with manufactured stone veneer can pay off
 * Keep in mind the energy savings with upgrades like better garages, front doors, siding, heat pumps.  Also government rebates.
+
+
+
+
+https://www.nar.realtor/research-and-statistics/research-reports/remodeling-impact
+* weak methodology - REALTORS just estimate how much value the project would add on the sale price then compared to average project cost
+* Top interor
+    * hardwood floors - new or refinish - only project to make money
+    * insulation upgrade - estimated at recouping cost
+    * finishing basement or attic - 86 - 75%
+    * kitchen and bathrooms - 71-74%
+* TOP Exterior
+    * Nothing estimated to increase profit
+    * roofing and garage door full recoup
+    * fiber cement and vinyl siding 82-86%
+    * windoes and front door ~60%
+
+
+https://todayshomeowner.com/home-finances/guides/roi-of-remodel/
+Methodology - value based on 70,000 redfin homes that listed a remodel plus realtor guesses
+* garage door - 100%
+* wood window replacement - 95%
+* new screened-in porch - 92%
+* fiber cement siding/ vinyl siding - 92%
+* vinyl window 
+* inground pool - 90%
+* deck and patio
+* hardwood flooring - 78%
+* kitchen appliances - 74%
+
+Lowest was finished basement - 22% - cost of $49k but increase value of $11k
+
+
+

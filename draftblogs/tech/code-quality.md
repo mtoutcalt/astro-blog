@@ -21,3 +21,27 @@ Notes about coding
 * global variables are bad - https://wiki.c2.com/?GlobalVariablesAreBad - keep variables/state as local as possible to minimize complexity from side effects
 * use interfaces as clear boundaries/restricted data exchange areas, create constraints on data exchange and data hiding/encapsulation
 * modularization, encapsulation, high-cohesion - these all lend to cognitive chunking which lowers complexity of understanding
+
+
+
+
+philosphy of software design-----
+
+* complexity - unknown unknowns - whack a mole bugs -- 
+* strategic - good design over quick working code - be strategic about requirements - negotiating with business wants
+* abstraction - simplified view, omit unimportant details -- signs abstraction is bad -> if you have to reproduce a bug by setting state in 2 places, automated test is difficult because you have to deal with multiple parts of system
+* API patterns from tcp/ip and unix are still some of the best - deep abstractions
+* classes should be small is dumb - shallow methods dont reduce complexity just spread it around like peanut butter
+* 90% of severe failures in distributed systems were because of incorrect error handling - this book doesnt talk about testing enough
+    * masking exceptions is bad - NFS example where client will keep pinging to downed server until it's brought up
+* designing twice -- second system syndrome -- be careful
+* comments - make them important - write them first - 
+* naming - renaming-you should rename the more the system expands and the more you learn - need to have good test suite for this
+* composition over inheritance when you can
+* agile can encourage feature shipping which can lead not considering design decisions/abstractions
+* performance - need measurements - simple, clean code is not optimized for performance but usually good enough
+
+What book doesnt cover
+* error handling code must have test coverage - least executed code
+    * big mistake to focus on design and refactoring of common execution path and not error handling code
+* these code quality books focus on the fun stuff, the formatting, naming, design patterns stuff, even though its the error handling and test coverage and security and reliability that really matters and is the reason for failure
