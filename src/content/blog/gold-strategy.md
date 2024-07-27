@@ -8,8 +8,6 @@ tags:
   - gold
 ---
 
-## Investing Notes - Gold and Commodities 
-
 ### Overview
 Investing in commodities always seems boring to me, but it should probably be something you don't ignore.  When I think of commodities I think of gold or oil, but there's lots of other traded inputs like wheat, coffee, and orange juice which I remember from the Eddie Murphy movie Trading Places.
 
