@@ -14,6 +14,7 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/links">Links</HeaderLink>
 			<!-- <HeaderLink href="/game">Game</HeaderLink> -->
 		</div>
+
 		<div class="social-links">
 			<a href="https://github.com/mtoutcalt" target="_blank">
 				<span class="sr-only">Go to my GitHub page</span>
@@ -40,7 +41,8 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
+		background: #011b22;
+		color: #fff;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
 	h2 {
@@ -59,9 +61,12 @@ import { SITE_TITLE } from '../consts';
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: var(--black);
+		color: #fff;
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+	}
+	nav a:hover {
+		color: gold;
 	}
 	nav a.active {
 		text-decoration: none;
