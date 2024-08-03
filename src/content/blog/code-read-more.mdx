@@ -7,12 +7,12 @@ tags:
   - programming
 ---
 
-I saw this article [Good code is rarely read](https://www.alexmolas.com/2024/06/06/good-code.html) make the rounds on the internet.  The first time I read it, I was irritated.  I've come across it a second time and I feel like reacting to it.
+I saw this article <a href="https://www.alexmolas.com/2024/06/06/good-code.html" target="_blank">Good Code is Rarely Read</a> make the rounds on the internet.  The first time I read it, I was irritated.  I've come across it a second time and I feel like reacting to it.
 
-### Answering 'What is good code?'
+### Answering "What is good code?"
 The article mentions interviewing and expecting to hear the typical answers - like design best practice acronyms like SOLID and DRY, or using conventional design patterns, or talking about the importance of more mundane things like code formatting.  I don't know if I have a great answer myself, but I am bored by all these answers.  The reply they got which triggered their main thesis is:
 
-> Good code is code that’s easy to read.<br>
+> Good code is code that’s easy to read.
 
 I think, with further explanation given, that's not a bad answer.  My own answer might be similar to this, though I'd probably emphasize the **reduction of complexity**, maybe even call out **incidental complexity** even if it that makes it sound more bookish.  If you reduce complexity, therefore reduce cognitive load for the reader, then that should imply it's easy to read.
 
@@ -25,9 +25,7 @@ The article is about how once the original author has crossed the 'good code' th
 I'm going to respond to quotes from the article.
 
 ```
-When code is easy to read, it’s easier to debug, extend, and refactor. 
-This readability allows other developers (or even your future self) to 
-quickly grasp the logic and purpose of the code without extensive documentation.
+When code is easy to read, it’s easier to debug, extend, and refactor. This readability allows other developers (or even your future self) to quickly grasp the logic and purpose of the code without extensive documentation.
 ```
 
 I realize this was a short blog article, so saying this is too 'simplified' feels cheap. But I think we all have encountered code that has a low mental tax, aka easy to read, but is still terrible code.  In fact the point about extensibility sometimes has the opposite effect.  Sometimes what's easiest to read is to optimize locality of behavior - have a controller class for a CRUD app that also has a repository service and it calls the DB all in the same class.  With some simple READ endpoints, this code can be super simple .  But it's not extensible.  
@@ -37,25 +35,19 @@ I also want to quickly comment about the last point about not needing documentat
 The desire for **engineering purity**, which often includes the ideal that if you need comments you didn't achieve 'great code' perfection...reminds me economics through the lens of a 'rational person', and then being surprised that people don't behave in that rational way (and creating behavioral economics to explain why people are not behaving like rational machines).  Code is a human document, a human artifact, it's value is to be read and understood by other humans (otherwise just skip right to machine code?).
 
 ```
-When functions and classes are named appropriately and their purposes are clear, 
-you can use them without understanding their internal workings.
+When functions and classes are named appropriately and their purposes are clear, you can use them without understanding their internal workings.
 ```
 
 This seems like another case of the unrealistic thinking that comes from the **engineering purity** perspective.  Can you imagine making a small change to code used in a life-sustaining medical device, seeing well-named methods, and then trusting that your assumption of what they do is correct without even peeking at them? I don't know man, that just feels wrong.  Sure, if your test suite is rock solid that gives you confidence.  Having readable code with great names makes it easier to get to the point of understanding what the code does.  But you should probably still read some more of the code.  Understand a larger surface area than just the method or file you're changing.
 
 ```
-If a code needs to be read frequently, it might indicate that it is not as clear 
-or intuitive as it should be. Good code should be used more than read. It should 
-be so well-designed that developers can use it without needing to read through 
-it extensively.
+If a code needs to be read frequently, it might indicate that it is not as clear or intuitive as it should be. Good code should be used more than read. It should be so well-designed that developers can use it without needing to read through it extensively.
 ```
 
 Few reactions to this.  First, the word 'intuitive' still throws me off.  I'm thinking trust but verify. Again, I think you spend those extra minutes to read the code around the change and not trust the names of things is perfectly explaining what it's doing.  The rest of this snippet I have a hard time understanding.  What does it mean for a person to 'use' code.  Is this notion of 'using code vs. reading code' a false dichotomy? I don't get the point.  Can you read less code if the codebase is 'more readable'...ya, probably.  I'd still make sure I understand the full context of my code change though.  Am I being too semantic?  I agree that maybe I can read less of the codebase if the codebase is more readable.  But I fail to see how this means that this code isn't read WAY more often than it is written or added to.  Their header literally says "code shouldn’t be read more than written".  Huh?
 
 ```
-In conclusion, good code is rarely read. Good code is so ergonomic that you almost 
-don’t need to read it; you just use it. It allows developers to focus on building 
-features and solving problems rather than deciphering existing code.
+In conclusion, good code is rarely read. Good code is so ergonomic that you almost don’t need to read it; you just use it. It allows developers to focus on building features and solving problems rather than deciphering existing code.
 ```
 
 'Good code is rarely read'... I still don't see the argument here.  How do I not repeat myself? Can I make my change with reading less than a bad codebase, I think so.  I still am spending more time 'deciphering' the code than writing a one line change though. Hopefully it takes me less time to decipher it, but I'm still reading the code.  Maybe what the author here is thinking about but not saying is that if you have really great tests and encapsulation you can ignore more of the coding surface area?  I agree with that.  But geez, that written code document is still going to live for years if you're lucky and each file will be read many times by many people.  Reading the code will still happen WAY MORE often than writing.  That's the whole point anyways, to be a living human-readable document.  
