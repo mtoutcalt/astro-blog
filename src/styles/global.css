@@ -138,6 +138,11 @@ hr {
 	}
 }
 
+::selection {
+	background-color: gold;
+	color: black;
+  }
+
 .sr-only {
 	border: 0;
 	padding: 0;
