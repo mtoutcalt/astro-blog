@@ -6,9 +6,6 @@ tags:
  - notes
  - quotes
 ---
-
-# Quotes Collection
-
 > Under the heading, “Folly’s Antidote,” he prescribed strong doses of history as a cure for “the delusions of omnipotence and omniscience,” akin to those that persuaded the Bush Administration to stage a rerun in Iraq of America’s misadventure in Vietnam. The failure to connect the then with the now Schlesinger diagnosed as an illness which, if left untreated, he thought likely to lead to the death of the American idea. Children unfamiliar with the world in time make easy marks for the dealers in fascist politics and quack religion. The number of people in the United States at the moment who believe in the literal truth of the Book of Revelation exceeds the number of people who lived in all of medieval Christendom. <br>
 > — <cite>Lewis H. Lapham</cite>
 
