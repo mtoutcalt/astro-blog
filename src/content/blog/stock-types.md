@@ -15,25 +15,23 @@ tags:
 ### Details
 
 #### Growth Stocks
-* earnings from growth of stock, not dividend yield 
-* high P/E
-* often tech stocks
+* Earnings from growth of stock, not dividend yield 
+* High P/E
+* Often tech stocks
     * low inflation -> cheap capital -> more R+D
 
 #### Value Stocks
-* underpriced long-term, reasonable P/E
+* Underpriced long-term, reasonable P/E
     * S+P 500 'Value' - lower P/E, P/S, P/B
         * P/E -> price to earnings - how expensive is company's earnings
         * P/S -> price to sales - how expensive is company's revenue
-        * P/B -> price to book - how expensive company's assets
-* perform better in high interest rate enviornments
+        * P/B -> price to book - how expensive is company's assets
+* Perform better in high interest rate environments
 * ex. often utilities, energy, banking
 
 #### Yield Stocks
-* high diveneds and consistent dividend growth
-* companies that generate cash and can increase payouts
-
-
+* High dividends and consistent dividend growth
+* Companies that generate cash and can increase payouts
 
 ### Historical Perspective
 * In the 1990's and the last 15 years growth stocks did better
