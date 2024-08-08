@@ -80,4 +80,9 @@ tags:
 > — <cite>Alan Watts</cite>
 
 
+> When you end the day feeling like there’s vastly more you ought to have done, you’re telling your nervous system it can’t take a break; and you’re reinforcing an idea of your work as an oppressive and insatiable force. And all of that invites a counter-reaction of procrastination: due to fear, or defiance, or a mixture of both, it gets harder and harder to make yourself work. <br>
+...At this point, you have the enjoyable sensation of exerting greater agency over your life: instead of demanding that the world send you a signal that it’s time to stop for the day – which it never will – you decide that henceforth that’s a determination you’ll be making.<br>
+...Something in all this evokes the religious tradition of the Sabbath, in which you down tools not because the work is finished, but just because it’s Friday night or Sunday morning, and so it’s time to stop anyway. “Stopping anyway” – stopping in the knowledge that for finite humans, the work is never done – reorients you to the depth of the present moment. <br>
+> — <cite>Oliver Burkeman - The Imperfectionist</cite>
+
 
