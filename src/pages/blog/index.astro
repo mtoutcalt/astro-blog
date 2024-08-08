@@ -47,7 +47,9 @@ const posts = (await getCollection('blog')).sort(
 			ul li a:hover .title {
 				color: silver;
 			}
-
+			h5 {
+				margin-bottom: 2rem;
+			}
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -66,6 +68,7 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
+				<h5>Writing is not the outcome of thinking; it is the medium in which thought occurs.</h5>
 				<h4 class="post-header">Posts</h4>
 				<ul>
 					{
