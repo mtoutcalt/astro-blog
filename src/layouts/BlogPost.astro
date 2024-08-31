@@ -9,11 +9,63 @@ import Progressbar from "../components/progressBar.astro"
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+
+const blogJsonLd = pubDate && {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://www.farksoflarks.com/blog/" + title,
+  },
+  headline: title,
+  description: description,
+  image: heroImage,
+  author: {
+    "@type": "Person",
+    name: "Mark O.",
+    url: "https://www.farksoflarks.com",
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Mark O.",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.farksoflarks.com/favicon.ico",
+    },
+  },
+  datePublished: pubDate.toISOString(),
+  dateModified: updatedDate?.toISOString(),
+};
+
+// Construct JSON-LD data for the website
+const searchJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Fark's Blog",
+  url: "https://www.farksoflarks.com",
+  logo: "https://www.farksoflarks.com/favicon.ico",
+  sameAs: [
+    "https://mastodon.social/@markoutcalt",
+    "https://github.com/mtoutcalt",
+  ]
+};
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
+		{
+			blogJsonLd && (
+			  <script
+				type="application/ld+json"
+				set:html={JSON.stringify(blogJsonLd)}
+			  />
+			)
+		  }
+		      <script
+			  	type="application/ld+json"
+			  	set:html={JSON.stringify(searchJsonLd)}
+			  />
 		<style>
 			main {
 				width: calc(100% - 2em);

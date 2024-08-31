@@ -79,10 +79,14 @@ tags:
 ...Animals spend much of their time dozing and idling pleasantly, but, because life is short, human beings must cram into the years the highest possible amount of consciousness, alertness, and chronic insomnia so as to be sure not to miss the last fragment of startling pleasure. <br>
 > — <cite>Alan Watts</cite>
 
-
 > When you end the day feeling like there’s vastly more you ought to have done, you’re telling your nervous system it can’t take a break; and you’re reinforcing an idea of your work as an oppressive and insatiable force. And all of that invites a counter-reaction of procrastination: due to fear, or defiance, or a mixture of both, it gets harder and harder to make yourself work. <br>
 ...At this point, you have the enjoyable sensation of exerting greater agency over your life: instead of demanding that the world send you a signal that it’s time to stop for the day – which it never will – you decide that henceforth that’s a determination you’ll be making.<br>
 ...Something in all this evokes the religious tradition of the Sabbath, in which you down tools not because the work is finished, but just because it’s Friday night or Sunday morning, and so it’s time to stop anyway. “Stopping anyway” – stopping in the knowledge that for finite humans, the work is never done – reorients you to the depth of the present moment. <br>
 > — <cite>Oliver Burkeman - The Imperfectionist</cite>
+
+> It's dark because you are trying too hard. Lightly child, lightly. Learn to do everything lightly. Yes, feel lightly even though you're feeling deeply. Just lightly let things happen and lightly cope with them. I was so preposterously serious in those days, such a humorless little prig.
+
+> Lightly, lightly – it's the best advice ever given me... So throw away your baggage and go forward. There are quicksands all about you, sucking at your feet, trying to suck you down into fear and self-pity and despair. That’s why you must walk so lightly. <br>
+> — <cite>Aldous Huxley</cite>
 
 
