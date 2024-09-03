@@ -1,0 +1,88 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('notes')).sort(
+	(a, b) =>b.data.pubDate.valueOf() -  a.data.pubDate.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 900px;
+			}
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li * {
+				text-decoration: none;
+				transition: 0.2s ease;
+			}
+			ul li img {
+				margin-bottom: 0.5rem;
+				border-radius: 12px;
+			}
+			ul li a {
+				display: block;
+			}
+			.title {
+				/* color: rgb(var(--black)); */
+				line-height: 2;
+			}
+			.date {
+				margin: 1rem;
+				color: rgb(var(--gray));
+			}
+			ul li a:hover h5,
+			ul li a:hover .title {
+				color: silver;
+			}
+			h5 {
+				margin-bottom: 2rem;
+			}
+			@media (max-width: 720px) {
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+					text-align: center;
+				}
+				.post-header {
+					text-align: center;
+			}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<h5><a href="https://www.swyx.io/learn-in-public" target="_blank">These are my public notes</a>. They are going to appear more raw than blog posts. </h5>
+				<h4 class="post-header">Note Posts</h4>
+				<ul>
+					{
+						posts.map((post) => (
+							<li>
+								<a class="title" href={`/notes/${post.slug}/`}>
+									<span class="title">{post.data.title}</span> - <FormattedDate date={post.data.pubDate} /> 
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

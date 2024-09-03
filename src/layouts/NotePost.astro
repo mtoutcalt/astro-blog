@@ -1,0 +1,180 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Progressbar from "../components/progressBar.astro"
+
+type Props = CollectionEntry<"notes">["data"];
+
+const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+
+const notesJsonLd = pubDate && {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://www.farksoflarks.com/notes/" + title,
+  },
+  headline: title,
+  description: description,
+  image: heroImage,
+  author: {
+    "@type": "Person",
+    name: "Mark O.",
+    url: "https://www.farksoflarks.com",
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Mark O.",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.farksoflarks.com/favicon.svg",
+    },
+  },
+  datePublished: pubDate.toISOString(),
+  dateModified: updatedDate?.toISOString(),
+};
+
+// Construct JSON-LD data for the website
+const searchJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Fark's Blog",
+  url: "https://www.farksoflarks.com",
+  logo: "https://www.farksoflarks.com/favicon.svg",
+  sameAs: [
+    "https://mastodon.social/@markoutcalt",
+    "https://github.com/mtoutcalt",
+  ]
+};
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		{
+			notesJsonLd && (
+			  <script
+				type="application/ld+json"
+				set:html={JSON.stringify(notesJsonLd)}
+			  />
+			)
+		  }
+		      <script
+			  	type="application/ld+json"
+			  	set:html={JSON.stringify(searchJsonLd)}
+			  />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 800px;
+				max-width: calc(100% - 1em);
+				margin: auto;
+				padding: 0em;
+				color: #fff; 
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: silver;
+			}
+			.last-updated-on {
+				font-style: italic;
+				font-size: 12px;
+			}
+			.tag {
+			 margin-right: 0.5em;
+			 font-size: 14px;
+			 color: silver;
+			}
+			.tagheader {
+			 margin-top: 1em;
+			 font-size: 14px;
+			}
+			@media (max-width: 720px) {
+				.last-updated-on {
+					font-size: 10px;
+				}
+				h1 {
+					font-size: 2em;
+				}
+				.date {
+					font-size: 14px;
+				}
+				main {
+					width: calc(100% - 1em);
+					max-width: 100%;
+					margin: 0;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Progressbar />
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{
+						heroImage && (
+							<img
+								width={1020}
+								height={510}
+								src={heroImage}
+								alt=""
+							/>
+						)
+					}
+				</div>
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<span >
+								<FormattedDate date={pubDate} />
+								{tags && <div class="tagheader">
+									Tags:
+									{tags?.map((tag) => (
+									  <a key={tag} class="tag" href={`/archive#${tag}`}>#{tag}</a>
+									))}
+								</div>}
+							</span>
+								{updatedDate &&
+									<span class="last-updated-on">
+										 ( Updated:{" "}
+										<FormattedDate date={updatedDate} />)
+									</span>}
+						</div>
+						<h1>{title}</h1>
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
