@@ -89,4 +89,11 @@ tags:
 > Lightly, lightly – it's the best advice ever given me... So throw away your baggage and go forward. There are quicksands all about you, sucking at your feet, trying to suck you down into fear and self-pity and despair. That’s why you must walk so lightly. <br>
 > — <cite>Aldous Huxley</cite>
 
+> The path to differentiated results looks like madness to the masses. As the adage goes, if you do what everyone else does, you'll get the same results everyone else gets. Extraordinary success requires misunderstood choices. <br>
+> — <cite>Farnam Street</cite>
 
+> To be happy at home, said Johnson, is the end of all human endeavour. As long as we are thinking only of natural values we must say that the sun looks down on nothing half so good as a household laughing together over a meal, or two friends talking over a pint of beer, or a man alone reading a book that interests him; and that all economies, politics, laws, armies, and institutions, save insofar as they prolong and multiply such scenes, are a mere ploughing the sand and sowing the  ocean, a meaningless vanity and vexation of spirit <br>
+> — <cite>C.S. Lewis</cite>
+
+> It isn't the mountains ahead to climb that wear you out; it's the pebble in your shoe. <br>
+> — <cite>Muhammad Ali</cite>
