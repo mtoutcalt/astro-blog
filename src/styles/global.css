@@ -15,25 +15,32 @@
 		0 16px 32px rgba(var(--gray), 33%);
 }
 @font-face {
-	font-family: 'Aptos';
-	src: url('/fonts/aptos.woff') format('woff');
+	font-family: 'Garamond';
+	src: url('/fonts/EBGaramond-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
-	font-family: 'Aptos';
-	src: url('/fonts/aptos-bold.woff') format('woff');
+	font-family: 'Garamond';
+	src: url('/fonts/EBGaramond-Bold.woff') format('woff');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Sono';
+	src: url('/fonts/Sono-Light.woff') format('woff');
 	font-weight: 800;
 	font-style: normal;
 	font-display: swap;
 }
 body {
-	font-family: 'Aptos', sans-serif;
+	font-family: 'Garamond', serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient( #01242e, #011b22); 
+	background: black; /* linear-gradient( #01242e, #011b22);  */
 	background-size: 100% 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -107,6 +114,7 @@ img {
 code {
 	padding: 2px 5px;
 	border-radius: 2px;
+	font-family: 'Sono', 'monospace';
 }
 pre {
 	padding: 1.5em;
@@ -115,6 +123,7 @@ pre {
 }
 pre > code {
 	all: unset;
+	font-family: 'Sono', 'monospace';
 }
 blockquote {
 	border-left: 4px solid var(--accent);

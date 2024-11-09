@@ -97,3 +97,9 @@ tags:
 
 > It isn't the mountains ahead to climb that wear you out; it's the pebble in your shoe. <br>
 > — <cite>Muhammad Ali</cite>
+
+> One of the best secrets of a happy life is the art of extracting comfort and sweetness from every circumstance. <br>
+> — <cite>Thomas Mitchell</cite>
+
+> Civilization advances by extending the number of important operations which we can perform without thinking about them. <br>
+> — <cite>Alfred North Whitehead</cite>
