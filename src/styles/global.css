@@ -35,6 +35,13 @@
 	font-style: normal;
 	font-display: swap;
 }
+@font-face {
+	font-family: 'Jost';
+	src: url('/fonts/Jost-Medium.woff') format('woff');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
 body {
 	font-family: 'Garamond', serif;
 	margin: 0;
@@ -45,7 +52,7 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: #fff;
-	font-size: 22px;
+	font-size: 24px;
 	line-height: 1.75;
 }
 main {
@@ -63,6 +70,7 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: #fff;
 	line-height: 1.2;
+	font-family: 'Jost';
 }
 h1 {
 	font-size: 3.052em;
@@ -114,7 +122,8 @@ img {
 code {
 	padding: 2px 5px;
 	border-radius: 2px;
-	font-family: 'Sono', 'monospace';
+	font-family: 'Jost';
+	/* font-family: 'Sono', 'monospace'; */
 }
 pre {
 	padding: 1.5em;
@@ -123,7 +132,8 @@ pre {
 }
 pre > code {
 	all: unset;
-	font-family: 'Sono', 'monospace';
+	/* font-family: 'Sono', 'monospace'; */
+	font-family: 'Jost';
 }
 blockquote {
 	border-left: 4px solid var(--accent);
