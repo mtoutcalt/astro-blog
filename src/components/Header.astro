@@ -59,6 +59,7 @@ import { SITE_TITLE } from '../consts';
 			  </a>
 		</div>
 	</nav>
+	<hr />
 </header>
 <style>
 	header {
@@ -67,6 +68,9 @@ import { SITE_TITLE } from '../consts';
 		background: black; /* #011b22; */
  		color: #fff;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		position: sticky;
+		top: 0;
+		z-index: 1000;
 	}
 	h2 {
 		margin: 0;
@@ -83,7 +87,7 @@ import { SITE_TITLE } from '../consts';
 		justify-content: space-between;
 	}
 	nav a {
-		padding: 1em 0.5em;
+		padding: 0.5em 0.5em;
 		color: #fff;
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
@@ -113,5 +117,10 @@ import { SITE_TITLE } from '../consts';
 	.grow-icon:hover {
   		transform: scale(1.5); /* Apply scale on hover */
 		color: gold;
+	}
+	hr {
+		border: 0;
+  		height: 2px;
+  		background-color: silver;
 	}
 </style>

@@ -5,7 +5,7 @@
  */
 
 :root {
-	--accent: gold;
+	--accent: silver;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
@@ -53,7 +53,7 @@ body {
 	overflow-wrap: break-word;
 	color: #fff;
 	font-size: 24px;
-	line-height: 1.75;
+	line-height: 1.5;
 }
 main {
 	width: 720px;
@@ -102,7 +102,7 @@ p {
 	margin-bottom: 1em;
 }
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 }
 textarea {
 	width: 100%;
@@ -120,10 +120,9 @@ img {
 	border-radius: 8px;
 }
 code {
-	padding: 2px 5px;
+	padding: 2px 3px;
 	border-radius: 2px;
 	font-family: 'Jost';
-	/* font-family: 'Sono', 'monospace'; */
 }
 pre {
 	padding: 1.5em;
@@ -132,12 +131,11 @@ pre {
 }
 pre > code {
 	all: unset;
-	/* font-family: 'Sono', 'monospace'; */
 	font-family: 'Jost';
 }
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
+	border-left: 4px solid gold;
+	padding: 0 0 0 1rem;
 	margin: 0px;
 	font-size: 1.333em;
 }
@@ -145,6 +143,7 @@ hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+
 @media (max-width: 720px) {
 	body {
 		font-size: 20px;
