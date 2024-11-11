@@ -5,7 +5,7 @@
  */
 
 :root {
-	--accent: silver;
+	--accent: #FF6F61;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
@@ -29,13 +29,6 @@
 	font-display: swap;
 }
 @font-face {
-	font-family: 'Sono';
-	src: url('/fonts/Sono-Light.woff') format('woff');
-	font-weight: 800;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
 	font-family: 'Jost';
 	src: url('/fonts/Jost-Medium.woff') format('woff');
 	font-weight: 800;
@@ -47,7 +40,7 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: black; /* linear-gradient( #01242e, #011b22);  */
+	background: #151515; /* linear-gradient( #01242e, #011b22);  */
 	background-size: 100% 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;

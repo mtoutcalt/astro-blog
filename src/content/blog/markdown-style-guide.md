@@ -215,3 +215,75 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+```javascript
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
+    }
+    onPlay(nextSquares);
+  }
+```
+
+```rust
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    // Define a method to calculate the area of the rectangle
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect = Rectangle { width: 10, height: 5 };
+    println!("The area of the rectangle is: {}", rect.area());
+}
+```
+
+```go
+package main
+
+import "fmt"
+
+// Define the Rectangle struct
+type Rectangle struct {
+    Width, Height int
+}
+
+// Define the Area method for Rectangle
+func (r Rectangle) Area() int {
+    return r.Width * r.Height
+}
+
+func main() {
+    rect := Rectangle{Width: 10, Height: 5}
+    fmt.Printf("The area of the rectangle is: %d\n", rect.Area())
+}
+
+```
+
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+# Usage
+rect = Rectangle(10, 5)
+print(f"The area of the rectangle is: {rect.area()}")
+
+```
