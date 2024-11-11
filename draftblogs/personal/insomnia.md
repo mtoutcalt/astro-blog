@@ -18,3 +18,4 @@ https://www.youtube.com/watch?v=ZeFLBj8ZS-s&t=304s
 <cite>https://www.ribbonfarm.com/2014/11/05/dont-surround-yourself-with-smarter-people/</cite>
 
 
+Self-Compassion workbook
