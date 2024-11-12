@@ -86,7 +86,9 @@ b {
 	font-size: 1.1em;
 }
 a {
-	color: var(--accent);
+	color: white;
+    text-decoration: underline;
+    text-decoration-color: gold;
 }
 a:hover {
 	color: var(--accent);
