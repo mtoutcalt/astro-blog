@@ -3,57 +3,77 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()}, Mark Outcalt. The opinions are mine.
-	<div class="social-links">
-		<a href="https://github.com/mtoutcalt" target="_blank">
-			<span class="sr-only">Go to my GitHub page</span>
-			<svg class="grow-icon" viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github"
-				><path
-					fill="currentColor"
-					d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-				></path></svg
-			>
-		</a>
-		<a href="https://mastodon.social/@markoutcalt" target="_blank">
-			<span class="sr-only">Mastodon</span>
-			<svg
-				class="grow-icon"
-				viewBox="0 0 16 16"
-				aria-hidden="true"
-				width="32"
-				height="32"
-				astro-icon="social/mastodon"
-				><path
-					fill="currentColor"
-					d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
-				></path></svg
-			>
-		</a>
-		<a href="https://www.farksoflarks.com/rss.xml" target="_blank" >
-			<span class="sr-only">Mastodon</span>
-			<svg class="grow-icon" fill="currentColor" height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-				 viewBox="0 0 490 490" xml:space="preserve">
-				<g>
-					<g>
+	<hr/>
+
+	<section class="footer-top">
+		<div class="footer-column">
+			<img src="/favicon.svg" alt="bird icon" width="75" height="75">
+		</div>
+		<div class="footer-column middle">
+		  <p>This is my little space on the web to talk about software and other random things.</p>
+		</div>
+		<div class="footer-column">
+			<div class="social-links">
+				<a href="https://github.com/mtoutcalt" target="_blank">
+					<span class="sr-only">Go to my GitHub page</span>
+					<svg class="grow-icon" viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github"
+						><path
+							fill="currentColor"
+							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+						></path></svg
+					>
+				</a>
+				<a href="https://mastodon.social/@markoutcalt" target="_blank">
+					<span class="sr-only">Mastodon</span>
+					<svg
+						class="grow-icon"
+						viewBox="0 0 16 16"
+						aria-hidden="true"
+						width="32"
+						height="32"
+						astro-icon="social/mastodon"
+						><path
+							fill="currentColor"
+							d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
+						></path></svg
+					>
+				</a>
+				<a href="https://www.farksoflarks.com/rss.xml" target="_blank" >
+					<span class="sr-only">Mastodon</span>
+					<svg class="grow-icon" fill="currentColor" height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+						 viewBox="0 0 490 490" xml:space="preserve">
 						<g>
-							<path fill="currentColor" d="M468.2,489.5H20.8C9.4,489.5,0,480.1,0,468.7V21.3C0,9.9,9.4,0.5,20.8,0.5h448.4c11.4,0,20.8,9.4,20.8,20.8v448.4
-								C489,480.1,479.6,489.5,468.2,489.5z M40.6,448.9h407.8V41.1H40.6V448.9z"/>
 							<g>
-								<path fill="currentColor" d="M260.1,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-77-62.4-139.4-139.4-139.4c-11.4,0-20.8-9.4-20.8-20.8
-									c0-11.4,9.4-20.8,20.8-20.8c99.9,0,181,81.1,181,181C280.9,410.4,271.5,419.8,260.1,419.8z"/>
-								<path fill="currentColor" d="M347.5,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-124.8-102-227.8-227.8-227.8c-11.4,0-20.8-9.4-20.8-20.8s9.4-20.8,20.8-20.8
-									c147.7,0,268.4,120.7,268.4,268.4C368.3,410.4,358.9,419.8,347.5,419.8z"/>
-								<path fill="currentColor" d="M173.7,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-29.1-23.9-53.1-53.1-53.1c-11.4,0-20.8-9.4-20.8-20.8
-									c0-11.4,9.4-20.8,20.8-20.8c52,0,94.7,42.7,94.7,94.7C194.5,410.4,185.2,419.8,173.7,419.8z"/>
+								<g>
+									<path fill="currentColor" d="M468.2,489.5H20.8C9.4,489.5,0,480.1,0,468.7V21.3C0,9.9,9.4,0.5,20.8,0.5h448.4c11.4,0,20.8,9.4,20.8,20.8v448.4
+										C489,480.1,479.6,489.5,468.2,489.5z M40.6,448.9h407.8V41.1H40.6V448.9z"/>
+									<g>
+										<path fill="currentColor" d="M260.1,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-77-62.4-139.4-139.4-139.4c-11.4,0-20.8-9.4-20.8-20.8
+											c0-11.4,9.4-20.8,20.8-20.8c99.9,0,181,81.1,181,181C280.9,410.4,271.5,419.8,260.1,419.8z"/>
+										<path fill="currentColor" d="M347.5,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-124.8-102-227.8-227.8-227.8c-11.4,0-20.8-9.4-20.8-20.8s9.4-20.8,20.8-20.8
+											c147.7,0,268.4,120.7,268.4,268.4C368.3,410.4,358.9,419.8,347.5,419.8z"/>
+										<path fill="currentColor" d="M173.7,419.8c-11.4,0-20.8-9.4-20.8-20.8c0-29.1-23.9-53.1-53.1-53.1c-11.4,0-20.8-9.4-20.8-20.8
+											c0-11.4,9.4-20.8,20.8-20.8c52,0,94.7,42.7,94.7,94.7C194.5,410.4,185.2,419.8,173.7,419.8z"/>
+									</g>
+								</g>
 							</g>
 						</g>
-					</g>
-				</g>
-			</svg>
-		  </a>
+					</svg>
+				  </a>
+			</div>
+		</div>
+	</section>
+
+
+	<div class="copyright">
+		&copy; {today.getFullYear()}, Mark Outcalt. The opinions are mine.
 	</div>
 </footer>
 <style>
+	hr {
+		height: 20px;
+		border-top: 5px solid silver;
+	}
 	footer {
 		padding: 2em 1em 6em 1em;
 		background: #151515;
@@ -84,4 +104,19 @@ const today = new Date();
   		transform: scale(1.5); /* Apply scale on hover */
 	}
 
+	.footer-column {
+  		flex: 1; /* Each column will take up equal space */
+  		padding: 10px;
+	}
+	.footer-top {
+		display: flex;
+		justify-content: space-between; /* Distribute columns evenly */
+		padding: 20px;
+	}
+	.middle {
+		border-bottom: 1px solid;
+	}
+	.copyright {
+		margin-top: 3rem;
+	}
 </style>
