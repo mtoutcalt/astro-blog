@@ -103,3 +103,6 @@ tags:
 
 > Civilization advances by extending the number of important operations which we can perform without thinking about them. <br>
 > — <cite>Alfred North Whitehead</cite>
+
+> If more of us valued food & cheer & song above hoarded gold, it would be a merrier world. <br>
+> — <cite>J.R.R. Tolkien</cite>
