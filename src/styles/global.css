@@ -51,7 +51,7 @@ body {
 
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh; /* Minimum height is the full viewport */
+	/* min-height: 100vh; */
 }
 main {
 	width: 720px;
@@ -60,7 +60,6 @@ main {
 	padding: 3em 1em;
 	
 	flex: 1; /* Allow the main content to grow and take available space */
-    display: flex; /* Optional: Use flexbox for layout inside the main content */
     flex-direction: column;
     justify-content: center; /* Center content vertically if needed */
     align-items: center; /* Center content horizontally if needed */
