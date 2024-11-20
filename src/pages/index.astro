@@ -3,7 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
-import kibbybabyImg from '../assets/kibbybaby.jpg';
+import me_alien_pic from '../assets/ME_ALIEN.jpg';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -18,13 +18,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1 class="caution">WORK IN PROGRESS!</h1>
-			<h1>Hello!</h1>
-			<p>
-				Welcome to Fark's playground.
-			</p>
-			<a target="_blank" href="https://www.markoutcalt.com">Professional site</a>
-			<Image src={kibbybabyImg} alt="fluffy kitten" width="800" height="800" />
+			<h1 class="caution">Hi, I'm Mark</h1>
+			<h2 class="title">I'm a Software Developer</h2>
+			<p>This is my little space on the web to talk about software and other random things.</p>
+			<Image src={me_alien_pic} alt="author" width="400" height="400" />
+
+						<!-- Contact Section -->
+						<section class="contact">
+							<h3>Contact Me</h3>
+							<p>
+								<a href="https://www.linkedin.com/in/mark-outcalt-b3391529/" target="_blank">LinkedIn</a> | 
+								<a href="https://docs.google.com/document/d/1-GrFtmUObAP2UkwQAUPnU6cUUIL7FkbGaS7ek33NQYo/edit?tab=t.0" target="_blank">Resume</a>
+							</p>
+						</section>
 		</main>
 		<Footer />
 	</body>
@@ -32,6 +38,29 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 <style>
 .caution {
-	color: red;
+	color: gold;
+}
+.title {
+	color: #FF6F61;
+}
+main {
+	text-align: center;
+}
+
+.contact {
+	margin-top: 2rem;
+	padding: 1rem;
+	background-color: #333;
+	color: white;
+	border-radius: 8px;
+	text-align: center;
+}
+.contact a {
+	color: gold;
+	text-decoration: none;
+	margin: 0 0.5rem;
+}
+.contact a:hover {
+	text-decoration: underline;
 }
 </style>
