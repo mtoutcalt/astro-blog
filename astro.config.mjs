@@ -7,5 +7,5 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://farksoflarks.com',
-	integrations: [mdx(), sitemap(), react()],
+	integrations: [mdx(), sitemap(), react()]
 });
