@@ -131,3 +131,7 @@ tags:
 
 > When I look upon the tombs of the great, every emotion of envy dies in me; when I read the epitaphs of the beautiful, every inordinate desire goes out; when I meet with the grief of parents upon a tombstone, my heart melts with compassion; when I see the tombs of the parents themselves, I consider the vanity of grieving for those whom we must quickly follow; when I see kings lying by those who deposed them, when I consider rival wits placed side by side, or the men that divided the world with their contests and disputes, I reflect with sorrow and astonishment on the little competitions, factions, and debates of mankind. When I read the several dates of the tombs, of some that died yesterday, and some six hundred years ago, I consider that great Day when we shall all of us be contemporaries, and make our appearance together <br>
 > — <cite>Joseph Addison</cite>
+
+
+> The modern man thinks that everything ought to be done for the sake of something else, and never for its own sake. <br>
+> — <cite>Bertrand Russell</cite>
