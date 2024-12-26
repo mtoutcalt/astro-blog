@@ -128,9 +128,25 @@ import { SITE_TITLE } from '../consts';
 		width: 2rem;
 		height: 0.25rem;
 		background-color: #fff;
-		transition: all 1.3s linear;
+		transition: all 0.3s ease;
 		position: relative;
-		transform-origin: 1px;
+		transform-origin: center;
+	}
+
+	/* Shift and rotate to form cross */
+	.hamburger.active .hamburger-line:nth-child(1) {
+		transform: translateY(0.70rem) rotate(45deg);
+		
+	}
+
+	/* Hide middle line */
+	.hamburger.active .hamburger-line:nth-child(2) {
+		opacity: 0;
+	}
+
+	/* Shift and rotate to form cross */
+	.hamburger.active .hamburger-line:nth-child(3) {
+		transform: translateY(-0.65rem) rotate(-45deg);
 	}
 
 	.social-links,
@@ -202,13 +218,15 @@ import { SITE_TITLE } from '../consts';
 		hamburger.addEventListener('click', (e) => {
 			e.stopPropagation();
 			navLinks.classList.toggle('active');
+			hamburger.classList.toggle('active'); // for animation
 		});
 
-		// Close menu when clicking outside (not a DOM descendant of the menu)
+		// Close menu when clicking outside
 		document.addEventListener('click', (e) => {
 			const target = e.target as HTMLElement;
 			if (!target.closest('#nav-links') && !target.closest('#hamburger-menu')) {
 				navLinks.classList.remove('active');
+				hamburger.classList.remove('active'); // for animation
 			}
 		});
 
