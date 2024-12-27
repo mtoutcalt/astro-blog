@@ -1,0 +1,20 @@
+---
+title: 'Quotes'
+description: 'Quotes that move me'
+pubDate: 'Aug 04 2024'
+tags:
+ - notes
+ - quotes
+---
+
+import { quotes } from '../../data/quotes.js';
+
+
+{quotes.map(({ text, author }) => (
+    <div style={{ marginBottom: '2rem' }}>
+        <blockquote>
+            {text}
+            <footer>— <cite>{author}</cite></footer>
+        </blockquote>
+    </div>
+))}

@@ -1,5 +1,8 @@
 ---
 const today = new Date();
+import { quotes } from '../data/quotes.js';
+const randomIndex = Math.floor(Math.random() * quotes.length);
+const randomQuote = quotes[randomIndex];
 ---
 
 <footer>
@@ -9,8 +12,8 @@ const today = new Date();
 		<div class="footer-column">
 		</div>
 		<div class="footer-column middle">
-			If you’re not prepared to be wrong, you’ll never come up with anything original. <br>
-			— <cite>Ken Robinson</cite>
+			{randomQuote.text} <br>
+			— <cite>{randomQuote.author}</cite>
 		</div>
 		<div class="footer-column">
 			<div class="social-links">
