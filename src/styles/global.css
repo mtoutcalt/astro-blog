@@ -4,8 +4,16 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
-:root {
+	:root {
+	/* Dark theme colors (default) */
 	--accent: #FF6F61;
+	--text-color: #ffffff;
+	--background: #151515;
+	--heading-color: #ffffff;
+	--link-color: #ffffff;
+	--link-decoration: gold;
+	--blockquote-border: gold;
+	
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
@@ -13,7 +21,18 @@
 	--background-blue: #01242e;
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
-}
+  }
+
+  [data-theme="light"] {
+	--text-color: #151515;
+	--background: #ffffff;
+	--heading-color: #151515;
+	--link-color: #151515;
+	--link-decoration: var(--accent);
+	--blockquote-border: var(--accent);
+  }
+  
+
 @font-face {
 	font-family: 'Garamond';
 	src: url('/fonts/EBGaramond-Regular.woff') format('woff');
@@ -40,14 +59,13 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #151515; /* linear-gradient( #01242e, #011b22);  */
+	background: var(--background);
 	background-size: 100% 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: #fff;
+	color: var(--text-color);
 	font-size: 24px;
 	line-height: 1.5;
-
 
 	display: flex;
 	flex-direction: column;
@@ -71,7 +89,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: #fff;
+	background: var(--heading-color);
 	line-height: 1.2;
 	font-family: 'Jost';
 }
@@ -96,9 +114,9 @@ b {
 	font-size: 1.1em;
 }
 a {
-	color: white;
+	color: var(--link-color);
     text-decoration: underline;
-    text-decoration-color: gold;
+    text-decoration-color: var(--link-decoration);
 }
 a:hover {
 	color: var(--accent);
@@ -139,7 +157,7 @@ pre > code {
 	font-family: 'Jost';
 }
 blockquote {
-	border-left: 4px solid gold;
+	border-left: 4px solid var(--blockquote-border);
 	padding: 0 0 0 1rem;
 	margin: 0px;
 	font-size: 1.333em;

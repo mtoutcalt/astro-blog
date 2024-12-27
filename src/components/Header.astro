@@ -1,11 +1,13 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<ThemeToggle />
 		
 		<button class="hamburger" aria-label="Menu" id="hamburger-menu">
 			<span class="hamburger-line"></span>
