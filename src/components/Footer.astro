@@ -3,8 +3,8 @@ import { quotes } from '../data/quotes.js';
 const today = new Date();
 ---
 
-<footer>
-  <hr />
+<footer transition:persist="footer">
+	<hr />
 
   <section class="footer-top">
     <div class="footer-column">
@@ -216,18 +216,21 @@ const today = new Date();
 </style>
 
 <script define:vars={{ quotes }}>
-	// quotes passed to client-side script
-	const randomIndex = Math.floor(Math.random() * quotes.length);
-	const randomQuote = quotes[randomIndex] || {};
-	
-	const quoteTextElement = document.getElementById('quoteText');
-	if (quoteTextElement) {
-	  quoteTextElement.textContent = randomQuote.text || 'No quote text';
+	function updateQuote() {
+	  const randomIndex = Math.floor(Math.random() * quotes.length);
+	  const randomQuote = quotes[randomIndex] || {};
+	  
+	  const quoteTextElement = document.getElementById('quoteText');
+	  const quoteAuthorElement = document.getElementById('quoteAuthor');
+	  
+	  if (quoteTextElement) {
+		quoteTextElement.textContent = randomQuote.text || 'No quote text';
+	  }
+	  if (quoteAuthorElement) {
+		quoteAuthorElement.textContent = randomQuote.author || 'Anonymous';
+	  }
 	}
-	
-	const quoteAuthorElement = document.getElementById('quoteAuthor');
-	if (quoteAuthorElement) {
-	  quoteAuthorElement.textContent = randomQuote.author || 'Anonymous';
-	}
-  </script>
   
+	// Update quote on initial page load
+	updateQuote();
+  </script>

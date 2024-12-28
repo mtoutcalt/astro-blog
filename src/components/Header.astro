@@ -3,9 +3,9 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
-<header>
+<header transition:persist="header">
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href="/" data-astro-reload="false">{SITE_TITLE}</a></h2>
 		
 		<button class="hamburger" aria-label="Menu" id="hamburger-menu">
 			<span class="hamburger-line"></span>
