@@ -1,5 +1,6 @@
 ---
 import { quotes } from '../data/quotes.js';
+import { advice } from '../data/advice.js';
 const today = new Date();
 ---
 
@@ -215,22 +216,41 @@ const today = new Date();
   }
 </style>
 
-<script define:vars={{ quotes }}>
-	function updateQuote() {
-	  const randomIndex = Math.floor(Math.random() * quotes.length);
-	  const randomQuote = quotes[randomIndex] || {};
-	  
-	  const quoteTextElement = document.getElementById('quoteText');
-	  const quoteAuthorElement = document.getElementById('quoteAuthor');
-	  
-	  if (quoteTextElement) {
-		quoteTextElement.textContent = randomQuote.text || 'No quote text';
-	  }
-	  if (quoteAuthorElement) {
-		quoteAuthorElement.textContent = randomQuote.author || 'Anonymous';
-	  }
+<script define:vars={{ quotes, advice }}>
+	function updateRandomizedText() {
+
+		var diceRoll = Math.random();
+		console.log(diceRoll);
+		
+		if (diceRoll < 0.5) {
+			const randomIndex = Math.floor(Math.random() * quotes.length);
+			const randomQuote = quotes[randomIndex] || {};
+			
+			const quoteTextElement = document.getElementById('quoteText');
+			const quoteAuthorElement = document.getElementById('quoteAuthor');
+			
+			if (quoteTextElement) {
+				quoteTextElement.textContent = randomQuote.text || 'No quote text';
+			}
+			if (quoteAuthorElement) {
+				quoteAuthorElement.textContent = randomQuote.author || 'Anonymous';
+			}
+		}
+		else {
+			const adviceIndex = Math.floor(Math.random() * advice.length);
+			const randomAdvice = advice[adviceIndex] || {};
+			
+			const adviceContentElement = document.getElementById('quoteText');
+			const adviceSourceElement = document.getElementById('quoteAuthor');
+			
+			if (adviceContentElement) {
+				adviceContentElement.textContent = randomAdvice.content || 'No advice text';
+			}
+			if (adviceSourceElement) {
+				adviceSourceElement.textContent = randomAdvice.source || 'Anonymous';
+			}
+		}
 	}
   
-	// Update quote on initial page load
-	updateQuote();
+	updateRandomizedText();
   </script>
