@@ -209,39 +209,63 @@ import { SITE_TITLE } from '../consts';
 </style>
 
 <script>
-	function setupMenu() {
-		const hamburger = document.getElementById('hamburger-menu');
-		const navLinks = document.getElementById('nav-links');
+function setupMenu() {
+  const hamburger = document.querySelector('#hamburger-menu');
+  const navLinks = document.querySelector('#nav-links');
 
-		if (!hamburger || !navLinks) return;
+  if (!hamburger || !navLinks) {
+    console.warn('Menu elements not found');
+    return;
+  }
 
-		hamburger.addEventListener('click', (e) => {
-			e.stopPropagation();
-			navLinks.classList.toggle('active');
-			hamburger.classList.toggle('active'); // for animation
-		});
+  // Remove existing listeners first to prevent duplicates
+  const newHamburger = hamburger.cloneNode(true) as HTMLElement;
+  if (hamburger.parentNode) {
+	hamburger.parentNode.replaceChild(newHamburger, hamburger);
+  }
 
-		// Close menu when clicking outside
-		document.addEventListener('click', (e) => {
-			const target = e.target as HTMLElement;
-			if (!target.closest('#nav-links') && !target.closest('#hamburger-menu')) {
-				navLinks.classList.remove('active');
-				hamburger.classList.remove('active'); // for animation
-			}
-		});
+  newHamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle('active');
+    newHamburger.classList.toggle('active');
+  });
 
-		// Prevent menu from closing when clicking inside it
-		navLinks.addEventListener('click', (e) => {
-			e.stopPropagation();
-		});
-	}
+  // Close menu when clicking outside
+  const handleOutsideClick = (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('#nav-links') && !target.closest('#hamburger-menu')) {
+      navLinks.classList.remove('active');
+      newHamburger.classList.remove('active');
+    }
+  };
 
-	document.addEventListener('DOMContentLoaded', () => {
-		setupMenu();
-	});
+  // Close menu when clicking any navigation link
+  const handleNavLinkClick = () => {
+    navLinks.classList.remove('active');
+    newHamburger.classList.remove('active');
+  };
 
-	// Handle Astro's view transitions
-	document.addEventListener('astro:after-swap', () => {
-		setupMenu();
-	});
+  // Add click handlers to all navigation links
+  const internalLinks = navLinks.querySelectorAll('.internal-links a');
+  internalLinks.forEach(link => {
+    link.addEventListener('click', handleNavLinkClick);
+  });
+
+  document.removeEventListener('click', handleOutsideClick);
+  document.addEventListener('click', handleOutsideClick);
+}
+
+// Run on initial load
+setupMenu();
+
+// Run after each view transition
+document.addEventListener('astro:after-swap', () => {
+  // Small delay to ensure DOM is ready
+  setTimeout(setupMenu, 0);
+});
+
+// Backup in case the transition event doesn't fire
+document.addEventListener('astro:page-load', () => {
+  setupMenu();
+});
 </script>
