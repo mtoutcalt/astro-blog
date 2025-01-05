@@ -164,6 +164,13 @@ export const quotes = [
     {
       text: `The modern man thinks that everything ought to be done for the sake of something else, and never for its own sake.`,
       author: 'Bertrand Russell'
-    }
+    },
+    {
+      text: `You don’t need to be smarter than others to outperform them if you can out-position them. Anyone looks like a genius when they’re in a good position, and even the smartest person looks like an idiot when they’re in a bad one.`,
+      author: 'Shane Parrish - Farnam Street'
+    },
+    {
+      text: `﻿Neither Warren nor I are smart enough to make decisions with no time to think. We make actual decisions very rapidly, but that's because we have spent so much time preparing ourselves by quietly reading.`,
+      author: 'Charlie Munger'
+    },
   ];
-  
