@@ -151,10 +151,23 @@ const today = new Date();
 </footer>
 
 <style>
+
   hr {
-    height: 20px;
-    border-top: 5px solid #FF6F61;
-  }
+  border: none;
+  height: 30px;
+  margin: 2rem 0;       /* Spacing above/below the wave */
+
+  /* 
+    Single-line, URL-encoded SVG.
+    We use a cubic Bézier path (C25 -10, 75 50, 100 20) 
+    which makes the wave “dip” above and below the center line.
+  */
+  background: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20100%2040'%20preserveAspectRatio%3D'none'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M0%2020%20C25%20-40%2C75%2070%2C100%2020'%20fill%3D'none'%20stroke%3D'%23FF6F61'%20stroke-width%3D'4'/%3E%3C/svg%3E") 
+              no-repeat center top;
+
+  /* Force the SVG to scale to the hr’s full width & height */
+  background-size: 100% 100%;
+}
   footer {
     padding: 1em 1em 2em 1em;
     background: #151515;
