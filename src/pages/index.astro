@@ -63,4 +63,52 @@ main {
 .contact a:hover {
 	text-decoration: underline;
 }
+
+
+
+/* todo - review this */
+.caution {
+  position: relative;        /* So the pseudo-element can position correctly */
+  display: inline-block;     /* Shrink-wrap to text width (optional) */
+  color: gold;
+  font-size: 5.5rem;
+  margin: 0 0 0.5em;
+  padding: 0;
+  line-height: 1;
+  letter-spacing: -2px;
+  word-spacing: -4px;
+  overflow: hidden;          /* Hide the overflow of our pseudo-element */
+}
+
+.caution::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* A colorful gradient—feel free to update the colors or angle */
+  background: linear-gradient(
+    120deg,
+	darkred,
+    #FF6F61,
+    #00ff00,
+    #0080ff
+  );
+
+  /* Give it a diagonal tilt */
+  transform: skewX(-30deg) translateX(-120%);
+  
+  /* Ensure it sits behind the text */
+  z-index: -1;
+
+  /* Smooth transition for the hover effect */
+  transition: transform 0.8s ease;
+}
+
+.caution:hover::before {
+  /* Sweep the ribbons from left to right */
+  transform: skewX(-30deg) translateX(120%);
+}
 </style>
