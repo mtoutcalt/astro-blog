@@ -173,4 +173,13 @@ export const quotes = [
       text: `﻿Neither Warren nor I are smart enough to make decisions with no time to think. We make actual decisions very rapidly, but that's because we have spent so much time preparing ourselves by quietly reading.`,
       author: 'Charlie Munger'
     },
+    {
+      text: `The only thing you can control is your attitude towards the next shot.`,
+      author: 'Bobby Jones'
+    },
+    {
+      text: `People are always looking for happiness at some future time and in some new thing, or some new set of circumstances, in possession of which they some day expect to find themselves. But the fact is, if happiness is not found now, where we are, and as we are, there is little chance of it ever being found. There is a great deal more happiness around us day by day than we have the sense or the power to seek and find.`,
+      author: 'Thomas Mitchell'
+    },
   ];
+
