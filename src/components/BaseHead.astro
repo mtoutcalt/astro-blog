@@ -2,7 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { ClientRouter  } from 'astro:transitions';
+// import { ClientRouter  } from 'astro:transitions'; //was messing up routing and cached styling and header
 
 interface Props {
 	title: string;
@@ -32,7 +32,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<ClientRouter  />
+<!-- <ClientRouter  /> -->
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 

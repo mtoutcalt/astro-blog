@@ -1,25 +1,41 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = HTMLAttributes<'a'>;
+interface LinkProps extends HTMLAttributes<'a'> {
+  href?: string;
+  class?: string;
+}
 
-const { href, class: className, ...props } = Astro.props;
+const { pathname } = new URL(Astro.request.url);
+const subpath = pathname.match(/[^/]+/g);
 
-const { pathname } = Astro.url;
-const subpath = pathname.match(/[^\/]+/g);
+const {
+  href = '',
+  class: className = '',
+  ...rest
+} = Astro.props as LinkProps;
+
 const isActive = href === pathname || href === '/' + subpath?.[0];
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a
+  href={href}
+  class:list={[
+    className,
+    { active: isActive }
+  ]}
+  {...rest}
+>
+  <slot />
 </a>
+
 <style>
-	a {
-		display: inline-block;
-		text-decoration: none;
-	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
-	}
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+  a.active {
+    font-weight: bolder;
+    text-decoration: underline;
+  }
 </style>

@@ -181,5 +181,14 @@ export const quotes = [
       text: `People are always looking for happiness at some future time and in some new thing, or some new set of circumstances, in possession of which they some day expect to find themselves. But the fact is, if happiness is not found now, where we are, and as we are, there is little chance of it ever being found. There is a great deal more happiness around us day by day than we have the sense or the power to seek and find.`,
       author: 'Thomas Mitchell'
     },
+    {
+      text: `We have two lives, and the second begins when we realize we only have one.`,
+      author: 'Confucius'
+    },
+    {
+      text: `We cannot get anything out of life. There is no outside where we could take this thing to. There is no little pocket situated outside of life to which you could take life’s provisions and squirrel them away`,
+      author: ' J Matthews - Radically Condensed Instructions for Being Just as You Are'
+    }
   ];
 
+  
