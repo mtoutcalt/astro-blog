@@ -5,7 +5,12 @@ import { SITE_TITLE } from '../consts';
 
 <header transition:persist="header">
 	<nav>
-		<h2><a href="/" data-astro-reload="false">{SITE_TITLE}</a></h2>
+		<h2>
+			<a href="/" class="hover-hello">
+			  {SITE_TITLE}
+			  <span class="hello">&#129395;</span>
+			</a>
+		  </h2>
 		
 		<button class="hamburger" aria-label="Menu" id="hamburger-menu">
 			<span class="hamburger-line"></span>
@@ -170,6 +175,44 @@ import { SITE_TITLE } from '../consts';
 		height: 2px;
 		background-color: silver;
 	}
+
+	.hover-hello {
+		position: relative;
+		display: inline-block;
+	}
+
+	.hover-hello .hello {
+		position: absolute;
+		left: 50%;
+		bottom: 60%;       /* closer to the text than 100% */
+		opacity: 0;
+		font-size: 1em;
+		z-index: 9999;     /* ensure it appears on top */
+	}
+
+	.hover-hello:hover .hello {
+		opacity: 1;
+		animation: bounceIn 0.3s ease forwards;
+	}
+
+	@keyframes bounceIn {
+		0% {
+			transform: translate(-50%, 20px) scale(0.2);
+			opacity: 0;
+		}
+		50% {
+			transform: translate(-50%, -10px) scale(1.2);
+			opacity: 0.8;
+		}
+		80% {
+			transform: translate(-50%, 0px) scale(0.9);
+			opacity: 1;
+		}
+		100% {
+			transform: translate(-50%, -4px) scale(1);
+		}
+	}
+
 
 	@media (max-width: 720px) {
 		.hamburger {

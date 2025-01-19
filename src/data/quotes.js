@@ -187,8 +187,16 @@ export const quotes = [
     },
     {
       text: `We cannot get anything out of life. There is no outside where we could take this thing to. There is no little pocket situated outside of life to which you could take life’s provisions and squirrel them away`,
-      author: ' J Matthews - Radically Condensed Instructions for Being Just as You Are'
-    }
+      author: 'J Matthews - Radically Condensed Instructions for Being Just as You Are'
+    },
+    {
+      text: `We should not try to alter circumstances but to adapt ourselves to them as they really are, just as sailors do. They don't try to change the winds or the sea but ensure that they are always ready to adapt themselves to conditions. In a flat calm they use the oars; with a following breeze they hoist full sail; in a head wind they shorten sail or heave to. Adapt yourself to circumstances in the same way.`,
+      author: 'Bion of Borysthenes'
+    },
+    {
+      text: `My tardiness in answering your letter was not due to press of business. Do not listen to that sort of excuse; I am at liberty, and so is anyone else who wishes to be at liberty. No man is at the mercy of affairs. He gets entangled in them of his own accord, and then flatters himself that being busy is a proof of happiness.`,
+      author: 'Seneca'
+    },
   ];
 
   
