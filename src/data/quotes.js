@@ -197,6 +197,10 @@ export const quotes = [
       text: `My tardiness in answering your letter was not due to press of business. Do not listen to that sort of excuse; I am at liberty, and so is anyone else who wishes to be at liberty. No man is at the mercy of affairs. He gets entangled in them of his own accord, and then flatters himself that being busy is a proof of happiness.`,
       author: 'Seneca'
     },
+    {
+      text: `Hope is like a road in the country; there was never a road, but when many people walk on it, the road comes into existence.`,
+      author: 'Lu Xun'
+    },
   ];
 
   
