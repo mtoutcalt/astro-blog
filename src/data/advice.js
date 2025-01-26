@@ -1066,5 +1066,9 @@ export const advice = [
       {
         "content": "Killing time is an atrocity. It\u2019s priceless, and it never grows back.",
         "source": "https://www.raptitude.com/2009/07/88-important-truths-ive-learned-about-life/"
+      },
+      {
+        "content": "  If you want to get paid, find the contrast. No one hears you if you sneeze in the middle of New York. But if you sneeze in a library, everyone does. The same concept applies to work. It's better to dominate a small pond than drown in an ocean.",
+        "source": "https://fs.blog/brain-food/january-26-2025/"
       }
   ];

@@ -201,6 +201,8 @@ export const quotes = [
       text: `Hope is like a road in the country; there was never a road, but when many people walk on it, the road comes into existence.`,
       author: 'Lu Xun'
     },
+    {
+      text: ` “Success is being excited to go to work and being excited to come home.”`,
+      author: 'Will Ahmed'
+    },
   ];
-
-  
