@@ -205,4 +205,8 @@ export const quotes = [
       text: ` “Success is being excited to go to work and being excited to come home.”`,
       author: 'Will Ahmed'
     },
+    {
+      text: `My wish for you is that you continue. Continue to be who you are, to astonish a mean world with your acts of kindness. The effect you have on others’ lives is the highest expression of your own.`,
+      author: 'Maya Angelou'
+    }
   ];
