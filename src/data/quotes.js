@@ -208,5 +208,9 @@ export const quotes = [
     {
       text: `My wish for you is that you continue. Continue to be who you are, to astonish a mean world with your acts of kindness. The effect you have on others’ lives is the highest expression of your own.`,
       author: 'Maya Angelou'
+    },
+    {
+      text: `It is not enough to be industrious; so are the ants. What are you industrious about?`,
+      author: 'Henry David Thoreau'
     }
   ];
