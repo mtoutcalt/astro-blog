@@ -31,11 +31,29 @@ const isActive = href === pathname || href === '/' + subpath?.[0];
 
 <style>
   a {
+    position: relative;
     display: inline-block;
     text-decoration: none;
   }
+
+  a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.3rem;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    height: 0.25rem;
+    width: 100%;
+    background-color: #FF6F61;
+    transition: transform 0.3s ease;
+  }
+
+  a:hover:not(.active)::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
   a.active {
-    font-weight: bolder;
-    text-decoration: underline;
+    font-weight: bold;
   }
 </style>
