@@ -5,7 +5,8 @@
  */
 
 :root {
-	--accent: #FF6F61;
+	--color-theme-1: gold;
+	--color-theme-2: #FF6F61;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
@@ -98,10 +99,10 @@ b {
 a {
 	color: white;
     text-decoration: underline;
-    text-decoration-color: gold;
+    text-decoration-color: var(--color-theme-1);
 }
 a:hover {
-	color: var(--accent);
+	color: var(--color-theme-2);
 }
 p {
 	margin-bottom: 1em;
@@ -139,7 +140,7 @@ pre > code {
 	font-family: 'Jost';
 }
 blockquote {
-	border-left: 4px solid gold;
+	border-left: 4px solid var(--color-theme-1);
 	padding: 0 0 0 1rem;
 	margin: 0px;
 	font-size: 1.333em;
@@ -162,7 +163,7 @@ hr {
 }
 
 ::selection {
-	background-color: gold;
+	background-color: var(--color-theme-1);
 	color: black;
   }
 

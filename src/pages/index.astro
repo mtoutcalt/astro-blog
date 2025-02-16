@@ -38,10 +38,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 <style>
 .caution {
-	color: gold;
+	color: var(--color-theme-1);
 }
 .title {
-	color: #FF6F61;
+	color: var(--color-theme-2);
 }
 main {
 	text-align: center;
@@ -55,7 +55,7 @@ main {
   text-align: center;
   color: #fff;
   /* Animated gradient background */
-  background: linear-gradient(135deg, #FF6F61, #333, #FF6F61, #333);
+  background: linear-gradient(135deg, var(--color-theme-2), #333, var(--color-theme-2), #333);
   background-size: 300% 300%;
   animation: gradientAnimation 20s ease infinite;
   clip-path: polygon(
@@ -92,7 +92,7 @@ main {
 }
 
 .contact a {
-  color: gold;
+  color: var(--color-theme-1);
   text-decoration: none;
   margin: 0 0.5rem;
 }
@@ -111,7 +111,7 @@ main {
 .caution {
   position: relative;        /* So the pseudo-element can position correctly */
   display: inline-block;     /* Shrink-wrap to text width (optional) */
-  color: gold;
+  color: var(--color-theme-1);
   font-size: 5.5rem;
   margin: 0 0 0.5em;
   padding: 0;
@@ -133,7 +133,7 @@ main {
   background: linear-gradient(
     120deg,
 	darkred,
-    #FF6F61,
+  var(--color-theme-2),
     #00ff00,
     #0080ff
   );
