@@ -1,0 +1,86 @@
+---
+title: 'The Unix Rules of Design'
+description: 'The 17 Rules of Design from The Art of Unix Programming'
+pubDate: 'Feb 21 2025'
+tags:
+  - programming
+  - craftsmanship
+  - unix
+---
+
+Somebody was recommending the book *The Art of Unix Programming* by Eric S. Raymond to me and specifically mentioned the Rules of Design. I really liked what I was reading, so I felt like publishing them for reference with my own paraphrasing.
+
+### 1. Rule of Modularity
+Breaking a system into small, independent modules allows for easier maintenance, debugging, and reuse. Each module should do one thing well and interact through well-defined interfaces.
+
+### 2. Rule of Clarity
+Code should be easy to read and understand. Avoid excessive cleverness that makes the program difficult to modify or debug later. Clear code is more maintainable than code that is merely efficient.
+
+### 3. Rule of Composition
+Programs should be designed so they can work together. This is why Unix tools follow the "do one thing well" philosophy and use standard inputs and outputs to enable chaining via pipes.
+
+### 4. Rule of Separation
+Keep different concerns separate. For example, a web server should handle HTTP requests but delegate business logic to another module. This makes the system more flexible and adaptable.
+
+### 5. Rule of Simplicity
+Keep software as simple as possible while still meeting requirements. Complexity should only be added when it's necessary for functionality, not just because it's interesting.
+
+### 6. Rule of Parsimony
+Avoid writing large, bloated programs when a smaller one will do. Overengineering a solution makes it harder to maintain and increases the risk of bugs.
+
+### 7. Rule of Transparency
+A program should make it easy to see what it's doing. Readable code, meaningful error messages, and clear documentation help developers understand and debug issues efficiently.
+
+### 8. Rule of Robustness
+Software should be resilient against errors and unexpected input. A robust program is built on simplicity and transparency, making it easier to test and reason about.
+
+### 9. Rule of Representation
+Encapsulate knowledge into data structures rather than burying it in logic. For example, using a lookup table instead of a complex series of conditionals can make a program easier to extend.
+
+### 10. Rule of Least Surprise
+Users and developers should be able to predict how a program behaves. If a function behaves differently than expected, it can lead to confusion and mistakes.
+
+### 11. Rule of Silence
+Programs should only output necessary information. Unnecessary or excessive output clutters logs and makes automation harder.
+
+### 12. Rule of Repair
+If a program encounters an error, it should fail loudly and clearly. Failing silently or in unpredictable ways makes debugging difficult.
+
+### 13. Rule of Economy
+Developer time is more valuable than CPU time in most cases. Optimizing for programmer efficiency (e.g., using high-level languages or automation) leads to faster development and fewer bugs.
+
+### 14. Rule of Generation
+Writing tools that generate code or configurations can save time and reduce errors. For example, instead of manually writing HTML, use a templating engine.
+
+### 15. Rule of Optimization
+First, get your program working; then optimize if necessary. Premature optimization often leads to complex and unreadable code without real benefits.
+
+### 16. Rule of Diversity
+There is no single "correct" way to do something. Different use cases require different approaches, and flexibility is key to good design.
+
+### 17. Rule of Extensibility
+Design with future changes in mind. Avoid hardcoding limits or assumptions that might make it difficult to add new features later.
+
+
+---
+---
+
+
+### Bonus - Rob Pike's Rules of Programming
+
+Rob Pike's rules from *Notes on C Programming*:
+
+### Rule 1: You Can’t Tell Where a Program Will Spend Its Time  
+Bottlenecks occur in surprising places, so don’t try to second-guess and put in a speed hack until you’ve proven that’s where the bottleneck is.
+
+### Rule 2: Measure  
+Don’t tune for speed until you’ve measured, and even then, don’t unless one part of the code overwhelms the rest.
+
+### Rule 3: Fancy Algorithms Are Slow When *n* Is Small  
+Fancy algorithms have big constants. Until you know that *n* is frequently going to be big, don’t get fancy. (Even if *n* does get big, use Rule 2 first.)
+
+### Rule 4: Fancy Algorithms Are Buggier Than Simple Ones  
+They’re also much harder to implement. Use simple algorithms as well as simple data structures.
+
+### Rule 5: Data Dominates  
+If you’ve chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
