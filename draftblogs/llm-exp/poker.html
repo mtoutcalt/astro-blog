@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Texas Hold'em Poker - Dazzle Edition with Blinds</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b6623;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    canvas {
+      display: block;
+      margin: 20px auto;
+      background: transparent;
+    }
+    #controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+    button {
+      font-size: 16px;
+      margin: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #004d00;
+      color: #fff;
+    }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+    /* Fullscreen overlay for start/restart menu */
+    #menuOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="menuOverlay">
+    <h1>Texas Hold'em Poker</h1>
+    <button id="startGameButton">Start Game</button>
+  </div>
+  <canvas id="gameCanvas" width="1000" height="700"></canvas>
+  <div id="controls">
+    <button id="foldButton">Fold</button>
+    <button id="callButton">Call</button>
+    <button id="raiseButton">Raise</button>
+    <button id="nextButton">Next</button>
+    <button id="musicToggle">Toggle Music</button>
+  </div>
+  <!-- Audio elements (replace the src URLs with your own as desired) -->
+  <audio id="cardSound" src="https://www.soundjay.com/cards/card-deal-1.mp3"></audio>
+  <audio id="chipSound" src="https://www.soundjay.com/misc/cash-register-01.mp3"></audio>
+  <audio id="winSound" src="https://www.soundjay.com/misc/applause-8.mp3"></audio>
+  <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+  <script>
+    // --- Global Variables & Setup ---
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const CARD_WIDTH = 70, CARD_HEIGHT = 100;
+    const deckPosition = { x: canvas.width / 2 - CARD_WIDTH / 2, y: 40 };
+
+    // Scoreboard for wins and losses
+    let scoreboard = { wins: 0, losses: 0 };
+
+    // Audio elements
+    const cardSound = document.getElementById("cardSound");
+    const chipSound = document.getElementById("chipSound");
+    const winSound = document.getElementById("winSound");
+    const bgMusic = document.getElementById("bgMusic");
+    let musicOn = true; // background music state
+
+    // Global dealer rotation – determines blind positions.
+    // Players array is fixed: index 0 is you; indices 1–3 are CPUs.
+    let dealerIndex = 0;
+    let firstHand = true; // to avoid rotating dealer on the very first hand
+
+    // Game state object
+    let gameState = {
+      phase: "preflop", // phases: preflop, flop, turn, river, showdown
+      pot: 0,
+      currentBet: 10,
+      communityCards: [],
+      deck: [],
+      message: "Dealing new hand...",
+      waitingForPlayer: false,
+      dealing: false,
+      chipAnim: null, // for chip-win animation
+      particles: []    // for confetti/fireworks effect
+    };
+
+    let playerChips = 100; // Your starting chips
+
+    // Standard deck definitions
+    const suits = ["♠", "♥", "♦", "♣"];
+    const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+    const rankValues = {
+      "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7,
+      "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14
+    };
+
+    function createDeck() {
+      let deck = [];
+      for (let suit of suits) {
+        for (let rank of ranks) {
+          deck.push({ rank: rank, suit: suit, value: rankValues[rank] });
+        }
+      }
+      return deck;
+    }
+
+    // Fisher–Yates shuffle
+    function shuffle(deck) {
+      for (let i = deck.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+    }
+
+    // --- Player Class & Setup ---
+    class Player {
+      constructor(name, isHuman) {
+        this.name = name;
+        this.isHuman = isHuman;
+        this.hand = [];
+        this.active = true;
+        this.bet = 0;
+        this.action = "";
+        this.bestHand = null;
+      }
+    }
+
+    let players = [];
+    // players[0] is you; players[1-3] are CPU opponents.
+    players.push(new Player("You", true));
+    players.push(new Player("CPU 1", false));
+    players.push(new Player("CPU 2", false));
+    players.push(new Player("CPU 3", false));
+
+    // --- Particle System for Confetti ---
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = (Math.random() - 0.5) * 4 - 2;
+        this.alpha = 1;
+        this.size = Math.random() * 3 + 2;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.02;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function spawnParticles(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        gameState.particles.push(new Particle(x, y));
+      }
+    }
+
+    // --- Animated Background ---
+    let backgroundTime = 0;
+
+    // --- Main Game Loop ---
+    function gameLoop() {
+      backgroundTime += 0.005;
+      gameState.particles.forEach((p, index, arr) => {
+        p.update();
+        if (p.alpha <= 0) { arr.splice(index, 1); }
+      });
+      drawTable();
+      requestAnimationFrame(gameLoop);
+    }
+    gameLoop();
+
+    // --- Drawing Functions ---
+    function drawTable() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Animated radial gradient background
+      let grad = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        100,
+        canvas.width / 2,
+        canvas.height / 2,
+        350
+      );
+      let r1 = Math.floor(50 + 50 * Math.sin(backgroundTime));
+      let color1 = `rgb(${r1},100,50)`;
+      let r2 = Math.floor(20 + 20 * Math.cos(backgroundTime));
+      let color2 = `rgb(${r2},50,20)`;
+      grad.addColorStop(0, color1);
+      grad.addColorStop(1, color2);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Table ellipse
+      ctx.fillStyle = "#006600";
+      ctx.beginPath();
+      ctx.ellipse(canvas.width / 2, canvas.height / 2, 350, 250, 0, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Draw deck (card back) if cards remain
+      if (gameState.deck.length > 0) {
+        drawCardBack(deckPosition.x, deckPosition.y);
+      }
+
+      // Draw community cards
+      let startX = canvas.width / 2 - ((CARD_WIDTH + 15) * gameState.communityCards.length) / 2;
+      let comY = canvas.height / 2 - CARD_HEIGHT / 2;
+      gameState.communityCards.forEach((card, index) => {
+        drawCard(startX + index * (CARD_WIDTH + 15), comY, card);
+      });
+
+      // Draw your cards
+      let playerX = canvas.width / 2 - CARD_WIDTH - 10;
+      let playerY = canvas.height - CARD_HEIGHT - 40;
+      players[0].hand.forEach((card, index) => {
+        drawCard(playerX + index * (CARD_WIDTH + 15), playerY, card);
+      });
+
+      // Draw CPU players
+      const cpuPositions = [
+        { x: 50, y: 50 },
+        { x: canvas.width - CARD_WIDTH * 2 - 50, y: 50 },
+        { x: 50, y: canvas.height - CARD_HEIGHT - 150 }
+      ];
+      for (let i = 1; i < players.length; i++) {
+        let pos = cpuPositions[i - 1];
+        if (gameState.phase === "showdown" || !players[i].active) {
+          players[i].hand.forEach((card, idx) => {
+            drawCard(pos.x + idx * (CARD_WIDTH + 15), pos.y, card);
+          });
+        } else {
+          drawCardBack(pos.x, pos.y);
+          drawCardBack(pos.x + CARD_WIDTH + 15, pos.y);
+        }
+        ctx.fillStyle = "#fff";
+        ctx.font = "18px Arial";
+        ctx.fillText(players[i].name, pos.x, pos.y - 15);
+        ctx.fillText(players[i].active ? (players[i].action || "In") : "Folded", pos.x, pos.y - 35);
+      }
+
+      // Draw scoreboard (wins & losses)
+      ctx.fillStyle = "#fff";
+      ctx.font = "20px Arial";
+      ctx.fillText("Wins: " + scoreboard.wins, canvas.width - 150, canvas.height - 50);
+      ctx.fillText("Losses: " + scoreboard.losses, canvas.width - 150, canvas.height - 20);
+
+      // Display pot and chip count
+      ctx.fillStyle = "#fff";
+      ctx.font = "22px Arial";
+      ctx.fillText("Pot: $" + gameState.pot, canvas.width / 2 - 40, canvas.height / 2 - 280);
+      ctx.fillText("Your Chips: $" + playerChips, 20, canvas.height - 20);
+      drawChip(150, canvas.height - 50, playerChips);
+
+      // Message box
+      ctx.fillStyle = "rgba(0,0,0,0.6)";
+      ctx.fillRect(20, canvas.height - 100, canvas.width - 40, 40);
+      ctx.fillStyle = "#fff";
+      ctx.font = "20px Arial";
+      ctx.fillText(gameState.message, 30, canvas.height - 70);
+
+      // Chip win animation if active
+      if (gameState.chipAnim) {
+        drawChip(gameState.chipAnim.x, gameState.chipAnim.y, gameState.pot);
+      }
+      
+      // Draw particles (confetti)
+      gameState.particles.forEach(p => p.draw(ctx));
+    }
+
+    function drawCard(x, y, card) {
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.5)";
+      ctx.shadowOffsetX = 3;
+      ctx.shadowOffsetY = 3;
+      ctx.shadowBlur = 5;
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+      ctx.strokeStyle = "#000";
+      ctx.strokeRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+      // Red text for hearts/diamonds
+      ctx.fillStyle = (card.suit === "♥" || card.suit === "♦") ? "#d00" : "#000";
+      ctx.font = "22px Arial";
+      ctx.fillText(card.rank + card.suit, x + 8, y + 30);
+      ctx.restore();
+    }
+
+    function drawCardBack(x, y) {
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.5)";
+      ctx.shadowOffsetX = 3;
+      ctx.shadowOffsetY = 3;
+      ctx.shadowBlur = 5;
+      ctx.fillStyle = "#333";
+      ctx.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+      ctx.strokeStyle = "#000";
+      ctx.strokeRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+      ctx.fillStyle = "#fff";
+      ctx.font = "18px Arial";
+      ctx.fillText("Poker", x + 10, y + 30);
+      ctx.restore();
+    }
+
+    function drawChip(x, y, amount) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, 2 * Math.PI);
+      ctx.fillStyle = "#c00";
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = "#fff";
+      ctx.font = "16px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("$" + amount, x, y + 5);
+      ctx.restore();
+    }
+
+    function updateButtons() {
+      document.getElementById("foldButton").disabled = !gameState.waitingForPlayer;
+      document.getElementById("callButton").disabled = !gameState.waitingForPlayer;
+      document.getElementById("raiseButton").disabled = !gameState.waitingForPlayer;
+      document.getElementById("nextButton").disabled = gameState.waitingForPlayer || gameState.dealing;
+    }
+
+    // --- End Game Check & Menu Overlay ---
+    let gameOver = false;
+    function checkGameOver() {
+      if (playerChips <= 0) {
+        gameState.message = "Game Over! You lost all your chips.";
+        gameOver = true;
+        disableAllButtons();
+        drawTable();
+        scoreboard.losses++;
+        showMenu("Game Over! Try Again?");
+      } else if (playerChips >= 1000) {
+        gameState.message = "Congratulations! You reached $1000!";
+        gameOver = true;
+        disableAllButtons();
+        drawTable();
+        scoreboard.wins++;
+        spawnParticles(canvas.width / 2, canvas.height / 2, 150);
+        showMenu("You Win! Play Again?");
+      }
+    }
+
+    function disableAllButtons() {
+      document.getElementById("foldButton").disabled = true;
+      document.getElementById("callButton").disabled = true;
+      document.getElementById("raiseButton").disabled = true;
+      document.getElementById("nextButton").disabled = true;
+    }
+
+    function showMenu(message) {
+      const overlay = document.getElementById("menuOverlay");
+      overlay.innerHTML = "<h1>" + message + "</h1><button id='restartGameButton'>Restart Game</button>";
+      overlay.style.display = "flex";
+      document.getElementById("restartGameButton").addEventListener("click", () => {
+        overlay.style.display = "none";
+        gameOver = false;
+        playerChips = 100;
+        startHand();
+      });
+    }
+
+    // --- Blinds & Hand Initialization ---
+    // Each hand the dealer rotates. The small blind (SB) is posted by the player immediately
+    // to the left of the dealer and the big blind (BB) by the next player.
+    function startHand() {
+      // Rotate dealer unless this is the very first hand.
+      if (!firstHand) {
+        dealerIndex = (dealerIndex + 1) % players.length;
+      } else {
+        firstHand = false;
+      }
+      // Define blinds amounts.
+      const smallBlindAmount = 5;
+      const bigBlindAmount = 10;
+      const smallBlindIndex = (dealerIndex + 1) % players.length;
+      const bigBlindIndex = (dealerIndex + 2) % players.length;
+
+      // Reset game state.
+      gameState.phase = "preflop";
+      gameState.pot = 0;
+      gameState.currentBet = bigBlindAmount;
+      gameState.communityCards = [];
+      gameState.deck = createDeck();
+      shuffle(gameState.deck);
+      
+      // Reset players' hands and states.
+      players.forEach(p => {
+        p.hand = [];
+        p.active = true;
+        p.bet = 0;
+        p.action = "";
+        p.bestHand = null;
+      });
+      
+      // Post blinds.
+      // For CPU players, we just record the bet.
+      if (smallBlindIndex !== 0) {
+        players[smallBlindIndex].bet = smallBlindAmount;
+      } else {
+        // If you (player[0]) are in the small blind, deduct chips.
+        if (playerChips < smallBlindAmount) { playerChips = 0; }
+        else { playerChips -= smallBlindAmount; }
+        players[0].bet = smallBlindAmount;
+      }
+      if (bigBlindIndex !== 0) {
+        players[bigBlindIndex].bet = bigBlindAmount;
+      } else {
+        if (playerChips < bigBlindAmount) { playerChips = 0; }
+        else { playerChips -= bigBlindAmount; }
+        players[0].bet = bigBlindAmount;
+      }
+      gameState.pot = smallBlindAmount + bigBlindAmount;
+      gameState.message = `Blinds posted: ${players[smallBlindIndex].name} (SB $${smallBlindAmount}), ${players[bigBlindIndex].name} (BB $${bigBlindAmount}). Dealing new hand...`;
+      
+      // Begin dealing after a short pause.
+      gameState.waitingForPlayer = false;
+      animateDeal();
+    }
+
+    // --- Game Actions & Transitions ---
+    function animateDeal() {
+      gameState.dealing = true;
+      let dealOrder = [];
+      for (let i = 0; i < 2; i++) {
+        players.forEach(p => { dealOrder.push(p); });
+      }
+      let dealIndex = 0;
+      function dealNext() {
+        if (dealIndex < dealOrder.length) {
+          let p = dealOrder[dealIndex];
+          p.hand.push(gameState.deck.pop());
+          cardSound.currentTime = 0;
+          cardSound.play();
+          dealIndex++;
+          setTimeout(dealNext, 300);
+        } else {
+          gameState.dealing = false;
+          gameState.waitingForPlayer = true;
+          gameState.message = "New hand! Place your bet: Call, Raise or Fold.";
+          updateButtons();
+        }
+      }
+      dealNext();
+    }
+
+    function nextPhase() {
+      if (gameState.dealing) return;
+      if (gameState.phase === "preflop") {
+        // Flop: deal 3 community cards.
+        gameState.communityCards.push(gameState.deck.pop());
+        gameState.communityCards.push(gameState.deck.pop());
+        gameState.communityCards.push(gameState.deck.pop());
+        gameState.phase = "flop";
+        gameState.message = "Flop dealt. Place your bet.";
+      } else if (gameState.phase === "flop") {
+        gameState.communityCards.push(gameState.deck.pop());
+        gameState.phase = "turn";
+        gameState.message = "Turn dealt. Place your bet.";
+      } else if (gameState.phase === "turn") {
+        gameState.communityCards.push(gameState.deck.pop());
+        gameState.phase = "river";
+        gameState.message = "River dealt. Place your bet.";
+      } else if (gameState.phase === "river") {
+        gameState.phase = "showdown";
+        gameState.message = "Showdown! Evaluating hands...";
+        setTimeout(showdown, 800);
+        return;
+      }
+      gameState.currentBet = 10;
+      gameState.waitingForPlayer = true;
+      updateButtons();
+    }
+
+    function playerCall() {
+      if (!gameState.waitingForPlayer || gameState.dealing) return;
+      if (playerChips < gameState.currentBet) {
+        gameState.message = "Not enough chips to call!";
+        return;
+      }
+      playerChips -= gameState.currentBet;
+      players[0].bet += gameState.currentBet;
+      players[0].action = "Called";
+      gameState.pot += gameState.currentBet;
+      gameState.message = "You called. CPU players are deciding...";
+      gameState.waitingForPlayer = false;
+      updateButtons();
+      setTimeout(simulateCPUActions, 800);
+    }
+
+    function playerRaise() {
+      if (!gameState.waitingForPlayer || gameState.dealing) return;
+      let raiseAmount = gameState.currentBet + 10;
+      if (playerChips < raiseAmount) {
+        gameState.message = "Not enough chips to raise!";
+        return;
+      }
+      playerChips -= raiseAmount;
+      players[0].bet += raiseAmount;
+      players[0].action = "Raised";
+      gameState.pot += raiseAmount;
+      gameState.currentBet = raiseAmount;
+      gameState.message = "You raised to $" + gameState.currentBet + ". CPU players are deciding...";
+      gameState.waitingForPlayer = false;
+      updateButtons();
+      setTimeout(simulateCPUActions, 800);
+    }
+
+    function playerFold() {
+      if (!gameState.waitingForPlayer || gameState.dealing) return;
+      players[0].active = false;
+      players[0].action = "Folded";
+      gameState.message = "You folded. Hand over.";
+      gameState.waitingForPlayer = false;
+      updateButtons();
+      setTimeout(endHandAfterFold, 1500);
+    }
+
+    function endHandAfterFold() {
+      checkGameOver();
+      if (!gameOver) startHand();
+    }
+
+    function simulateCPUActions() {
+      let phaseThreshold;
+      switch (gameState.phase) {
+        case "preflop": phaseThreshold = 0.8; break;
+        case "flop": phaseThreshold = 0.7; break;
+        case "turn": phaseThreshold = 0.6; break;
+        case "river": phaseThreshold = 0.5; break;
+        default: phaseThreshold = 0.7;
+      }
+      players.forEach((p, index) => {
+        if (!p.isHuman && p.active) {
+          let decision = Math.random();
+          if (decision < phaseThreshold) {
+            p.bet += gameState.currentBet;
+            p.action = "Called";
+            gameState.pot += gameState.currentBet;
+          } else if (decision < phaseThreshold + 0.2) {
+            p.bet += gameState.currentBet + 10;
+            p.action = "Raised";
+            gameState.pot += gameState.currentBet + 10;
+            gameState.currentBet += 10;
+          } else {
+            p.active = false;
+            p.action = "Folded";
+          }
+        }
+      });
+      gameState.message += " Betting round complete. Click Next to continue.";
+      updateButtons();
+    }
+
+    // --- Hand Evaluation ---
+    function evaluateHand(cards) {
+      let sorted = cards.slice().sort((a, b) => b.value - a.value);
+      let rankCount = {};
+      let suitCount = {};
+      sorted.forEach(card => {
+        rankCount[card.value] = (rankCount[card.value] || 0) + 1;
+        suitCount[card.suit] = (suitCount[card.suit] || 0) + 1;
+      });
+      let flushSuit = null;
+      for (let suit in suitCount) {
+        if (suitCount[suit] >= 5) { flushSuit = suit; break; }
+      }
+      let flushCards = [];
+      if (flushSuit) flushCards = sorted.filter(card => card.suit === flushSuit);
+      let uniqueValues = [...new Set(sorted.map(card => card.value))];
+      uniqueValues.sort((a, b) => b - a);
+      let straightHigh = null;
+      for (let i = 0; i <= uniqueValues.length - 5; i++) {
+        let seq = true;
+        for (let j = 0; j < 4; j++) {
+          if (uniqueValues[i+j] - 1 !== uniqueValues[i+j+1]) { seq = false; break; }
+        }
+        if (seq) { straightHigh = uniqueValues[i]; break; }
+      }
+      if (!straightHigh && uniqueValues.includes(14) && uniqueValues.includes(5) &&
+          uniqueValues.includes(4) && uniqueValues.includes(3) && uniqueValues.includes(2)) {
+        straightHigh = 5;
+      }
+      let straightFlushHigh = null;
+      if (flushCards.length >= 5) {
+        let uniqueFlush = [...new Set(flushCards.map(card => card.value))];
+        uniqueFlush.sort((a, b) => b - a);
+        for (let i = 0; i <= uniqueFlush.length - 5; i++) {
+          let seq = true;
+          for (let j = 0; j < 4; j++) {
+            if (uniqueFlush[i+j] - 1 !== uniqueFlush[i+j+1]) { seq = false; break; }
+          }
+          if (seq) { straightFlushHigh = uniqueFlush[i]; break; }
+        }
+        if (!straightFlushHigh && uniqueFlush.includes(14) && uniqueFlush.includes(5) &&
+            uniqueFlush.includes(4) && uniqueFlush.includes(3) && uniqueFlush.includes(2)) {
+          straightFlushHigh = 5;
+        }
+      }
+      if (straightFlushHigh) return { rank: 8, highCard: straightFlushHigh, kickers: [] };
+      let four = Object.keys(rankCount).find(val => rankCount[val] == 4);
+      if (four) {
+        four = parseInt(four);
+        let kicker = sorted.find(card => card.value !== four).value;
+        return { rank: 7, highCard: four, kickers: [kicker] };
+      }
+      let threes = Object.keys(rankCount).filter(val => rankCount[val] >= 3).map(Number).sort((a, b) => b - a);
+      if (threes.length > 0) {
+        let pair = Object.keys(rankCount).filter(val => rankCount[val] >= 2 && parseInt(val) !== threes[0]).map(Number).sort((a, b) => b - a);
+        if (pair.length > 0) return { rank: 6, highCard: threes[0], kickers: [pair[0]] };
+      }
+      if (flushCards.length >= 5) {
+        return { rank: 5, highCard: flushCards[0].value, kickers: flushCards.slice(1, 5).map(card => card.value) };
+      }
+      if (straightHigh) return { rank: 4, highCard: straightHigh, kickers: [] };
+      if (threes.length > 0) {
+        let kickers = sorted.filter(card => card.value !== threes[0]).slice(0, 2).map(card => card.value);
+        return { rank: 3, highCard: threes[0], kickers: kickers };
+      }
+      let pairs = Object.keys(rankCount).filter(val => rankCount[val] == 2).map(Number).sort((a, b) => b - a);
+      if (pairs.length >= 2) {
+        let kicker = sorted.find(card => card.value !== pairs[0] && card.value !== pairs[1]).value;
+        return { rank: 2, highCard: pairs[0], kickers: [pairs[1], kicker] };
+      }
+      if (pairs.length >= 1) {
+        let kickers = sorted.filter(card => card.value !== pairs[0]).slice(0, 3).map(card => card.value);
+        return { rank: 1, highCard: pairs[0], kickers: kickers };
+      }
+      return { rank: 0, highCard: sorted[0].value, kickers: sorted.slice(1, 5).map(card => card.value) };
+    }
+
+    function getHandName(handValue) {
+      switch (handValue.rank) {
+        case 8: return "Straight Flush";
+        case 7: return "Four of a Kind";
+        case 6: return "Full House";
+        case 5: return "Flush";
+        case 4: return "Straight";
+        case 3: return "Three of a Kind";
+        case 2: return "Two Pair";
+        case 1: return "One Pair";
+        default: return "High Card";
+      }
+    }
+
+    function compareHands(handA, handB) {
+      if (handA.rank !== handB.rank) return handA.rank - handB.rank;
+      if (handA.highCard !== handB.highCard) return handA.highCard - handB.highCard;
+      for (let i = 0; i < Math.min(handA.kickers.length, handB.kickers.length); i++) {
+        if (handA.kickers[i] !== handB.kickers[i]) return handA.kickers[i] - handB.kickers[i];
+      }
+      return 0;
+    }
+
+    function animateChipWin(winner, callback) {
+      const duration = 1000;
+      const startTime = performance.now();
+      const startPos = { x: canvas.width / 2, y: canvas.height / 2 - 280 };
+      const chipPositions = [
+        { x: 150, y: canvas.height - 50 },
+        { x: canvas.width - 150, y: 50 },
+        { x: 150, y: 50 },
+        { x: 50, y: canvas.height - 100 }
+      ];
+      let winnerIndex = players.indexOf(winner);
+      const endPos = chipPositions[winnerIndex];
+      function animate(now) {
+        let progress = Math.min((now - startTime) / duration, 1);
+        gameState.chipAnim = {
+          x: startPos.x + (endPos.x - startPos.x) * progress,
+          y: startPos.y + (endPos.y - startPos.y) * progress
+        };
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          gameState.chipAnim = null;
+          callback();
+        }
+      }
+      chipSound.currentTime = 0;
+      chipSound.play();
+      requestAnimationFrame(animate);
+    }
+
+    function showdown() {
+      if (!players[0].active) {
+        gameState.message = "You folded. You lose this hand.";
+        setTimeout(() => {
+          checkGameOver();
+          if (!gameOver) startHand();
+        }, 2000);
+        return;
+      }
+      let results = [];
+      players.forEach(p => {
+        if (p.active) {
+          let allCards = p.hand.concat(gameState.communityCards);
+          let handValue = evaluateHand(allCards);
+          p.bestHand = handValue;
+          results.push({ player: p, handValue: handValue });
+        }
+      });
+      results.sort((a, b) => compareHands(b.handValue, a.handValue));
+      let winner = results[0].player;
+      let handName = getHandName(winner.bestHand);
+      gameState.message = "Showdown! " + winner.name + " wins with " + handName + " and takes $" + gameState.pot + ".";
+      if (winner.isHuman) {
+        playerChips += gameState.pot;
+        winSound.currentTime = 0;
+        winSound.play();
+        spawnParticles(canvas.width / 2, canvas.height / 2, 150);
+      }
+      animateChipWin(winner, () => {
+        setTimeout(() => {
+          checkGameOver();
+          if (!gameOver) startHand();
+        }, 1500);
+      });
+    }
+
+    // --- Button Event Listeners ---
+    document.getElementById("foldButton").addEventListener("click", playerFold);
+    document.getElementById("callButton").addEventListener("click", playerCall);
+    document.getElementById("raiseButton").addEventListener("click", playerRaise);
+    document.getElementById("nextButton").addEventListener("click", nextPhase);
+    document.getElementById("musicToggle").addEventListener("click", () => {
+      if (musicOn) { bgMusic.pause(); musicOn = false; }
+      else { bgMusic.play(); musicOn = true; }
+    });
+    document.getElementById("startGameButton").addEventListener("click", () => {
+      document.getElementById("menuOverlay").style.display = "none";
+      bgMusic.play();
+      startHand();
+    });
+  </script>
+</body>
+</html>
