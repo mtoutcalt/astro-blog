@@ -47,8 +47,8 @@ body {
 	overflow-wrap: break-word;
 	color: #fff;
 	font-size: 24px;
-	line-height: 1.5;
-
+	line-height: 1.6;
+	letter-spacing: 0.5px;
 
 	display: flex;
 	flex-direction: column;
