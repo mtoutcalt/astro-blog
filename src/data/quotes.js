@@ -212,5 +212,9 @@ export const quotes = [
     {
       text: `It is not enough to be industrious; so are the ants. What are you industrious about?`,
       author: 'Henry David Thoreau'
+    },
+    {
+      text: `The greatest danger to our future is apathy. We can't all save the world in a dramatic way, but we can each make our small difference, and together those small differences add up. Every single person makes an impact on the planet every single day. The question is: What kind of impact do you want to make?`,
+      author: 'Jane Goodall'
     }
   ];
