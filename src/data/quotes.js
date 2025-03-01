@@ -216,5 +216,9 @@ export const quotes = [
     {
       text: `The greatest danger to our future is apathy. We can't all save the world in a dramatic way, but we can each make our small difference, and together those small differences add up. Every single person makes an impact on the planet every single day. The question is: What kind of impact do you want to make?`,
       author: 'Jane Goodall'
+    },
+    {
+      text: `Breath is not only an invitation into the body but the essence of the way we already know how to live in that body. Easy, relaxed, breathing always leads to surprise: at how centred we already are, how unhurried we are underneath it all, how patient we never knew we could be. Breath is practical and helpful in understanding how we should be in life: the unquenchable source of both visible and invisible help in our days, giving when we do not ask, teaching us, with each in-breath, how to receive when we feel we do not deserve to receive.`,
+      author: 'David Whyte'
     }
   ];

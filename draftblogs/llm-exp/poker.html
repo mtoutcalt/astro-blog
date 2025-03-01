@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Texas Hold'em Poker - Dazzle Edition Plus Pro</title>
   <style>
     /* Reset & Base Styles */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: linear-gradient(135deg, #0b6623, #004d00);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
       overflow: hidden;
     }
+    /* Canvas Styling & Pulse Border Animation */
     canvas {
       display: block;
       margin: 20px auto;
       background: transparent;
       border: 2px solid #fff;
       border-radius: 10px;
-      /* Pulse animation for extra flair */
       animation: pulseBorder 3s infinite;
     }
+    @keyframes pulseBorder {
+      0% { border-color: #fff; }
+      50% { border-color: #ffd700; }
+      100% { border-color: #fff; }
+    }
+    /* Controls Layout Using Flexbox */
     #controls {
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
       margin-top: 10px;
     }
     button, input[type="range"] {
       font-size: 16px;
-      margin: 5px;
       padding: 10px 20px;
       cursor: pointer;
       border: none;
       border-radius: 4px;
-      transition: all 0.2s ease;
+      transition: transform 0.2s, background-color 0.2s;
     }
     button {
       background-color: #004d00;
@@ -41,21 +50,23 @@
     }
     button:hover {
       background-color: #006600;
+      transform: scale(1.03);
     }
     button:disabled {
       background-color: #555;
       cursor: not-allowed;
     }
+    /* Raise Control */
     #raiseControl {
-      display: none;
       text-align: center;
-      margin-top: 10px;
+      margin: 10px auto;
+      display: none;
     }
     #raiseControl input[type="range"] {
       width: 300px;
     }
-    /* Fullscreen overlay for start/restart menu */
-    #menuOverlay {
+    /* Fullscreen Overlays for Menu & Help */
+    #menuOverlay, #helpOverlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -64,21 +75,40 @@
       background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       z-index: 1000;
       text-align: center;
       padding: 20px;
     }
-    #menuOverlay h1 {
+    #menuOverlay h1, #helpOverlay h1 {
       font-size: 48px;
       margin-bottom: 20px;
     }
-    /* Keyframe for pulsing border */
-    @keyframes pulseBorder {
-      0% { border-color: #fff; }
-      50% { border-color: #ffd700; }
-      100% { border-color: #fff; }
+    #helpOverlay p {
+      max-width: 600px;
+      margin: 10px auto;
+      line-height: 1.5;
+    }
+    /* Betting History Log */
+    #betHistory {
+      max-height: 150px;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      margin: 10px auto;
+      width: 90%;
+      border-radius: 4px;
+    }
+    #betHistory p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    /* Volume Control Styling */
+    #volumeControl {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 20px;
     }
   </style>
 </head>
@@ -88,7 +118,24 @@
     <h1>Texas Hold'em Poker</h1>
     <button id="startGameButton">Start Game</button>
   </div>
+  <!-- Help/Tutorial Overlay (hidden by default) -->
+  <div id="helpOverlay" style="display: none;">
+    <h1>How to Play</h1>
+    <p>
+      Welcome to Texas Hold'em Poker – Dazzle Edition Plus Pro!<br /><br />
+      • Each hand begins with blinds and two cards are dealt to each player.<br />
+      • Betting rounds occur after the flop, turn, and river.<br />
+      • Use the Fold, Call, or Raise buttons to play your hand.<br />
+      • Your goal is to win the pot by having the best five‐card hand.<br />
+      • The game ends when you lose all your chips or reach $1000.
+    </p>
+    <button id="closeHelp">Close</button>
+  </div>
+
+  <!-- Game Canvas -->
   <canvas id="gameCanvas" width="1000" height="700"></canvas>
+  
+  <!-- Control Panel -->
   <div id="controls">
     <button id="foldButton">Fold</button>
     <button id="callButton">Call</button>
@@ -96,31 +143,55 @@
     <button id="nextButton">Next</button>
     <button id="resetScore">Reset Scoreboard</button>
     <button id="musicToggle">Toggle Music</button>
+    <button id="helpButton">Help</button>
+    <div id="volumeControl">
+      Volume: <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="0.5">
+    </div>
   </div>
-  <!-- Raise amount slider control -->
+  <!-- Raise Amount Slider Control -->
   <div id="raiseControl">
-    <label for="raiseAmount">Select Raise Amount: $<span id="raiseValue">0</span></label><br>
-    <input type="range" id="raiseAmount" min="0" max="100" step="5" value="0">
-    <br>
+    <label for="raiseAmount">Select Raise Amount: $<span id="raiseValue">0</span></label><br />
+    <input type="range" id="raiseAmount" min="0" max="100" step="5" value="0"><br />
     <button id="confirmRaise">Confirm Raise</button>
     <button id="cancelRaise">Cancel</button>
   </div>
+  <!-- Betting History Log -->
+  <div id="betHistory"></div>
   <!-- Audio Elements -->
   <audio id="cardSound" src="https://www.soundjay.com/cards/card-deal-1.mp3"></audio>
   <audio id="chipSound" src="https://www.soundjay.com/misc/cash-register-01.mp3"></audio>
   <audio id="winSound" src="https://www.soundjay.com/misc/applause-8.mp3"></audio>
   <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
   <script>
-    // ------------------------- Global Variables & Setup -------------------------
+    // --------------------- Configuration & Global Variables ---------------------
+    const config = {
+      startingChips: 100,
+      winTarget: 1000,
+      smallBlind: 5,
+      bigBlind: 10,
+      minRaiseIncrement: 10,
+      canvasWidth: 1000,
+      canvasHeight: 700,
+      card: { width: 70, height: 100 },
+      animationSpeed: 0.03,
+      chipAnimationDuration: 1000,
+      particleCount: 150,
+      bgMusicVolume: 0.5,
+    };
+
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     let CANVAS_WIDTH = canvas.width;
     let CANVAS_HEIGHT = canvas.height;
-    const CARD_WIDTH = 70, CARD_HEIGHT = 100;
+    const CARD_WIDTH = config.card.width, CARD_HEIGHT = config.card.height;
     const deckPosition = { x: CANVAS_WIDTH / 2 - CARD_WIDTH / 2, y: 40 };
 
-    // Scoreboard for wins and losses
     let scoreboard = { wins: 0, losses: 0 };
+    let playerChips = config.startingChips;
+    let dealerIndex = 0;
+    let firstHand = true;
+    let gameOver = false;
 
     // Audio Elements
     const cardSound = document.getElementById("cardSound");
@@ -128,29 +199,24 @@
     const winSound = document.getElementById("winSound");
     const bgMusic = document.getElementById("bgMusic");
     let musicOn = true;
-
-    // Dealer rotation and game flags
-    let dealerIndex = 0;
-    let firstHand = true;
-    let gameOver = false;
+    bgMusic.volume = config.bgMusicVolume;
 
     // Game state object
     let gameState = {
       phase: "preflop",
       pot: 0,
-      currentBet: 10,
+      currentBet: config.bigBlind,
       communityCards: [],
       deck: [],
       message: "Dealing new hand...",
       waitingForPlayer: false,
       dealing: false,
       chipAnim: null,
-      particles: []
+      particles: [],
+      cardAnimations: [],
     };
 
-    let playerChips = 100; // starting chips
-
-    // Standard deck definitions
+    // Deck Definitions
     const suits = ["♠", "♥", "♦", "♣"];
     const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
     const rankValues = {
@@ -158,6 +224,7 @@
       "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14
     };
 
+    // --------------------- Utility Functions ---------------------
     function createDeck() {
       let deck = [];
       suits.forEach(suit => {
@@ -167,16 +234,35 @@
       });
       return deck;
     }
-
-    // Fisher–Yates shuffle
     function shuffle(deck) {
       for (let i = deck.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
       }
     }
+    // Easing function (easeOutCubic)
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
 
-    // ------------------------- Player Class & Setup -------------------------
+    // --------------------- Responsive Canvas ---------------------
+    function resizeCanvas() {
+      const ratio = config.canvasWidth / config.canvasHeight;
+      let newWidth = window.innerWidth * 0.9;
+      let newHeight = newWidth / ratio;
+      if (newHeight > window.innerHeight * 0.8) {
+        newHeight = window.innerHeight * 0.8;
+        newWidth = newHeight * ratio;
+      }
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      CANVAS_WIDTH = newWidth;
+      CANVAS_HEIGHT = newHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // --------------------- Classes ---------------------
     class Player {
       constructor(name, isHuman) {
         this.name = name;
@@ -188,7 +274,6 @@
         this.bestHand = null;
       }
     }
-
     let players = [
       new Player("You", true),
       new Player("Player 1", false),
@@ -196,7 +281,6 @@
       new Player("Player 3", false)
     ];
 
-    // ------------------------- Particle System (Confetti) -------------------------
     class Particle {
       constructor(x, y) {
         this.x = x;
@@ -222,46 +306,16 @@
         ctx.restore();
       }
     }
-
     function spawnParticles(x, y, count) {
       for (let i = 0; i < count; i++) {
         gameState.particles.push(new Particle(x, y));
       }
     }
 
-    // ------------------------- Responsive Canvas -------------------------
-    function resizeCanvas() {
-      const ratio = 1000 / 700;
-      let newWidth = window.innerWidth * 0.9;
-      let newHeight = newWidth / ratio;
-      if (newHeight > window.innerHeight * 0.8) {
-        newHeight = window.innerHeight * 0.8;
-        newWidth = newHeight * ratio;
-      }
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-      CANVAS_WIDTH = newWidth;
-      CANVAS_HEIGHT = newHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    // ------------------------- Main Game Loop -------------------------
-    let backgroundTime = 0;
-    function gameLoop() {
-      backgroundTime += 0.005;
-      // Update particles and remove faded ones
-      gameState.particles = gameState.particles.filter(p => p.alpha > 0);
-      gameState.particles.forEach(p => p.update());
-      drawTable();
-      requestAnimationFrame(gameLoop);
-    }
-    gameLoop();
-
-    // ------------------------- Drawing Functions -------------------------
+    // --------------------- Drawing Functions ---------------------
     function drawTable() {
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      // Animated radial gradient background
+      // Animated Radial Gradient Background
       let grad = ctx.createRadialGradient(
         CANVAS_WIDTH / 2,
         CANVAS_HEIGHT / 2,
@@ -270,42 +324,38 @@
         CANVAS_HEIGHT / 2,
         Math.min(CANVAS_WIDTH, CANVAS_HEIGHT) / 2.2
       );
-      let r1 = Math.floor(50 + 50 * Math.sin(backgroundTime));
+      let r1 = Math.floor(50 + 50 * Math.sin(performance.now() * 0.0005));
       let color1 = `rgb(${r1},100,50)`;
-      let r2 = Math.floor(20 + 20 * Math.cos(backgroundTime));
+      let r2 = Math.floor(20 + 20 * Math.cos(performance.now() * 0.0005));
       let color2 = `rgb(${r2},50,20)`;
       grad.addColorStop(0, color1);
       grad.addColorStop(1, color2);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-      // Table ellipse
+      // Table Ellipse
       ctx.fillStyle = "#006600";
       ctx.beginPath();
       ctx.ellipse(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH/2.8, CANVAS_HEIGHT/2.5, 0, 0, 2 * Math.PI);
       ctx.fill();
 
-      // Draw deck if cards remain
+      // Draw Deck if Cards Remain
       if (gameState.deck.length > 0) {
         drawCardBack(deckPosition.x, deckPosition.y);
       }
-
-      // Draw community cards
+      // Draw Community Cards
       let communityCount = gameState.communityCards.length;
       let startX = CANVAS_WIDTH / 2 - ((CARD_WIDTH + 15) * communityCount) / 2;
       let comY = CANVAS_HEIGHT / 2 - CARD_HEIGHT / 2;
       gameState.communityCards.forEach((card, index) => {
         drawCard(startX + index * (CARD_WIDTH + 15), comY, card);
       });
-
-      // Draw player cards
-      let playerX = CANVAS_WIDTH / 2 - CARD_WIDTH - 10;
-      let playerY = CANVAS_HEIGHT - CARD_HEIGHT - 40;
+      // Draw Player Cards (Human)
       players[0].hand.forEach((card, index) => {
-        drawCard(playerX + index * (CARD_WIDTH + 15), playerY, card);
+        let pos = { x: CANVAS_WIDTH / 2 - CARD_WIDTH - 10 + index * (CARD_WIDTH + 15), y: CANVAS_HEIGHT - CARD_HEIGHT - 40 };
+        drawCard(pos.x, pos.y, card);
       });
-
-      // Draw CPU players
+      // Draw CPU Player Cards
       const cpuPositions = [
         { x: 50, y: 50 },
         { x: CANVAS_WIDTH - CARD_WIDTH * 2 - 50, y: 50 },
@@ -331,14 +381,14 @@
         ctx.fillText(players[i].name, pos.x, pos.y - 15);
         ctx.fillText(players[i].active ? (players[i].action || "In") : "Folded", pos.x, pos.y - 35);
       }
-
-      // Draw scoreboard
+      // Animated Card Dealing (flip animations)
+      gameState.cardAnimations.forEach(anim => drawCardAnimation(anim));
+      // Scoreboard
       ctx.fillStyle = "#fff";
       ctx.font = "20px Arial";
       ctx.fillText("Wins: " + scoreboard.wins, CANVAS_WIDTH - 150, CANVAS_HEIGHT - 50);
       ctx.fillText("Losses: " + scoreboard.losses, CANVAS_WIDTH - 150, CANVAS_HEIGHT - 20);
-
-      // Display pot
+      // Display Pot
       ctx.font = "bold 22px Arial";
       const potText = "Pot: $" + gameState.pot;
       const potTextWidth = ctx.measureText(potText).width;
@@ -348,29 +398,24 @@
       ctx.fillRect(potX - 10, potY - 22, potTextWidth + 20, 30);
       ctx.fillStyle = "#fff";
       ctx.fillText(potText, potX, potY);
-
-      // Display player's chip count
+      // Display Player Chip Count & Chip Icon
       ctx.fillStyle = "#fff";
       ctx.font = "22px Arial";
       ctx.fillText("Your Chips: $" + playerChips, 20, CANVAS_HEIGHT - 20);
       drawChip(150, CANVAS_HEIGHT - 50, playerChips);
-
-      // Message box
+      // Message Box
       ctx.fillStyle = "rgba(0,0,0,0.6)";
       ctx.fillRect(20, CANVAS_HEIGHT - 100, CANVAS_WIDTH - 40, 40);
       ctx.fillStyle = "#fff";
       ctx.font = "20px Arial";
       ctx.fillText(gameState.message, 30, CANVAS_HEIGHT - 70);
-
-      // Chip win animation if active
+      // Chip Win Animation if Active
       if (gameState.chipAnim) {
         drawChip(gameState.chipAnim.x, gameState.chipAnim.y, gameState.pot);
       }
-      
-      // Draw confetti particles
+      // Draw Confetti Particles
       gameState.particles.forEach(p => p.draw(ctx));
     }
-
     function drawCard(x, y, card) {
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,0.5)";
@@ -386,7 +431,6 @@
       ctx.fillText(card.rank + card.suit, x + 8, y + 30);
       ctx.restore();
     }
-
     function drawCardBack(x, y) {
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,0.5)";
@@ -402,7 +446,6 @@
       ctx.fillText("Poker", x + 10, y + 30);
       ctx.restore();
     }
-
     function drawChip(x, y, amount) {
       ctx.save();
       ctx.beginPath();
@@ -418,79 +461,76 @@
       ctx.fillText("$" + amount, x, y + 5);
       ctx.restore();
     }
-
-    // ------------------------- Update Buttons (with All-In logic) -------------------------
-    function updateButtons() {
-      if (playerChips === 0) {
-        document.getElementById("foldButton").disabled = true;
-        document.getElementById("callButton").disabled = true;
-        document.getElementById("raiseButton").disabled = true;
-        document.getElementById("nextButton").disabled = gameState.dealing;
+    // Animated Card Dealing with Flip Effect & Easing
+    function drawCardAnimation(anim) {
+      let p = anim.progress;
+      let currentX = anim.startX + (anim.endX - anim.startX) * easeOutCubic(p);
+      let currentY = anim.startY + (anim.endY - anim.startY) * easeOutCubic(p);
+      let flipScale = 1 - 2 * Math.abs(p - 0.5);
+      ctx.save();
+      let centerX = currentX + CARD_WIDTH / 2;
+      let centerY = currentY + CARD_HEIGHT / 2;
+      ctx.translate(centerX, centerY);
+      ctx.scale(flipScale, 1);
+      ctx.translate(-CARD_WIDTH / 2, -CARD_HEIGHT / 2);
+      if (p < 0.5) {
+        drawCardBack(0, 0);
       } else {
-        document.getElementById("foldButton").disabled = !gameState.waitingForPlayer;
-        document.getElementById("callButton").disabled = !gameState.waitingForPlayer;
-        document.getElementById("raiseButton").disabled = !gameState.waitingForPlayer;
-        document.getElementById("nextButton").disabled = gameState.waitingForPlayer || gameState.dealing;
+        drawCard(0, 0, anim.card);
+      }
+      ctx.restore();
+    }
+    // Helper Function for Player Card Positioning
+    function getPlayerPosition(playerIndex, cardCount) {
+      if (playerIndex === 0) {
+        return { x: CANVAS_WIDTH/2 - CARD_WIDTH - 10 + cardCount * (CARD_WIDTH + 15), y: CANVAS_HEIGHT - CARD_HEIGHT - 40 };
+      } else {
+        const positions = [
+          { x: 50, y: 50 },
+          { x: CANVAS_WIDTH - CARD_WIDTH * 2 - 50, y: 50 },
+          { x: 50, y: CANVAS_HEIGHT - CARD_HEIGHT - 150 }
+        ];
+        return positions[playerIndex - 1];
       }
     }
 
-    // ------------------------- End Game & Menu Overlay -------------------------
-    function checkGameOver() {
-      if (playerChips <= 0) {
-        gameState.message = "Game Over! You lost all your chips.";
-        gameOver = true;
-        disableAllButtons();
-        scoreboard.losses++;
-        drawTable();
-        showMenu("Game Over! Try Again?");
-      } else if (playerChips >= 1000) {
-        gameState.message = "Congratulations! You reached $1000!";
-        gameOver = true;
-        disableAllButtons();
-        scoreboard.wins++;
-        spawnParticles(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 150);
-        drawTable();
-        showMenu("You Win! Play Again?");
+    // --------------------- Main Game Loop & Animations ---------------------
+    function updateAnimations() {
+      for (let i = gameState.cardAnimations.length - 1; i >= 0; i--) {
+        let anim = gameState.cardAnimations[i];
+        anim.progress += config.animationSpeed;
+        if (anim.progress >= 1) {
+          anim.progress = 1;
+          players[anim.playerIndex].hand.push(anim.card);
+          gameState.cardAnimations.splice(i, 1);
+        }
       }
     }
-
-    function disableAllButtons() {
-      document.getElementById("foldButton").disabled = true;
-      document.getElementById("callButton").disabled = true;
-      document.getElementById("raiseButton").disabled = true;
-      document.getElementById("nextButton").disabled = true;
+    function gameLoop() {
+      updateAnimations();
+      gameState.particles = gameState.particles.filter(p => p.alpha > 0);
+      gameState.particles.forEach(p => p.update());
+      drawTable();
+      requestAnimationFrame(gameLoop);
     }
+    gameLoop();
 
-    function showMenu(message) {
-      const overlay = document.getElementById("menuOverlay");
-      overlay.innerHTML = "<h1>" + message + "</h1><button id='restartGameButton'>Restart Game</button>";
-      overlay.style.display = "flex";
-      document.getElementById("restartGameButton").addEventListener("click", () => {
-        overlay.style.display = "none";
-        gameOver = false;
-        playerChips = 100;
-        startHand();
-      });
-    }
-
-    // ------------------------- Game Initialization & Hand Setup -------------------------
+    // --------------------- Game Phases & Logic ---------------------
     function startHand() {
+      gameState.cardAnimations = [];
       if (!firstHand) {
         dealerIndex = (dealerIndex + 1) % players.length;
       } else {
         firstHand = false;
       }
-      const smallBlindAmount = 5;
-      const bigBlindAmount = 10;
-      const smallBlindIndex = (dealerIndex + 1) % players.length;
-      const bigBlindIndex = (dealerIndex + 2) % players.length;
+      let smallBlindIndex = (dealerIndex + 1) % players.length;
+      let bigBlindIndex = (dealerIndex + 2) % players.length;
       gameState.phase = "preflop";
       gameState.pot = 0;
-      gameState.currentBet = bigBlindAmount;
+      gameState.currentBet = config.bigBlind;
       gameState.communityCards = [];
       gameState.deck = createDeck();
       shuffle(gameState.deck);
-
       players.forEach(p => {
         p.hand = [];
         p.active = true;
@@ -498,45 +538,53 @@
         p.action = "";
         p.bestHand = null;
       });
-
-      // Post blinds
-      if (smallBlindIndex !== 0) {
-        players[smallBlindIndex].bet = smallBlindAmount;
+      // Post Blinds
+      if (smallBlindIndex === 0) {
+        playerChips = Math.max(0, playerChips - config.smallBlind);
+        players[0].bet = config.smallBlind;
       } else {
-        playerChips = Math.max(0, playerChips - smallBlindAmount);
-        players[0].bet = smallBlindAmount;
+        players[smallBlindIndex].bet = config.smallBlind;
       }
-      if (bigBlindIndex !== 0) {
-        players[bigBlindIndex].bet = bigBlindAmount;
+      if (bigBlindIndex === 0) {
+        playerChips = Math.max(0, playerChips - config.bigBlind);
+        players[0].bet = config.bigBlind;
       } else {
-        playerChips = Math.max(0, playerChips - bigBlindAmount);
-        players[0].bet = bigBlindAmount;
+        players[bigBlindIndex].bet = config.bigBlind;
       }
-      gameState.pot = smallBlindAmount + bigBlindAmount;
-      gameState.message = `Blinds posted: ${players[smallBlindIndex].name} (SB $${smallBlindAmount}), ${players[bigBlindIndex].name} (BB $${bigBlindAmount}). Dealing new hand...`;
-
+      gameState.pot = config.smallBlind + config.bigBlind;
+      gameState.message = `Blinds posted. Dealing new hand...`;
       gameState.waitingForPlayer = false;
       animateDeal();
+      logBet("New hand started. " + gameState.message);
     }
-
-    // ------------------------- Card Dealing Animation with Flip Effect -------------------------
     function animateDeal() {
       gameState.dealing = true;
       let dealOrder = [];
       for (let i = 0; i < 2; i++) {
-        players.forEach(p => { dealOrder.push(p); });
+        players.forEach((p, index) => {
+          dealOrder.push({ playerIndex: index });
+        });
       }
       let dealIndex = 0;
       function dealNext() {
         if (dealIndex < dealOrder.length) {
-          let p = dealOrder[dealIndex];
-          setTimeout(() => {
-            p.hand.push(gameState.deck.pop());
-            cardSound.currentTime = 0;
-            cardSound.play();
-            dealIndex++;
-            dealNext();
-          }, 150);
+          const { playerIndex } = dealOrder[dealIndex];
+          let targetIndex = players[playerIndex].hand.length + gameState.cardAnimations.filter(a => a.playerIndex === playerIndex).length;
+          let endPos = getPlayerPosition(playerIndex, targetIndex);
+          let animation = {
+            playerIndex,
+            card: gameState.deck.pop(),
+            progress: 0,
+            startX: deckPosition.x,
+            startY: deckPosition.y,
+            endX: endPos.x,
+            endY: endPos.y
+          };
+          gameState.cardAnimations.push(animation);
+          cardSound.currentTime = 0;
+          cardSound.play();
+          dealIndex++;
+          setTimeout(dealNext, 150);
         } else {
           gameState.dealing = false;
           gameState.waitingForPlayer = true;
@@ -546,7 +594,6 @@
       }
       dealNext();
     }
-
     function nextPhase() {
       if (gameState.dealing) return;
       if (gameState.phase === "preflop") {
@@ -569,17 +616,14 @@
         setTimeout(showdown, 800);
         return;
       }
-      gameState.currentBet = 10;
+      gameState.currentBet = config.bigBlind;
       gameState.waitingForPlayer = true;
       updateButtons();
+      logBet("Phase changed: " + gameState.message);
     }
-
-    // ------------------------- Player Actions -------------------------
-    // Modified playerCall to handle all‑in if you lack enough chips.
     function playerCall() {
       if (!gameState.waitingForPlayer || gameState.dealing) return;
       if (playerChips < gameState.currentBet) {
-        // Not enough chips to fully call – go all in
         let allInAmount = playerChips;
         players[0].bet += allInAmount;
         gameState.pot += allInAmount;
@@ -588,10 +632,10 @@
         gameState.message = "You are all in with $" + players[0].bet + ". CPU players are deciding...";
         gameState.waitingForPlayer = false;
         updateButtons();
+        logBet("Player goes All In (Call) with $" + players[0].bet);
         setTimeout(simulateCPUActions, 800);
         return;
       }
-      // Otherwise, full call:
       playerChips -= gameState.currentBet;
       players[0].bet += gameState.currentBet;
       players[0].action = "Called";
@@ -599,12 +643,12 @@
       gameState.message = "You called. CPU players are deciding...";
       gameState.waitingForPlayer = false;
       updateButtons();
+      logBet("Player called $" + gameState.currentBet);
       setTimeout(simulateCPUActions, 800);
     }
-
     function showRaiseControl() {
       const raiseSlider = document.getElementById("raiseAmount");
-      const minRaise = gameState.currentBet + 10;
+      const minRaise = gameState.currentBet + config.minRaiseIncrement;
       raiseSlider.min = minRaise;
       raiseSlider.max = playerChips;
       raiseSlider.value = minRaise;
@@ -613,8 +657,6 @@
       gameState.waitingForPlayer = false;
       updateButtons();
     }
-
-    // Modified playerRaise to mark an all‑in raise if you use your last chips.
     function playerRaise(selectedAmount) {
       if (playerChips < selectedAmount) {
         gameState.message = "Not enough chips to raise!";
@@ -622,19 +664,15 @@
       }
       playerChips -= selectedAmount;
       players[0].bet += selectedAmount;
-      if (playerChips === 0) {
-        players[0].action = "All In (Raise)";
-      } else {
-        players[0].action = "Raised";
-      }
+      players[0].action = playerChips === 0 ? "All In (Raise)" : "Raised";
       gameState.pot += selectedAmount;
       gameState.currentBet = selectedAmount;
       gameState.message = "You raised to $" + gameState.currentBet + ". CPU players are deciding...";
       document.getElementById("raiseControl").style.display = "none";
       updateButtons();
+      logBet("Player raised to $" + gameState.currentBet);
       setTimeout(simulateCPUActions, 800);
     }
-
     function playerFold() {
       if (!gameState.waitingForPlayer || gameState.dealing) return;
       players[0].active = false;
@@ -642,14 +680,13 @@
       gameState.message = "You folded. Hand over.";
       gameState.waitingForPlayer = false;
       updateButtons();
+      logBet("Player folded.");
       setTimeout(endHandAfterFold, 1500);
     }
-
     function endHandAfterFold() {
       checkGameOver();
       if (!gameOver) startHand();
     }
-
     function simulateCPUActions() {
       let phaseThreshold;
       switch (gameState.phase) {
@@ -667,14 +704,18 @@
               p.bet += gameState.currentBet;
               p.action = "Called";
               gameState.pot += gameState.currentBet;
-            } else if (decision < phaseThreshold + 0.2) {
-              p.bet += gameState.currentBet + 10;
+              logBet(p.name + " called $" + gameState.currentBet);
+            } else if (decision < phaseThreshold + 0.2 && playerChips > gameState.currentBet) {
+              let raiseAmount = gameState.currentBet + config.minRaiseIncrement;
+              p.bet += raiseAmount;
               p.action = "Raised";
-              gameState.pot += gameState.currentBet + 10;
-              gameState.currentBet += 10;
+              gameState.pot += raiseAmount;
+              gameState.currentBet = raiseAmount;
+              logBet(p.name + " raised to $" + gameState.currentBet);
             } else {
               p.active = false;
               p.action = "Folded";
+              logBet(p.name + " folded.");
             }
           }, 500);
         }
@@ -683,7 +724,7 @@
       updateButtons();
     }
 
-    // ------------------------- Hand Evaluation Functions -------------------------
+    // --------------------- Hand Evaluation ---------------------
     function evaluateHand(cards) {
       let sorted = cards.slice().sort((a, b) => b.value - a.value);
       let rankCount = {};
@@ -756,7 +797,6 @@
       }
       return { rank: 0, highCard: sorted[0].value, kickers: sorted.slice(1, 5).map(card => card.value) };
     }
-
     function getHandName(handValue) {
       switch (handValue.rank) {
         case 8: return "Straight Flush";
@@ -770,7 +810,6 @@
         default: return "High Card";
       }
     }
-
     function compareHands(handA, handB) {
       if (handA.rank !== handB.rank) return handA.rank - handB.rank;
       if (handA.highCard !== handB.highCard) return handA.highCard - handB.highCard;
@@ -779,9 +818,8 @@
       }
       return 0;
     }
-
     function animateChipWin(winner, callback) {
-      const duration = 1000;
+      const duration = config.chipAnimationDuration;
       const startTime = performance.now();
       const startPos = { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 - 280 };
       const chipPositions = [
@@ -794,7 +832,7 @@
       const endPos = chipPositions[winnerIndex];
       function animate(now) {
         let progress = Math.min((now - startTime) / duration, 1);
-        let bounce = 1 - Math.pow(1 - progress, 3);
+        let bounce = easeOutCubic(progress);
         gameState.chipAnim = {
           x: startPos.x + (endPos.x - startPos.x) * bounce,
           y: startPos.y + (endPos.y - startPos.y) * bounce
@@ -810,7 +848,6 @@
       chipSound.play();
       requestAnimationFrame(animate);
     }
-
     function showdown() {
       if (!players[0].active) {
         gameState.message = "You folded. You lose this hand.";
@@ -837,7 +874,7 @@
         playerChips += gameState.pot;
         winSound.currentTime = 0;
         winSound.play();
-        spawnParticles(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 150);
+        spawnParticles(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, config.particleCount);
       }
       animateChipWin(winner, () => {
         setTimeout(() => {
@@ -845,19 +882,77 @@
           if (!gameOver) startHand();
         }, 1500);
       });
+      logBet("Showdown: " + winner.name + " wins with " + handName);
+    }
+    function checkGameOver() {
+      if (playerChips <= 0) {
+        gameState.message = "Game Over! You lost all your chips.";
+        gameOver = true;
+        disableAllButtons();
+        scoreboard.losses++;
+        drawTable();
+        showMenu("Game Over! Try Again?");
+      } else if (playerChips >= config.winTarget) {
+        gameState.message = "Congratulations! You reached $" + config.winTarget + "!";
+        gameOver = true;
+        disableAllButtons();
+        scoreboard.wins++;
+        spawnParticles(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, config.particleCount);
+        drawTable();
+        showMenu("You Win! Play Again?");
+      }
+    }
+    function disableAllButtons() {
+      document.getElementById("foldButton").disabled = true;
+      document.getElementById("callButton").disabled = true;
+      document.getElementById("raiseButton").disabled = true;
+      document.getElementById("nextButton").disabled = true;
+    }
+    function showMenu(message) {
+      const overlay = document.getElementById("menuOverlay");
+      overlay.innerHTML = "<h1>" + message + "</h1><button id='restartGameButton'>Restart Game</button>";
+      overlay.style.display = "flex";
+      document.getElementById("restartGameButton").addEventListener("click", () => {
+        overlay.style.display = "none";
+        gameOver = false;
+        playerChips = config.startingChips;
+        players.forEach(p => p.hand = []);
+        gameState.cardAnimations = [];
+        startHand();
+      });
+    }
+    function logBet(message) {
+      const logDiv = document.getElementById("betHistory");
+      const p = document.createElement("p");
+      p.textContent = message;
+      logDiv.appendChild(p);
+      logDiv.scrollTop = logDiv.scrollHeight;
     }
 
-    // ------------------------- Button Event Listeners -------------------------
+    // --------------------- Button & UI Event Listeners ---------------------
+    function updateButtons() {
+      if (playerChips === 0) {
+        document.getElementById("foldButton").disabled = true;
+        document.getElementById("callButton").disabled = true;
+        document.getElementById("raiseButton").disabled = true;
+        document.getElementById("nextButton").disabled = gameState.dealing;
+      } else {
+        document.getElementById("foldButton").disabled = !gameState.waitingForPlayer;
+        document.getElementById("callButton").disabled = !gameState.waitingForPlayer;
+        document.getElementById("raiseButton").disabled = !gameState.waitingForPlayer;
+        document.getElementById("nextButton").disabled = gameState.waitingForPlayer || gameState.dealing;
+      }
+    }
     document.getElementById("foldButton").addEventListener("click", playerFold);
     document.getElementById("callButton").addEventListener("click", playerCall);
     document.getElementById("raiseButton").addEventListener("click", showRaiseControl);
     document.getElementById("nextButton").addEventListener("click", nextPhase);
+    document.getElementById("resetScore").addEventListener("click", () => {
+      scoreboard = { wins: 0, losses: 0 };
+    });
     document.getElementById("musicToggle").addEventListener("click", () => {
       if (musicOn) { bgMusic.pause(); musicOn = false; }
       else { bgMusic.play(); musicOn = true; }
-    });
-    document.getElementById("resetScore").addEventListener("click", () => {
-      scoreboard = { wins: 0, losses: 0 };
     });
     document.getElementById("startGameButton").addEventListener("click", () => {
       document.getElementById("menuOverlay").style.display = "none";
@@ -875,6 +970,15 @@
       document.getElementById("raiseControl").style.display = "none";
       gameState.waitingForPlayer = true;
       updateButtons();
+    });
+    document.getElementById("helpButton").addEventListener("click", () => {
+      document.getElementById("helpOverlay").style.display = "flex";
+    });
+    document.getElementById("closeHelp").addEventListener("click", () => {
+      document.getElementById("helpOverlay").style.display = "none";
+    });
+    document.getElementById("musicVolume").addEventListener("input", (e) => {
+      bgMusic.volume = e.target.value;
     });
   </script>
 </body>
