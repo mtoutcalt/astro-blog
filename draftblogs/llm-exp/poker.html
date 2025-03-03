@@ -4,38 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Texas Hold'em Poker - Dazzle Edition Plus Pro</title>
+  <!-- Google Font for a modern look -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <style>
-    /* Reset & Base Styles */
+    /* --- Reset & Base Styles --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: linear-gradient(135deg, #0b6623, #004d00);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Roboto', sans-serif;
       color: #fff;
       overflow: hidden;
+      transition: background 0.5s;
     }
-    /* Canvas Styling & Pulse Border Animation */
+    /* --- Alternative Colorblind Mode (toggle via JS adding .colorblind to body) --- */
+    body.colorblind {
+      background: linear-gradient(135deg, #333399, #222266);
+    }
+    /* --- Canvas & Animation --- */
     canvas {
       display: block;
       margin: 20px auto;
       background: transparent;
-      border: 2px solid #fff;
+      border: 3px solid #fff;
       border-radius: 10px;
       animation: pulseBorder 3s infinite;
     }
     @keyframes pulseBorder {
-      0% { border-color: #fff; }
-      50% { border-color: #ffd700; }
+      0%   { border-color: #fff; }
+      50%  { border-color: #ffd700; }
       100% { border-color: #fff; }
     }
-    /* Controls Layout Using Flexbox */
-    #controls {
+    /* --- Overlay Styles for Menu, Help & Settings --- */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+      z-index: 1000;
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.3s;
     }
+    .overlay h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .overlay p {
+      max-width: 600px;
+      margin: 10px auto;
+      line-height: 1.5;
+    }
+    /* --- Button & Control Styles --- */
     button, input[type="range"] {
       font-size: 16px;
       padding: 10px 20px;
@@ -43,6 +66,7 @@
       border: none;
       border-radius: 4px;
       transition: transform 0.2s, background-color 0.2s;
+      margin: 5px;
     }
     button {
       background-color: #004d00;
@@ -56,7 +80,16 @@
       background-color: #555;
       cursor: not-allowed;
     }
-    /* Raise Control */
+    /* --- Control Panel Using Flexbox --- */
+    #controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    /* --- Raise Control --- */
     #raiseControl {
       text-align: center;
       margin: 10px auto;
@@ -65,71 +98,79 @@
     #raiseControl input[type="range"] {
       width: 300px;
     }
-    /* Fullscreen Overlays for Menu & Help */
-    #menuOverlay, #helpOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      text-align: center;
-      padding: 20px;
-    }
-    #menuOverlay h1, #helpOverlay h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-    #helpOverlay p {
-      max-width: 600px;
-      margin: 10px auto;
-      line-height: 1.5;
-    }
-    /* Betting History Log */
+    /* --- Betting History Log --- */
     #betHistory {
       max-height: 150px;
       overflow-y: auto;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       padding: 10px;
       margin: 10px auto;
       width: 90%;
       border-radius: 4px;
+      font-size: 14px;
     }
     #betHistory p {
       margin: 5px 0;
-      font-size: 14px;
     }
-    /* Volume Control Styling */
-    #volumeControl {
+    /* --- Volume & Settings Control --- */
+    #volumeControl, #settingsControl {
       display: inline-flex;
       align-items: center;
       margin-left: 20px;
+    }
+    /* --- Settings Overlay Specific --- */
+    #settingsOverlay {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #settingsOverlay label {
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
   <!-- Start/Restart Menu Overlay -->
-  <div id="menuOverlay">
+  <div id="menuOverlay" class="overlay">
     <h1>Texas Hold'em Poker</h1>
     <button id="startGameButton">Start Game</button>
+    <button id="tournamentToggle">Tournament Mode: Off</button>
+    <button id="settingsButton">Settings</button>
   </div>
-  <!-- Help/Tutorial Overlay (hidden by default) -->
-  <div id="helpOverlay" style="display: none;">
+  <!-- Help/Tutorial Overlay -->
+  <div id="helpOverlay" class="overlay" style="display: none;">
     <h1>How to Play</h1>
     <p>
       Welcome to Texas Hold'em Poker – Dazzle Edition Plus Pro!<br /><br />
       • Each hand begins with blinds and two cards are dealt to each player.<br />
       • Betting rounds occur after the flop, turn, and river.<br />
-      • Use the Fold, Call, or Raise buttons to play your hand.<br />
+      • Use the Fold, Call, or Raise buttons (or their keyboard shortcuts) to play your hand.<br />
       • Your goal is to win the pot by having the best five‐card hand.<br />
-      • The game ends when you lose all your chips or reach $1000.
+      • You can switch themes, toggle colorblind mode, and adjust sound in Settings.<br />
+      • The game ends when you lose all your chips or reach $1000 (or win the tournament in Tournament Mode).
     </p>
     <button id="closeHelp">Close</button>
+  </div>
+  <!-- Settings Overlay -->
+  <div id="settingsOverlay" class="overlay">
+    <h1>Settings</h1>
+    <div>
+      <label for="themeSelect">Choose Table Theme:</label>
+      <select id="themeSelect">
+        <option value="classic">Classic Green</option>
+        <option value="blue">Blue Velvet</option>
+        <option value="dark">Dark Mode</option>
+      </select>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" id="colorblindToggle"> Enable Colorblind Mode
+      </label>
+    </div>
+    <div id="volumeControl">
+      Volume: <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="0.5">
+    </div>
+    <button id="closeSettings">Close Settings</button>
   </div>
 
   <!-- Game Canvas -->
@@ -144,9 +185,6 @@
     <button id="resetScore">Reset Scoreboard</button>
     <button id="musicToggle">Toggle Music</button>
     <button id="helpButton">Help</button>
-    <div id="volumeControl">
-      Volume: <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="0.5">
-    </div>
   </div>
   <!-- Raise Amount Slider Control -->
   <div id="raiseControl">
@@ -161,10 +199,13 @@
   <audio id="cardSound" src="https://www.soundjay.com/cards/card-deal-1.mp3"></audio>
   <audio id="chipSound" src="https://www.soundjay.com/misc/cash-register-01.mp3"></audio>
   <audio id="winSound" src="https://www.soundjay.com/misc/applause-8.mp3"></audio>
+  <audio id="clickSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
   <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
 
   <script>
-    // --------------------- Configuration & Global Variables ---------------------
+    /*******************************
+     * 1. Configuration & Globals  *
+     *******************************/
     const config = {
       startingChips: 100,
       winTarget: 1000,
@@ -178,6 +219,13 @@
       chipAnimationDuration: 1000,
       particleCount: 150,
       bgMusicVolume: 0.5,
+      tournamentMode: false // Toggle tournament mode
+    };
+
+    // Settings (theme, colorblind, etc.)
+    const settings = {
+      theme: 'classic', // classic, blue, dark
+      colorblind: false
     };
 
     const canvas = document.getElementById("gameCanvas");
@@ -187,19 +235,24 @@
     const CARD_WIDTH = config.card.width, CARD_HEIGHT = config.card.height;
     const deckPosition = { x: CANVAS_WIDTH / 2 - CARD_WIDTH / 2, y: 40 };
 
-    let scoreboard = { wins: 0, losses: 0 };
+    let scoreboard = { wins: 0, losses: 0, tournamentWins: 0 };
     let playerChips = config.startingChips;
     let dealerIndex = 0;
     let firstHand = true;
     let gameOver = false;
 
-    // Audio Elements
+    // Audio elements
     const cardSound = document.getElementById("cardSound");
     const chipSound = document.getElementById("chipSound");
     const winSound = document.getElementById("winSound");
+    const clickSound = document.getElementById("clickSound");
     const bgMusic = document.getElementById("bgMusic");
     let musicOn = true;
     bgMusic.volume = config.bgMusicVolume;
+
+    // Tournament mode variables (if enabled)
+    let tournamentRound = 1;
+    let tournamentHistory = [];
 
     // Game state object
     let gameState = {
@@ -214,9 +267,18 @@
       chipAnim: null,
       particles: [],
       cardAnimations: [],
+      // For replay mode (future expansion)
+      actionLog: []
     };
 
-    // Deck Definitions
+    // AI Profiles for advanced CPU opponents
+    const aiProfiles = [
+      { name: "Player 1", aggression: 0.7 },
+      { name: "Player 2", aggression: 0.5 },
+      { name: "Player 3", aggression: 0.3 }
+    ];
+
+    // --- Deck Definitions ---
     const suits = ["♠", "♥", "♦", "♣"];
     const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
     const rankValues = {
@@ -224,7 +286,9 @@
       "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14
     };
 
-    // --------------------- Utility Functions ---------------------
+    /*********************************
+     * 2. Utility Functions & Easing *
+     *********************************/
     function createDeck() {
       let deck = [];
       suits.forEach(suit => {
@@ -245,7 +309,9 @@
       return 1 - Math.pow(1 - t, 3);
     }
 
-    // --------------------- Responsive Canvas ---------------------
+    /******************************
+     * 3. Responsive Canvas Setup *
+     ******************************/
     function resizeCanvas() {
       const ratio = config.canvasWidth / config.canvasHeight;
       let newWidth = window.innerWidth * 0.9;
@@ -262,9 +328,11 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // --------------------- Classes ---------------------
+    /***************************
+     * 4. Classes & Data Models *
+     ***************************/
     class Player {
-      constructor(name, isHuman) {
+      constructor(name, isHuman, aiProfile = null) {
         this.name = name;
         this.isHuman = isHuman;
         this.hand = [];
@@ -272,14 +340,31 @@
         this.bet = 0;
         this.action = "";
         this.bestHand = null;
+        // For advanced AI behavior
+        this.aiProfile = aiProfile;
       }
     }
     let players = [
       new Player("You", true),
-      new Player("Player 1", false),
-      new Player("Player 2", false),
-      new Player("Player 3", false)
+      new Player(aiProfiles[0].name, false, aiProfiles[0]),
+      new Player(aiProfiles[1].name, false, aiProfiles[1]),
+      new Player(aiProfiles[2].name, false, aiProfiles[2])
     ];
+
+    // Function to draw the dealer button indicator
+    function drawDealerButton(x, y) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x, y, 15, 0, 2 * Math.PI);
+      ctx.fillStyle = "#FFD700"; // Gold color for dealer button
+      ctx.fill();
+      ctx.fillStyle = "#000";
+      ctx.font = "bold 16px Roboto";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("D", x, y);
+      ctx.restore();
+    }
 
     class Particle {
       constructor(x, y) {
@@ -312,7 +397,24 @@
       }
     }
 
-    // --------------------- Drawing Functions ---------------------
+    /******************************
+     * 5. Drawing Functions & Animations *
+     ******************************/
+    // Apply theme based on settings
+    function applyTheme() {
+      const theme = settings.theme;
+      switch(theme) {
+        case "blue":
+          document.body.style.background = "linear-gradient(135deg, #001f3f, #003366)";
+          break;
+        case "dark":
+          document.body.style.background = "linear-gradient(135deg, #111, #333)";
+          break;
+        default:
+          document.body.style.background = "linear-gradient(135deg, #0b6623, #004d00)";
+      }
+    }
+    // Draw table with animated radial gradient background
     function drawTable() {
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       // Animated Radial Gradient Background
@@ -333,16 +435,17 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-      // Table Ellipse
+      // Draw Table Ellipse
       ctx.fillStyle = "#006600";
       ctx.beginPath();
-      ctx.ellipse(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH/2.8, CANVAS_HEIGHT/2.5, 0, 0, 2 * Math.PI);
+      ctx.ellipse(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH / 2.8, CANVAS_HEIGHT / 2.5, 0, 0, 2 * Math.PI);
       ctx.fill();
 
-      // Draw Deck if Cards Remain
+      // Draw Deck (if cards remain)
       if (gameState.deck.length > 0) {
         drawCardBack(deckPosition.x, deckPosition.y);
       }
+
       // Draw Community Cards
       let communityCount = gameState.communityCards.length;
       let startX = CANVAS_WIDTH / 2 - ((CARD_WIDTH + 15) * communityCount) / 2;
@@ -350,12 +453,15 @@
       gameState.communityCards.forEach((card, index) => {
         drawCard(startX + index * (CARD_WIDTH + 15), comY, card);
       });
-      // Draw Player Cards (Human)
+
+      // Draw Human Player Cards
       players[0].hand.forEach((card, index) => {
-        let pos = { x: CANVAS_WIDTH / 2 - CARD_WIDTH - 10 + index * (CARD_WIDTH + 15), y: CANVAS_HEIGHT - CARD_HEIGHT - 40 };
+        let pos = { x: CANVAS_WIDTH / 2 - CARD_WIDTH - 10 + index * (CARD_WIDTH + 15), 
+                    y: CANVAS_HEIGHT - CARD_HEIGHT - 40 };
         drawCard(pos.x, pos.y, card);
       });
-      // Draw CPU Player Cards
+
+      // Draw CPU Players’ Cards and Info
       const cpuPositions = [
         { x: 50, y: 50 },
         { x: CANVAS_WIDTH - CARD_WIDTH * 2 - 50, y: 50 },
@@ -369,7 +475,7 @@
           });
           if (gameState.phase === "showdown" && players[i].active && players[i].bestHand) {
             ctx.fillStyle = "#fff";
-            ctx.font = "16px Arial";
+            ctx.font = "16px Roboto";
             ctx.fillText(getHandName(players[i].bestHand), pos.x, pos.y + CARD_HEIGHT + 20);
           }
         } else {
@@ -377,19 +483,39 @@
           drawCardBack(pos.x + CARD_WIDTH + 15, pos.y);
         }
         ctx.fillStyle = "#fff";
-        ctx.font = "18px Arial";
+        ctx.font = "18px Roboto";
         ctx.fillText(players[i].name, pos.x, pos.y - 15);
         ctx.fillText(players[i].active ? (players[i].action || "In") : "Folded", pos.x, pos.y - 35);
       }
-      // Animated Card Dealing (flip animations)
+
+      // --- Draw Dealer Button ---
+      if (dealerIndex === 0) {
+        // For the human player, position near the first card
+        let dealerX = CANVAS_WIDTH / 2 - CARD_WIDTH - 10;
+        let dealerY = CANVAS_HEIGHT - CARD_HEIGHT - 60;
+        drawDealerButton(dealerX, dealerY);
+      } else {
+        // For CPU players, use the same cpuPositions
+        let cpuPos = cpuPositions[dealerIndex - 1];
+        let dealerX = cpuPos.x + CARD_WIDTH + 20;
+        let dealerY = cpuPos.y + 15;
+        drawDealerButton(dealerX, dealerY);
+      }
+
+      // Draw Animated Card Deals
       gameState.cardAnimations.forEach(anim => drawCardAnimation(anim));
-      // Scoreboard
+
+      // Scoreboard Display
       ctx.fillStyle = "#fff";
-      ctx.font = "20px Arial";
+      ctx.font = "20px Roboto";
       ctx.fillText("Wins: " + scoreboard.wins, CANVAS_WIDTH - 150, CANVAS_HEIGHT - 50);
       ctx.fillText("Losses: " + scoreboard.losses, CANVAS_WIDTH - 150, CANVAS_HEIGHT - 20);
+      if(config.tournamentMode) {
+        ctx.fillText("Tournament Round: " + tournamentRound, CANVAS_WIDTH/2 - 70, 30);
+      }
+
       // Display Pot
-      ctx.font = "bold 22px Arial";
+      ctx.font = "bold 22px Roboto";
       const potText = "Pot: $" + gameState.pot;
       const potTextWidth = ctx.measureText(potText).width;
       const potX = CANVAS_WIDTH / 2 - potTextWidth / 2;
@@ -398,22 +524,25 @@
       ctx.fillRect(potX - 10, potY - 22, potTextWidth + 20, 30);
       ctx.fillStyle = "#fff";
       ctx.fillText(potText, potX, potY);
+
       // Display Player Chip Count & Chip Icon
       ctx.fillStyle = "#fff";
-      ctx.font = "22px Arial";
+      ctx.font = "22px Roboto";
       ctx.fillText("Your Chips: $" + playerChips, 20, CANVAS_HEIGHT - 20);
       drawChip(150, CANVAS_HEIGHT - 50, playerChips);
+
       // Message Box
       ctx.fillStyle = "rgba(0,0,0,0.6)";
       ctx.fillRect(20, CANVAS_HEIGHT - 100, CANVAS_WIDTH - 40, 40);
       ctx.fillStyle = "#fff";
-      ctx.font = "20px Arial";
+      ctx.font = "20px Roboto";
       ctx.fillText(gameState.message, 30, CANVAS_HEIGHT - 70);
-      // Chip Win Animation if Active
+
+      // Chip Win Animation (if active)
       if (gameState.chipAnim) {
         drawChip(gameState.chipAnim.x, gameState.chipAnim.y, gameState.pot);
       }
-      // Draw Confetti Particles
+      // Draw Particle Effects (Confetti)
       gameState.particles.forEach(p => p.draw(ctx));
     }
     function drawCard(x, y, card) {
@@ -427,7 +556,7 @@
       ctx.strokeStyle = "#000";
       ctx.strokeRect(x, y, CARD_WIDTH, CARD_HEIGHT);
       ctx.fillStyle = (card.suit === "♥" || card.suit === "♦") ? "#d00" : "#000";
-      ctx.font = "22px Arial";
+      ctx.font = "22px Roboto";
       ctx.fillText(card.rank + card.suit, x + 8, y + 30);
       ctx.restore();
     }
@@ -442,7 +571,7 @@
       ctx.strokeStyle = "#000";
       ctx.strokeRect(x, y, CARD_WIDTH, CARD_HEIGHT);
       ctx.fillStyle = "#fff";
-      ctx.font = "18px Arial";
+      ctx.font = "18px Roboto";
       ctx.fillText("Poker", x + 10, y + 30);
       ctx.restore();
     }
@@ -456,12 +585,12 @@
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.fillStyle = "#fff";
-      ctx.font = "16px Arial";
+      ctx.font = "16px Roboto";
       ctx.textAlign = "center";
       ctx.fillText("$" + amount, x, y + 5);
       ctx.restore();
     }
-    // Animated Card Dealing with Flip Effect & Easing
+    // Animated Card Dealing with Flip & Easing
     function drawCardAnimation(anim) {
       let p = anim.progress;
       let currentX = anim.startX + (anim.endX - anim.startX) * easeOutCubic(p);
@@ -480,21 +609,10 @@
       }
       ctx.restore();
     }
-    // Helper Function for Player Card Positioning
-    function getPlayerPosition(playerIndex, cardCount) {
-      if (playerIndex === 0) {
-        return { x: CANVAS_WIDTH/2 - CARD_WIDTH - 10 + cardCount * (CARD_WIDTH + 15), y: CANVAS_HEIGHT - CARD_HEIGHT - 40 };
-      } else {
-        const positions = [
-          { x: 50, y: 50 },
-          { x: CANVAS_WIDTH - CARD_WIDTH * 2 - 50, y: 50 },
-          { x: 50, y: CANVAS_HEIGHT - CARD_HEIGHT - 150 }
-        ];
-        return positions[playerIndex - 1];
-      }
-    }
 
-    // --------------------- Main Game Loop & Animations ---------------------
+    /***********************************
+     * 6. Main Game Loop & Animations  *
+     ***********************************/
     function updateAnimations() {
       for (let i = gameState.cardAnimations.length - 1; i >= 0; i--) {
         let anim = gameState.cardAnimations[i];
@@ -515,14 +633,18 @@
     }
     gameLoop();
 
-    // --------------------- Game Phases & Logic ---------------------
+    /****************************
+     * 7. Game Logic & Phases   *
+     ****************************/
     function startHand() {
       gameState.cardAnimations = [];
+      gameState.actionLog = [];
       if (!firstHand) {
         dealerIndex = (dealerIndex + 1) % players.length;
       } else {
         firstHand = false;
       }
+      // Determine blinds
       let smallBlindIndex = (dealerIndex + 1) % players.length;
       let bigBlindIndex = (dealerIndex + 2) % players.length;
       gameState.phase = "preflop";
@@ -538,7 +660,7 @@
         p.action = "";
         p.bestHand = null;
       });
-      // Post Blinds
+      // Post blinds
       if (smallBlindIndex === 0) {
         playerChips = Math.max(0, playerChips - config.smallBlind);
         players[0].bet = config.smallBlind;
@@ -552,7 +674,7 @@
         players[bigBlindIndex].bet = config.bigBlind;
       }
       gameState.pot = config.smallBlind + config.bigBlind;
-      gameState.message = `Blinds posted. Dealing new hand...`;
+      gameState.message = "Blinds posted. Dealing new hand...";
       gameState.waitingForPlayer = false;
       animateDeal();
       logBet("New hand started. " + gameState.message);
@@ -560,6 +682,7 @@
     function animateDeal() {
       gameState.dealing = true;
       let dealOrder = [];
+      // Two cards per player
       for (let i = 0; i < 2; i++) {
         players.forEach((p, index) => {
           dealOrder.push({ playerIndex: index });
@@ -569,8 +692,16 @@
       function dealNext() {
         if (dealIndex < dealOrder.length) {
           const { playerIndex } = dealOrder[dealIndex];
-          let targetIndex = players[playerIndex].hand.length + gameState.cardAnimations.filter(a => a.playerIndex === playerIndex).length;
-          let endPos = getPlayerPosition(playerIndex, targetIndex);
+          let targetIndex = players[playerIndex].hand.length +
+                            gameState.cardAnimations.filter(a => a.playerIndex === playerIndex).length;
+          let endPos = (playerIndex === 0) 
+            ? { x: CANVAS_WIDTH/2 - CARD_WIDTH - 10 + targetIndex * (CARD_WIDTH + 15), 
+                y: CANVAS_HEIGHT - CARD_HEIGHT - 40 }
+            : ([ 
+                { x: 50, y: 50 },
+                { x: CANVAS_WIDTH - CARD_WIDTH * 2 - 50, y: 50 },
+                { x: 50, y: CANVAS_HEIGHT - CARD_HEIGHT - 150 }
+              ])[playerIndex - 1];
           let animation = {
             playerIndex,
             card: gameState.deck.pop(),
@@ -583,6 +714,7 @@
           gameState.cardAnimations.push(animation);
           cardSound.currentTime = 0;
           cardSound.play();
+          gameState.actionLog.push(`Dealt card to ${players[playerIndex].name}`);
           dealIndex++;
           setTimeout(dealNext, 150);
         } else {
@@ -687,6 +819,23 @@
       checkGameOver();
       if (!gameOver) startHand();
     }
+
+    // --- New helper function to compute CPU hand strength ---
+    function getCPUHandStrength(player) {
+      // If the hand is not yet dealt (should not happen), return a neutral strength.
+      if (player.hand.length < 2) return 0.5;
+      const card1 = player.hand[0];
+      const card2 = player.hand[1];
+      // Normalize the sum of card values (max = 14+14 = 28)
+      let score = (card1.value + card2.value) / 28;
+      // Bonus for a pair
+      if (card1.rank === card2.rank) score += 0.1;
+      // Bonus for suited cards
+      if (card1.suit === card2.suit) score += 0.05;
+      return Math.min(score, 1);
+    }
+
+    // --- Enhanced CPU logic ---
     function simulateCPUActions() {
       let phaseThreshold;
       switch (gameState.phase) {
@@ -700,12 +849,18 @@
         if (!p.isHuman && p.active) {
           setTimeout(() => {
             let decision = Math.random();
-            if (decision < phaseThreshold) {
+            let aggression = p.aiProfile ? p.aiProfile.aggression : 0.5;
+            // Use hand strength to adjust decision thresholds:
+            let handStrength = getCPUHandStrength(p);
+            let adjustedThreshold = phaseThreshold * aggression * handStrength;
+            if (decision < adjustedThreshold) {
+              // CPU chooses to call
               p.bet += gameState.currentBet;
               p.action = "Called";
               gameState.pot += gameState.currentBet;
               logBet(p.name + " called $" + gameState.currentBet);
-            } else if (decision < phaseThreshold + 0.2 && playerChips > gameState.currentBet) {
+            } else if (decision < adjustedThreshold + 0.2 * handStrength && playerChips > gameState.currentBet) {
+              // CPU chooses to raise
               let raiseAmount = gameState.currentBet + config.minRaiseIncrement;
               p.bet += raiseAmount;
               p.action = "Raised";
@@ -713,6 +868,7 @@
               gameState.currentBet = raiseAmount;
               logBet(p.name + " raised to $" + gameState.currentBet);
             } else {
+              // CPU folds
               p.active = false;
               p.action = "Folded";
               logBet(p.name + " folded.");
@@ -724,7 +880,9 @@
       updateButtons();
     }
 
-    // --------------------- Hand Evaluation ---------------------
+    /***************************
+     * 8. Hand Evaluation Code *
+     ***************************/
     function evaluateHand(cards) {
       let sorted = cards.slice().sort((a, b) => b.value - a.value);
       let rankCount = {};
@@ -818,6 +976,7 @@
       }
       return 0;
     }
+    // Animate chip win movement with a bounce effect
     function animateChipWin(winner, callback) {
       const duration = config.chipAnimationDuration;
       const startTime = performance.now();
@@ -848,6 +1007,7 @@
       chipSound.play();
       requestAnimationFrame(animate);
     }
+    // Showdown: Evaluate hands and declare winner
     function showdown() {
       if (!players[0].active) {
         gameState.message = "You folded. You lose this hand.";
@@ -875,6 +1035,8 @@
         winSound.currentTime = 0;
         winSound.play();
         spawnParticles(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, config.particleCount);
+      } else if(config.tournamentMode) {
+        tournamentHistory.push({ round: tournamentRound, winner: winner.name, pot: gameState.pot });
       }
       animateChipWin(winner, () => {
         setTimeout(() => {
@@ -927,9 +1089,12 @@
       p.textContent = message;
       logDiv.appendChild(p);
       logDiv.scrollTop = logDiv.scrollHeight;
+      gameState.actionLog.push(message);
     }
 
-    // --------------------- Button & UI Event Listeners ---------------------
+    /***********************************
+     * 9. UI & Button Event Listeners  *
+     ***********************************/
     function updateButtons() {
       if (playerChips === 0) {
         document.getElementById("foldButton").disabled = true;
@@ -943,12 +1108,12 @@
         document.getElementById("nextButton").disabled = gameState.waitingForPlayer || gameState.dealing;
       }
     }
-    document.getElementById("foldButton").addEventListener("click", playerFold);
-    document.getElementById("callButton").addEventListener("click", playerCall);
-    document.getElementById("raiseButton").addEventListener("click", showRaiseControl);
-    document.getElementById("nextButton").addEventListener("click", nextPhase);
+    document.getElementById("foldButton").addEventListener("click", () => { clickSound.play(); playerFold(); });
+    document.getElementById("callButton").addEventListener("click", () => { clickSound.play(); playerCall(); });
+    document.getElementById("raiseButton").addEventListener("click", () => { clickSound.play(); showRaiseControl(); });
+    document.getElementById("nextButton").addEventListener("click", () => { clickSound.play(); nextPhase(); });
     document.getElementById("resetScore").addEventListener("click", () => {
-      scoreboard = { wins: 0, losses: 0 };
+      scoreboard = { wins: 0, losses: 0, tournamentWins: 0 };
     });
     document.getElementById("musicToggle").addEventListener("click", () => {
       if (musicOn) { bgMusic.pause(); musicOn = false; }
@@ -959,11 +1124,18 @@
       bgMusic.play();
       startHand();
     });
+    document.getElementById("helpButton").addEventListener("click", () => {
+      document.getElementById("helpOverlay").style.display = "flex";
+    });
+    document.getElementById("closeHelp").addEventListener("click", () => {
+      document.getElementById("helpOverlay").style.display = "none";
+    });
     const raiseSlider = document.getElementById("raiseAmount");
     raiseSlider.addEventListener("input", () => {
       document.getElementById("raiseValue").textContent = raiseSlider.value;
     });
     document.getElementById("confirmRaise").addEventListener("click", () => {
+      clickSound.play();
       playerRaise(parseInt(raiseSlider.value));
     });
     document.getElementById("cancelRaise").addEventListener("click", () => {
@@ -971,14 +1143,81 @@
       gameState.waitingForPlayer = true;
       updateButtons();
     });
-    document.getElementById("helpButton").addEventListener("click", () => {
-      document.getElementById("helpOverlay").style.display = "flex";
+    document.getElementById("settingsButton").addEventListener("click", () => {
+      document.getElementById("settingsOverlay").style.display = "flex";
     });
-    document.getElementById("closeHelp").addEventListener("click", () => {
-      document.getElementById("helpOverlay").style.display = "none";
+    document.getElementById("closeSettings").addEventListener("click", () => {
+      document.getElementById("settingsOverlay").style.display = "none";
+    });
+    document.getElementById("themeSelect").addEventListener("change", (e) => {
+      settings.theme = e.target.value;
+      applyTheme();
+    });
+    document.getElementById("colorblindToggle").addEventListener("change", (e) => {
+      settings.colorblind = e.target.checked;
+      if (settings.colorblind) document.body.classList.add("colorblind");
+      else document.body.classList.remove("colorblind");
     });
     document.getElementById("musicVolume").addEventListener("input", (e) => {
       bgMusic.volume = e.target.value;
+    });
+    document.getElementById("tournamentToggle").addEventListener("click", () => {
+      config.tournamentMode = !config.tournamentMode;
+      document.getElementById("tournamentToggle").textContent = "Tournament Mode: " + (config.tournamentMode ? "On" : "Off");
+      if(config.tournamentMode) {
+        tournamentRound = 1;
+        tournamentHistory = [];
+        logBet("Tournament Mode Activated. Round " + tournamentRound);
+      }
+    });
+
+    // --- Enhancement: Keyboard Shortcuts ---
+    // Use F (Fold), C (Call), R (Raise), N (Next), H (Help) and Esc (cancel raise control)
+    document.addEventListener("keydown", (e) => {
+      // Do not interfere if an overlay is visible
+      if (document.getElementById("menuOverlay").style.display === "flex" ||
+          document.getElementById("settingsOverlay").style.display === "flex" ||
+          document.getElementById("helpOverlay").style.display === "flex") {
+        return;
+      }
+      switch (e.key.toLowerCase()) {
+        case "f":
+          if (!document.getElementById("foldButton").disabled) {
+            clickSound.play();
+            playerFold();
+          }
+          break;
+        case "c":
+          if (!document.getElementById("callButton").disabled) {
+            clickSound.play();
+            playerCall();
+          }
+          break;
+        case "r":
+          if (!document.getElementById("raiseButton").disabled) {
+            clickSound.play();
+            showRaiseControl();
+          }
+          break;
+        case "n":
+          if (!document.getElementById("nextButton").disabled) {
+            clickSound.play();
+            nextPhase();
+          }
+          break;
+        case "h":
+          document.getElementById("helpOverlay").style.display = "flex";
+          break;
+        case "escape":
+          if (document.getElementById("raiseControl").style.display === "block") {
+            document.getElementById("raiseControl").style.display = "none";
+            gameState.waitingForPlayer = true;
+            updateButtons();
+          }
+          break;
+        default:
+          break;
+      }
     });
   </script>
 </body>
