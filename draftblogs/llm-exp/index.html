@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Confetti Container -->
+  <div id="confettiContainer"></div>
+
   <header>
     <div class="header-top">
       <h1>Design Patterns Study Tool</h1>
@@ -19,47 +22,75 @@
       <ul>
         <li><a href="#flashcards">Flashcards</a></li>
         <li><a href="#game">Quiz Game</a></li>
+        <li><a href="#codeExamples">Code Examples</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <!-- Flashcards Section -->
-    <section id="flashcards">
-      <div class="section-header">
+  <!-- Main container to center & constrain content width -->
+  <div class="container">
+    <main>
+      <!-- Flashcards Section -->
+      <section id="flashcards">
         <h2>Flashcards</h2>
+        <div class="section-header">
+          <div class="filter-controls">
+            <label for="flashcardSearch">Search:</label>
+            <input type="text" id="flashcardSearch" placeholder="Search by pattern name" />
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+              <option value="All">All</option>
+              <option value="Creational">Creational</option>
+              <option value="Structural">Structural</option>
+              <option value="Behavioral">Behavioral</option>
+            </select>
+          </div>
+        </div>
+        <div class="flashcards-container" id="flashcardsContainer">
+          <!-- Flashcards will be dynamically generated -->
+        </div>
+      </section>
+
+      <!-- Quiz Game Section -->
+      <section id="game">
+        <h2>Quiz Game</h2>
+        <div class="game-controls">
+          <div id="timer">Time Left: 60s</div>
+          <div id="score">Score: 0</div>
+          <div id="bestScore">Best Score: 0</div>
+          <div id="questionNumber">Question #1</div>
+
+          <button id="startQuiz" class="btn">Start Quiz</button>
+          <button id="stopQuiz" class="btn">Stop Quiz</button>
+        </div>
+
+        <!-- Progress Bar (Optional Visual) -->
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-container" id="quizContainer">
+          <div id="quizQuestion" class="quiz-question"></div>
+          <div id="quizOptions" class="quiz-options"></div>
+        </div>
+      </section>
+
+      <!-- Code Examples Section -->
+      <section id="codeExamples">
+        <h2>Code Examples</h2>
         <div class="filter-controls">
-          <label for="flashcardSearch">Search:</label>
-          <input type="text" id="flashcardSearch" placeholder="Search by pattern name" />
-          <label for="categoryFilter">Filter by Category:</label>
-          <select id="categoryFilter">
-            <option value="All">All</option>
-            <option value="Creational">Creational</option>
-            <option value="Structural">Structural</option>
-            <option value="Behavioral">Behavioral</option>
+          <label for="languageSelect">Language:</label>
+          <select id="languageSelect">
+            <option value="all">All</option>
+            <option value="javascript">JavaScript</option>
+            <option value="java">Java</option>
+            <option value="python">Python</option>
           </select>
         </div>
-      </div>
-      <div class="flashcards-container" id="flashcardsContainer">
-        <!-- Flashcards will be dynamically generated -->
-      </div>
-    </section>
-
-    <!-- Quiz Game Section -->
-    <section id="game">
-      <h2>Quiz Game</h2>
-      <div class="game-controls">
-        <div id="timer">Time Left: 60s</div>
-        <div id="score">Score: 0</div>
-        <div id="bestScore">Best Score: 0</div>
-        <button id="resetGame" class="btn">Reset Quiz</button>
-      </div>
-      <div class="quiz-container" id="quizContainer">
-        <div id="quizQuestion" class="quiz-question"></div>
-        <div id="quizOptions" class="quiz-options"></div>
-      </div>
-    </section>
-  </main>
+        <div id="codeExamplesContainer"></div>
+      </section>
+    </main>
+  </div>
 
   <footer>
     <p>&copy; 2025 Design Patterns Study Tool</p>
@@ -88,6 +119,9 @@
     </div>
   </div>
 
+  <!-- Load pattern data first -->
+  <script src="patterns.js"></script>
+  <!-- Then load main script logic -->
   <script src="script.js"></script>
 </body>
 </html>
