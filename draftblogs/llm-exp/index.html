@@ -23,6 +23,7 @@
         <li><a href="#flashcards">Flashcards</a></li>
         <li><a href="#game">Quiz Game</a></li>
         <li><a href="#codeExamples">Code Examples</a></li>
+        <li><a href="#stats">Stats</a></li>
       </ul>
     </nav>
   </header>
@@ -37,18 +38,41 @@
           <div class="filter-controls">
             <label for="flashcardSearch">Search:</label>
             <input type="text" id="flashcardSearch" placeholder="Search by pattern name" />
+
             <label for="categoryFilter">Filter by Category:</label>
             <select id="categoryFilter">
               <option value="All">All</option>
               <option value="Creational">Creational</option>
               <option value="Structural">Structural</option>
               <option value="Behavioral">Behavioral</option>
+              <option value="Favorites">Favorites</option>
             </select>
+
+            <label for="sortBySelect">Sort By:</label>
+            <select id="sortBySelect">
+              <option value="none">None</option>
+              <option value="nameAsc">Name (A-Z)</option>
+              <option value="nameDesc">Name (Z-A)</option>
+            </select>
+
+            <button id="shuffleFlashcards" class="btn">Shuffle Flashcards</button>
           </div>
         </div>
         <div class="flashcards-container" id="flashcardsContainer">
           <!-- Flashcards will be dynamically generated -->
         </div>
+
+        <!-- Recently Viewed Patterns -->
+        <section id="recentlyViewed">
+          <h3>Recently Viewed Patterns</h3>
+          <ul id="recentlyViewedList"></ul>
+        </section>
+      </section>
+
+      <!-- Stats Section -->
+      <section id="stats">
+        <h2>Pattern Stats</h2>
+        <ul id="patternStatsList"></ul>
       </section>
 
       <!-- Quiz Game Section -->
@@ -60,8 +84,15 @@
           <div id="bestScore">Best Score: 0</div>
           <div id="questionNumber">Question #1</div>
 
+          <!-- Custom time input -->
+          <label for="customTime" class="custom-time-label">Set Time (seconds):</label>
+          <input type="number" id="customTime" class="custom-time-input" min="10" max="999" placeholder="60" />
+
           <button id="startQuiz" class="btn">Start Quiz</button>
           <button id="stopQuiz" class="btn">Stop Quiz</button>
+
+          <!-- View Scoreboard Button -->
+          <button id="viewScoreboard" class="btn">View Scoreboard</button>
         </div>
 
         <!-- Progress Bar (Optional Visual) -->
@@ -74,7 +105,7 @@
           <div id="quizOptions" class="quiz-options"></div>
         </div>
       </section>
-
+    
       <!-- Code Examples Section -->
       <section id="codeExamples">
         <h2>Code Examples</h2>
@@ -101,10 +132,10 @@
     <div class="modal-content">
       <span id="closeInstructions" class="close">&times;</span>
       <h2>Game Instructions</h2>
-      <p>You have 60 seconds to answer as many questions as possible.</p>
+      <p>You have 60 seconds to answer as many questions as possible (or use the custom time above!).</p>
       <p>
         Each question may ask you to match a design pattern name to its detailed description, match a description to a name, or identify a pattern based on a code snippet (in JavaScript, Java, or Python).
-        Four multiple‑choice options will be provided for each question. Select the correct answer to earn points.
+        Four multiple-choice options will be provided for each question. Select the correct answer to earn points.
       </p>
       <button id="startGame" class="btn">Start Quiz</button>
     </div>
@@ -116,6 +147,23 @@
       <h2>Time's Up!</h2>
       <p id="finalScoreText">Your final score is: 0</p>
       <button id="playAgain" class="btn">Play Again</button>
+    </div>
+  </div>
+
+  <!-- Scoreboard Modal -->
+  <div id="scoreboardModal" class="modal">
+    <div class="modal-content">
+      <span id="closeScoreboard" class="close">&times;</span>
+      <h2>Scoreboard</h2>
+      <ul id="scoreboardList"></ul>
+    </div>
+  </div>
+
+  <!-- Code Snippet Modal -->
+  <div id="codeSnippetModal" class="modal">
+    <div class="modal-content">
+      <span id="closeCodeSnippetModal" class="close">&times;</span>
+      <pre id="modalCodeBlock" class="code-snippet"></pre>
     </div>
   </div>
 

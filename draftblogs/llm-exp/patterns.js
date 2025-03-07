@@ -83,56 +83,56 @@ const patterns = [
   factory.createButton().render();`,
         python:
   `from abc import ABC, abstractmethod
-  
+
   class Button(ABC):
       @abstractmethod
       def render(self):
           pass
-  
+
   class Checkbox(ABC):
       @abstractmethod
       def render(self):
           pass
-  
+
   class GUIFactory(ABC):
       @abstractmethod
       def create_button(self):
           pass
-  
+
       @abstractmethod
       def create_checkbox(self):
           pass
-  
+
   class WinButton(Button):
       def render(self):
           print("Rendering a Windows button.")
-  
+
   class WinCheckbox(Checkbox):
       def render(self):
           print("Rendering a Windows checkbox.")
-  
+
   class MacButton(Button):
       def render(self):
           print("Rendering a Mac button.")
-  
+
   class MacCheckbox(Checkbox):
       def render(self):
           print("Rendering a Mac checkbox.")
-  
+
   class WinFactory(GUIFactory):
       def create_button(self):
           return WinButton()
-  
+
       def create_checkbox(self):
           return WinCheckbox()
-  
+
   class MacFactory(GUIFactory):
       def create_button(self):
           return MacButton()
-  
+
       def create_checkbox(self):
           return MacCheckbox()
-  
+
   # Usage:
   factory = WinFactory()
   factory.create_button().render()`
@@ -224,29 +224,29 @@ const patterns = [
           self.walls = walls
           self.doors = doors
           self.windows = windows
-  
+
       def __str__(self):
           return f"House[walls={self.walls}, doors={self.doors}, windows={self.windows}]"
-  
+
   class HouseBuilder:
       def __init__(self):
           self.house = House()
-  
+
       def set_walls(self, walls):
           self.house.walls = walls
           return self
-  
+
       def set_doors(self, doors):
           self.house.doors = doors
           return self
-  
+
       def set_windows(self, windows):
           self.house.windows = windows
           return self
-  
+
       def build(self):
           return self.house
-  
+
   # Usage:
   builder = HouseBuilder()
   house = (
@@ -301,13 +301,13 @@ const patterns = [
         python:
   `class Document:
       pass
-  
+
   class Resume(Document):
       pass
-  
+
   class Report(Document):
       pass
-  
+
   class DocumentCreator:
       def factory_method(self, type):
           if type == "resume":
@@ -316,7 +316,7 @@ const patterns = [
               return Report()
           else:
               raise ValueError("Unknown type")
-  
+
   # Usage:
   creator = DocumentCreator()
   doc = creator.factory_method("resume")
@@ -359,14 +359,14 @@ const patterns = [
   System.out.println(copy.value);`,
         python:
   `import copy
-  
+
   class Prototype:
       def __init__(self, value):
           self.value = value
-  
+
       def clone(self):
           return copy.deepcopy(self)
-  
+
   # Usage:
   original = Prototype(42)
   copy_obj = original.clone()
@@ -417,20 +417,20 @@ const patterns = [
         python:
   `class Singleton:
       _instance = None
-  
+
       def __new__(cls, name):
           if cls._instance is None:
               cls._instance = super().__new__(cls)
               cls._instance.name = name
           return cls._instance
-  
+
   # Usage:
   a = Singleton("First")
   b = Singleton("Second")
   print(a.name)  # "First"`
       }
     },
-  
+
     // ========== Structural Patterns ==========
     {
       name: "Adapter",
@@ -492,17 +492,17 @@ const patterns = [
   `class OldCalculator:
       def add(self, a, b):
           return a + b
-  
+
   class CalculatorAdapter:
       def __init__(self, old_calc):
           self.old_calc = old_calc
-  
+
       def add(self, a, b):
           return self.old_calc.add(a, b)
-  
+
       def subtract(self, a, b):
           return a - b
-  
+
   # Usage:
   old_calc = OldCalculator()
   adapter = CalculatorAdapter(old_calc)
@@ -580,21 +580,21 @@ const patterns = [
   `class TV:
       def __init__(self):
           self.volume = 10
-  
+
       def get_volume(self):
           return self.volume
-  
+
       def set_volume(self, v):
           self.volume = v
           print("TV volume:", v)
-  
+
   class Remote:
       def __init__(self, device):
           self.device = device
-  
+
       def volume_up(self):
           self.device.set_volume(self.device.get_volume() + 1)
-  
+
   # Usage:
   tv = TV()
   remote = Remote(tv)
@@ -637,11 +637,11 @@ const patterns = [
   console.log(composite.operation());`,
         java:
   `import java.util.*;
-  
+
   abstract class Component {
     public abstract String operation();
   }
-  
+
   class Leaf extends Component {
     private String name;
     public Leaf(String name) {
@@ -651,7 +651,7 @@ const patterns = [
       return name;
     }
   }
-  
+
   class Composite extends Component {
     private List<Component> children = new ArrayList<>();
     public void add(Component component) {
@@ -665,7 +665,7 @@ const patterns = [
       return sb.toString().trim();
     }
   }
-  
+
   // Usage:
   Composite comp = new Composite();
   comp.add(new Leaf("Leaf1"));
@@ -675,20 +675,20 @@ const patterns = [
   `class Leaf:
       def __init__(self, name):
           self.name = name
-  
+
       def operation(self):
           return self.name
-  
+
   class Composite:
       def __init__(self):
           self.children = []
-  
+
       def add(self, component):
           self.children.append(component)
-  
+
       def operation(self):
           return ", ".join(child.operation() for child in self.children)
-  
+
   # Usage:
   composite = Composite()
   composite.add(Leaf("Leaf1"))
@@ -751,14 +751,14 @@ const patterns = [
   `class Coffee:
       def cost(self):
           return 2.0
-  
+
   class MilkDecorator(Coffee):
       def __init__(self, coffee):
           self.coffee = coffee
-  
+
       def cost(self):
           return self.coffee.cost() + 0.5
-  
+
   # Usage:
   coffee = MilkDecorator(Coffee())
   print(coffee.cost())`
@@ -849,33 +849,33 @@ const patterns = [
   `class CPU:
       def freeze(self):
           print("CPU freezing...")
-  
+
       def jump(self, position):
           print("CPU jumping to", position)
-  
+
       def execute(self):
           print("CPU executing...")
-  
+
   class Memory:
       def load(self, position, data):
           print("Memory loading", data, "at", position)
-  
+
   class HardDrive:
       def read(self, lba, size):
           return "data"
-  
+
   class ComputerFacade:
       def __init__(self):
           self.cpu = CPU()
           self.memory = Memory()
           self.hd = HardDrive()
-  
+
       def start(self):
           self.cpu.freeze()
           self.memory.load(0, self.hd.read(0, 1024))
           self.cpu.jump(0)
           self.cpu.execute()
-  
+
   # Usage:
   computer = ComputerFacade()
   computer.start()`
@@ -914,7 +914,7 @@ const patterns = [
   fly1.operation("unique1");`,
         java:
   `import java.util.*;
-  
+
   class Flyweight {
     private String sharedState;
     public Flyweight(String sharedState) {
@@ -941,19 +941,19 @@ const patterns = [
   `class Flyweight:
       def __init__(self, shared_state):
           self.shared_state = shared_state
-  
+
       def operation(self, unique_state):
           print("Flyweight with", self.shared_state, "and", unique_state)
-  
+
   class FlyweightFactory:
       def __init__(self):
           self.flyweights = {}
-  
+
       def get_flyweight(self, key):
           if key not in self.flyweights:
               self.flyweights[key] = Flyweight(key)
           return self.flyweights[key]
-  
+
   # Usage:
   factory = FlyweightFactory()
   fly1 = factory.get_flyweight("shared")
@@ -1014,23 +1014,23 @@ const patterns = [
   `class RealSubject:
       def request(self):
           print("RealSubject handling request.")
-  
+
   class Proxy:
       def __init__(self):
           self.real_subject = None
-  
+
       def request(self):
           if self.real_subject is None:
               self.real_subject = RealSubject()
           print("Proxy delegating request.")
           self.real_subject.request()
-  
+
   # Usage:
   proxy = Proxy()
   proxy.request()`
       }
     },
-  
+
     // ========== Behavioral Patterns ==========
     {
       name: "Chain of Responsibility",
@@ -1110,15 +1110,15 @@ const patterns = [
   `class Handler:
       def __init__(self):
           self.next = None
-  
+
       def set_next(self, handler):
           self.next = handler
           return handler
-  
+
       def handle(self, request):
           if self.next:
               return self.next.handle(request)
-  
+
   class ConcreteHandlerA(Handler):
       def handle(self, request):
           if request < 10:
@@ -1126,7 +1126,7 @@ const patterns = [
               return request
           else:
               return super().handle(request)
-  
+
   class ConcreteHandlerB(Handler):
       def handle(self, request):
           if request >= 10:
@@ -1134,7 +1134,7 @@ const patterns = [
               return request
           else:
               return super().handle(request)
-  
+
   # Usage:
   handlerA = ConcreteHandlerA()
   handlerB = ConcreteHandlerB()
@@ -1198,18 +1198,18 @@ const patterns = [
   `class Command:
       def execute(self):
           pass
-  
+
   class Light:
       def on(self):
           print("Light is on")
-  
+
   class LightOnCommand(Command):
       def __init__(self, light):
           self.light = light
-  
+
       def execute(self):
           self.light.on()
-  
+
   # Usage:
   light = Light()
   command = LightOnCommand(light)
@@ -1281,22 +1281,22 @@ const patterns = [
   `class Expression:
       def interpret(self):
           pass
-  
+
   class NumberExpression(Expression):
       def __init__(self, number):
           self.number = number
-  
+
       def interpret(self):
           return self.number
-  
+
   class AddExpression(Expression):
       def __init__(self, left, right):
           self.left = left
           self.right = right
-  
+
       def interpret(self):
           return self.left.interpret() + self.right.interpret()
-  
+
   # Usage:
   expr = AddExpression(NumberExpression(5), NumberExpression(3))
   print(expr.interpret())`
@@ -1329,19 +1329,19 @@ const patterns = [
   }`,
         java:
   `import java.util.*;
-  
+
   class ArrayIterator implements Iterator<Integer> {
     private List<Integer> list;
     private int index = 0;
-  
+
     public ArrayIterator(List<Integer> list) {
       this.list = list;
     }
-  
+
     public boolean hasNext() {
       return index < list.size();
     }
-  
+
     public Integer next() {
       return list.get(index++);
     }
@@ -1356,10 +1356,10 @@ const patterns = [
       def __init__(self, items):
           self.items = items
           self.index = 0
-  
+
       def __iter__(self):
           return self
-  
+
       def __next__(self):
           if self.index < len(self.items):
               result = self.items[self.index]
@@ -1367,7 +1367,7 @@ const patterns = [
               return result
           else:
               raise StopIteration
-  
+
   # Usage:
   it = MyIterator([1,2,3])
   for item in it:
@@ -1404,7 +1404,7 @@ const patterns = [
   `class ChatRoom:
       def show_message(self, user, message):
           print(f"[{user}]: {message}")
-  
+
   # Usage:
   chat = ChatRoom()
   chat.show_message("Alice", "Hello!")`
@@ -1483,23 +1483,23 @@ const patterns = [
   `class Memento:
       def __init__(self, state):
           self.state = state
-  
+
       def get_state(self):
           return self.state
-  
+
   class Originator:
       def __init__(self):
           self.state = ""
-  
+
       def set_state(self, state):
           self.state = state
-  
+
       def save_state_to_memento(self):
           return Memento(self.state)
-  
+
       def get_state_from_memento(self, memento):
           self.state = memento.get_state()
-  
+
   # Usage:
   originator = Originator()
   originator.set_state("State1")
@@ -1544,7 +1544,7 @@ const patterns = [
   subject.setState("Some state");`,
         java:
   `import java.util.*;
-  
+
   interface Observer {
     void update(String state);
   }
@@ -1578,22 +1578,22 @@ const patterns = [
       def __init__(self):
           self.observers = []
           self.state = ""
-  
+
       def attach(self, observer):
           self.observers.append(observer)
-  
+
       def set_state(self, state):
           self.state = state
           self.notify_all()
-  
+
       def notify_all(self):
           for observer in self.observers:
               observer.update(self.state)
-  
+
   class ConcreteObserver:
       def update(self, state):
           print("Observer notified with state:", state)
-  
+
   # Usage:
   subject = Subject()
   subject.attach(ConcreteObserver())
@@ -1668,21 +1668,21 @@ const patterns = [
   `class Context:
       def __init__(self):
           self.state = None
-  
+
       def set_state(self, state):
           self.state = state
-  
+
       def request(self):
           self.state.handle()
-  
+
   class ConcreteStateA:
       def handle(self):
           print("State A handling request.")
-  
+
   class ConcreteStateB:
       def handle(self):
           print("State B handling request.")
-  
+
   # Usage:
   context = Context()
   context.set_state(ConcreteStateA())
@@ -1761,22 +1761,22 @@ const patterns = [
   `class Strategy:
       def execute(self, a, b):
           pass
-  
+
   class AddStrategy(Strategy):
       def execute(self, a, b):
           return a + b
-  
+
   class MultiplyStrategy(Strategy):
       def execute(self, a, b):
           return a * b
-  
+
   class Context:
       def set_strategy(self, strategy):
           self.strategy = strategy
-  
+
       def execute_strategy(self, a, b):
           return self.strategy.execute(a, b)
-  
+
   # Usage:
   context = Context()
   context.set_strategy(AddStrategy())
@@ -1841,20 +1841,20 @@ const patterns = [
       def template_method(self):
           self.step_one()
           self.step_two()
-  
+
       def step_one(self):
           pass
-  
+
       def step_two(self):
           pass
-  
+
   class ConcreteClass(AbstractClass):
       def step_one(self):
           print("Concrete step one")
-  
+
       def step_two(self):
           print("Concrete step two")
-  
+
   # Usage:
   obj = ConcreteClass()
   obj.template_method()`
@@ -1917,21 +1917,20 @@ const patterns = [
   `class Element:
       def accept(self, visitor):
           visitor.visit(self)
-  
+
   class ConcreteElementA(Element):
       def operation_a(self):
           return "Element A"
-  
+
   class ConcreteVisitor:
       def visit(self, element):
           if isinstance(element, ConcreteElementA):
               print("Visitor:", element.operation_a())
-  
+
   # Usage:
   element = ConcreteElementA()
   visitor = ConcreteVisitor()
   element.accept(visitor)`
       }
     }
-  ];
-  
+];

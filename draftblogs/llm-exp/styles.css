@@ -56,6 +56,17 @@ header {
 .toggle-btn:hover {
   background: #666;
 }
+
+/* ENHANCEMENT: Improved toggle button with icons */
+.toggle-btn i {
+  margin-right: 4px;
+}
+.sun-icon, .moon-icon {
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -131,6 +142,15 @@ section h2 {
 .flashcard:hover {
   transform: scale(1.02);
 }
+/* ENHANCEMENT: Keyboard focus styles */
+.flashcard:focus {
+  outline: 3px solid #007BFF;
+  transform: scale(1.02);
+}
+.dark-mode .flashcard:focus {
+  outline-color: #4da6ff;
+}
+
 .card-inner {
   position: relative;
   width: 100%;
@@ -141,7 +161,7 @@ section h2 {
   border-radius: 8px;
   background: #fff;
 }
-.flashcard:hover .card-inner,
+
 .flashcard.active .card-inner {
   transform: rotateY(180deg);
 }
@@ -169,6 +189,42 @@ section h2 {
   margin-top: 1rem;
 }
 
+/* Favorites star icon */
+.star-favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+}
+.star-favorite.favorited {
+  color: gold;
+}
+/* ENHANCEMENT: Focus styles for star */
+.star-favorite:focus {
+  outline: 2px solid #007BFF;
+  border-radius: 50%;
+}
+.dark-mode .star-favorite:focus {
+  outline-color: #4da6ff;
+}
+
+/* Fade-in animation for flashcards */
+.flashcard-animate {
+  animation: fadeInCard 0.6s ease;
+}
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Quiz Game Styling */
 .game-controls {
   margin-bottom: 1rem;
@@ -188,6 +244,18 @@ section h2 {
 }
 .btn:hover {
   background: #0056b3;
+}
+.btn:focus {
+  outline: 3px solid rgba(0, 123, 255, 0.5);
+}
+
+/* Custom time input styling */
+.custom-time-input {
+  width: 60px;
+  padding: 0.3rem;
+}
+.custom-time-label {
+  font-weight: 500;
 }
 
 /* Progress Bar Styles */
@@ -240,7 +308,31 @@ section h2 {
   font-size: 1rem;
   transition: background 0.3s;
   white-space: pre-wrap;
+  text-align: left;
+  position: relative;
 }
+/* ENHANCEMENT: Quiz number hints */
+.quiz-options button::before {
+  content: attr(data-key);
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #007BFF;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  margin-right: 8px;
+}
+.quiz-options button {
+  padding-left: 30px;
+}
+
 .quiz-options button:hover {
   background: #d0e7ff;
 }
@@ -277,6 +369,68 @@ section h2 {
   border-color: #555;
   color: #ddd;
 }
+/* "Copy Code" button */
+.copy-btn {
+  background-color: #666;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s;
+}
+.copy-btn:hover {
+  background-color: #444;
+}
+/* ENHANCEMENT: Copied state styles */
+.copy-btn.copied {
+  background-color: #4CAF50;
+}
+
+/* ENHANCEMENT: Extended syntax highlight classes for better code highlighting */
+.keyword {
+  color: #007bff;
+  font-weight: bold;
+}
+.dark-mode .keyword {
+  color: #56a6ff;
+}
+.string {
+  color: #28a745;
+}
+.dark-mode .string {
+  color: #7cdb8e;
+}
+.comment {
+  color: #6c757d;
+  font-style: italic;
+}
+.dark-mode .comment {
+  color: #a1a7ac;
+}
+.number {
+  color: #e83e8c;
+}
+.dark-mode .number {
+  color: #f083b6;
+}
+.operator {
+  color: #fd7e14;
+}
+.function {
+  color: #6610f2;
+  font-weight: bold;
+}
+.dark-mode .function {
+  color: #9770ff;
+}
+.builtin {
+  color: #17a2b8;
+}
+.dark-mode .builtin {
+  color: #55d3e5;
+}
 
 /* Code Examples Container styling */
 #codeExamplesContainer > div {
@@ -298,6 +452,60 @@ section h2 {
   margin: 1rem 0 0.4rem;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+/* Stats Section */
+#stats {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.dark-mode #stats {
+  background-color: #2e2e2e;
+  border-color: #555;
+}
+#stats ul {
+  margin-top: 0.5rem;
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+/* Recently Viewed Patterns */
+#recentlyViewed ul {
+  list-style: none;
+  padding: 0;
+}
+#recentlyViewed li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.dark-mode #recentlyViewed li {
+  border-color: #444;
+}
+
+/* ENHANCEMENT: View pattern button in recently viewed */
+.view-pattern-btn {
+  padding: 3px 8px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.view-pattern-btn:hover {
+  background: #0056b3;
+}
+
+/* Highlight top scorer in scoreboard */
+.top-scorer {
+  background-color: gold;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Footer */
@@ -331,6 +539,11 @@ footer {
   border-radius: 8px;
   position: relative;
 }
+.dark-mode .modal-content {
+  background-color: #2e2e2e;
+  color: #ddd;
+  border-color: #555;
+}
 .modal-content h2 {
   margin-bottom: 1rem;
 }
@@ -346,6 +559,13 @@ footer {
 .close:hover,
 .close:focus {
   color: #000;
+}
+.dark-mode .close {
+  color: #ddd;
+}
+.dark-mode .close:hover,
+.dark-mode .close:focus {
+  color: #fff;
 }
 
 /* Confetti Styles */
@@ -368,6 +588,20 @@ footer {
   }
   100% {
     background-color: #ffffff;
+  }
+}
+.dark-mode .quiz-container {
+  animation: pulseBackgroundDark 6s infinite;
+}
+@keyframes pulseBackgroundDark {
+  0% {
+    background-color: #2e2e2e;
+  }
+  50% {
+    background-color: #333333;
+  }
+  100% {
+    background-color: #2e2e2e;
   }
 }
 
