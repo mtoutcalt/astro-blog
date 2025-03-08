@@ -220,5 +220,15 @@ export const quotes = [
     {
       text: `Breath is not only an invitation into the body but the essence of the way we already know how to live in that body. Easy, relaxed, breathing always leads to surprise: at how centred we already are, how unhurried we are underneath it all, how patient we never knew we could be. Breath is practical and helpful in understanding how we should be in life: the unquenchable source of both visible and invisible help in our days, giving when we do not ask, teaching us, with each in-breath, how to receive when we feel we do not deserve to receive.`,
       author: 'David Whyte'
+    },
+    {
+      text: `  If you’re feeling creative, do the errands tomorrow. If you’re fit and healthy, take a day to go surfing. When inspiration strikes, write it down. The calendar belongs to everyone else. Their schedule isn’t your schedule unless it helps you get where you’re going.`,
+      author: 'Seth Godin'
+    },
+    {
+      text: ` I can’t give you a sure-fire formula for success, but I can give you a formula for failure: try to please everybody all the time.`,
+      author: 'Herbert Bayard Swope'
     }
   ];
+
+
