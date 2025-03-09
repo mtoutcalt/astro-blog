@@ -104,3 +104,27 @@
 ## B-trees
 - Sorted data
 - Search/Insert/Delete (log n)
+
+## MongoDB Features
+- Mongo - more flexibility for access patterns
+- Advanced indexes:
+  - Text index for search
+  - Geospatial
+  - Search within arrays
+- When making secondary index → the copied data will take disk space and be copied
+
+## Primary Keys
+- Simple primary key - just partition key
+- Composite - partition + sort
+  - or hash and range
+
+## Secondary Indexes
+- Secondary indexes:
+  - LSI - local
+  - GSI - global
+- LSI - same hash but different sort/range
+- GSI - any key
+  - Has separate throughput - more cost - like its own table
+  - Only can get eventual consistency
+    - Data is replicated from core table
+- LSI must be created at table creation time
