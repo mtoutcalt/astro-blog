@@ -228,7 +228,22 @@ export const quotes = [
     {
       text: ` I can’t give you a sure-fire formula for success, but I can give you a formula for failure: try to please everybody all the time.`,
       author: 'Herbert Bayard Swope'
-    }
+    },
+    { 
+      text: "A person who thinks all the time has nothing to think about except thoughts. So, he loses touch with reality and lives in a world of illusions. By thoughts I mean, specifically, chatter in the skull—perpetual and compulsive repetition of words, of reckoning, and of calculating. I'm not saying that thinking is bad; like everything else, it's useful in moderation, a good servant but a bad master. And all so-called civilised peoples have increasingly become crazy and self destructive because through excessive thinking they have lost touch with reality. That's to say we confuse signs, words, numbers, symbols, and ideas with the real world. Most of us would have rather money than tangible wealth. And a great occasion is somehow spoiled for us unless photographed.", 
+      author: "Alan Watts"
+    },
+    { 
+      text: "Amateurs celebrate the flashy, difficult shot without noticing (or caring) that they've left the cue ball trapped - making the next shot impossible. On the other hand, the professional might pass on an impressive shot entirely if it creates poor positioning, preferring the modest play that sets up a sequence of future successes.", 
+      author: "Farnam Street"
+    },
+    { 
+      text: "  When it's over, I don't want to wonder if I have made of my life something particular, and real. I don't want to find myself sighing and frightened, or full of argument. I don't want to end up simply having visited this world.", 
+      author: "Mary Oliver"
+    },
   ];
+
+
+
 
 
