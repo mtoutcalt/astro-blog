@@ -238,10 +238,16 @@ export const quotes = [
       author: "Farnam Street"
     },
     { 
-      text: "  When it's over, I don't want to wonder if I have made of my life something particular, and real. I don't want to find myself sighing and frightened, or full of argument. I don't want to end up simply having visited this world.", 
+      text: "When it's over, I don't want to wonder if I have made of my life something particular, and real. I don't want to find myself sighing and frightened, or full of argument. I don't want to end up simply having visited this world.", 
       author: "Mary Oliver"
     },
+    { 
+      text: "Love is not a relationship; it has nothing to do with anybody else. Love is a state of being, love is giving.", 
+      author: "Osho"
+    }
   ];
+
+
 
 
 
