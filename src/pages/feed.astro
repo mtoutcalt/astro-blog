@@ -1,0 +1,481 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Mastodon Feed | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>My Mastodon Feed</h1>
+			<p>Follow me on Mastodon at <a href="https://mastodon.social/@markoutcalt" target="_blank">@markoutcalt@mastodon.social</a></p>
+			
+      <div id="mastodon-feed" class="mastodon-feed">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading toots...</p>
+        </div>
+      </div>
+		</main>
+		<Footer />
+
+    <script>
+      const MASTODON_INSTANCE = 'mastodon.social';
+      const MASTODON_USERNAME = 'markoutcalt';
+      // Hardcoded account ID (won't change unless you move to a different instance)
+      const ACCOUNT_ID = '112657399279878718'; 
+      
+      // Formatters
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-us', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
+
+      // DOM interaction
+      const feedContainer = document.getElementById('mastodon-feed');
+      
+      // Fetch Mastodon Posts using the account ID
+      async function fetchMastodonPosts(accountId) {
+        try {
+          const apiUrl = `https://${MASTODON_INSTANCE}/api/v1/accounts/${accountId}/statuses?limit=30`;
+          const response = await fetch(apiUrl);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const posts = await response.json();
+          return posts;
+        } catch (error) {
+          console.error('Error fetching Mastodon posts:', error);
+          return null;
+        }
+      }
+      
+      function renderToot(post) {
+        const tootEl = document.createElement('div');
+        tootEl.className = 'toot';
+        
+        // Header section
+        const headerEl = document.createElement('div');
+        headerEl.className = 'toot-header';
+        
+        const avatarEl = document.createElement('img');
+        avatarEl.src = post.account.avatar;
+        avatarEl.alt = `${post.account.display_name}'s avatar`;
+        avatarEl.width = 48;
+        avatarEl.height = 48;
+        avatarEl.className = 'avatar';
+        
+        const metaEl = document.createElement('div');
+        metaEl.className = 'toot-meta';
+        
+        const usernameEl = document.createElement('span');
+        usernameEl.className = 'username';
+        usernameEl.textContent = `@${post.account.username}`;
+        
+        metaEl.appendChild(usernameEl);
+        
+        const dateEl = document.createElement('div');
+        dateEl.className = 'toot-date';
+        
+        const dateLink = document.createElement('a');
+        dateLink.href = post.url;
+        dateLink.target = '_blank';
+        dateLink.rel = 'noopener noreferrer';
+        dateLink.textContent = formatDate(post.created_at);
+        
+        dateEl.appendChild(dateLink);
+        
+        headerEl.appendChild(avatarEl);
+        headerEl.appendChild(metaEl);
+        headerEl.appendChild(dateEl);
+        
+        // Content section
+        const contentEl = document.createElement('div');
+        contentEl.className = 'toot-content';
+        contentEl.innerHTML = post.content;
+        
+        // Media section (if any)
+        let mediaEl = null;
+        if (post.media_attachments && post.media_attachments.length > 0) {
+          mediaEl = document.createElement('div');
+          mediaEl.className = 'toot-media';
+          
+          post.media_attachments.forEach(media => {
+            if (media.type === 'image') {
+              const mediaLink = document.createElement('a');
+              mediaLink.href = media.url;
+              mediaLink.target = '_blank';
+              mediaLink.rel = 'noopener noreferrer';
+              
+              const mediaImg = document.createElement('img');
+              mediaImg.src = media.preview_url;
+              mediaImg.alt = media.description || 'Media attachment';
+              mediaImg.className = 'media-attachment';
+              mediaImg.loading = 'lazy';
+              
+              mediaLink.appendChild(mediaImg);
+              mediaEl.appendChild(mediaLink);
+            } else {
+              const mediaNotDisplayed = document.createElement('div');
+              mediaNotDisplayed.className = 'media-not-displayed';
+              
+              const mediaLink = document.createElement('a');
+              mediaLink.href = media.url;
+              mediaLink.target = '_blank';
+              mediaLink.rel = 'noopener noreferrer';
+              mediaLink.textContent = `${media.type} attachment (click to view)`;
+              
+              mediaNotDisplayed.appendChild(mediaLink);
+              mediaEl.appendChild(mediaNotDisplayed);
+            }
+          });
+        }
+  
+        
+        // Assemble the toot
+        tootEl.appendChild(headerEl);
+        tootEl.appendChild(contentEl);
+        if (mediaEl) tootEl.appendChild(mediaEl);
+        
+        return tootEl;
+      }
+      
+      function displayError(message) {
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error-message';
+        
+        const iconEl = document.createElement('div');
+        iconEl.className = 'error-icon';
+        iconEl.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        `;
+        
+        const messageEl = document.createElement('p');
+        messageEl.textContent = message;
+        
+        const retryButton = document.createElement('button');
+        retryButton.textContent = 'Try Again';
+        retryButton.className = 'retry-button';
+        retryButton.addEventListener('click', initializeFeed);
+        
+        errorEl.appendChild(iconEl);
+        errorEl.appendChild(messageEl);
+        errorEl.appendChild(retryButton);
+        
+        return errorEl;
+      }
+      
+      function displayEmptyFeed() {
+        const emptyEl = document.createElement('div');
+        emptyEl.className = 'empty-feed';
+        
+        const messageEl = document.createElement('p');
+        messageEl.textContent = 'No posts found. Check back later for updates!';
+        
+        emptyEl.appendChild(messageEl);
+        return emptyEl;
+      }
+      
+      // Alternative: embed the official Mastodon timeline
+      function embedMastodonTimeline() {
+        const embedContainer = document.createElement('div');
+        embedContainer.className = 'mastodon-embed-container';
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://${MASTODON_INSTANCE}/@${MASTODON_USERNAME}/embed`;
+        iframe.className = 'mastodon-embed';
+        iframe.style.maxWidth = '100%';
+        iframe.style.border = '0';
+        iframe.width = '800';
+        iframe.height = '600';
+        iframe.allowFullscreen = true;
+        
+        embedContainer.appendChild(iframe);
+        
+        // Load the embed script
+        const script = document.createElement('script');
+        script.src = `https://${MASTODON_INSTANCE}/embed.js`;
+        script.async = true;
+        
+        embedContainer.appendChild(script);
+        
+        return embedContainer;
+      }
+      
+      // Initialize the feed
+      async function initializeFeed() {
+        // Reset feed container and show loading
+        feedContainer.innerHTML = `
+          <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading toots...</p>
+          </div>
+        `;
+        
+        try {
+          // Use the hardcoded account ID directly
+          const posts = await fetchMastodonPosts(ACCOUNT_ID);
+          
+          // Clear the loading indicator
+          feedContainer.innerHTML = '';
+          
+          if (!posts) {
+            throw new Error("Failed to fetch posts");
+          }
+          
+          if (posts.length === 0) {
+            // Display message if no posts
+            feedContainer.appendChild(displayEmptyFeed());
+            return;
+          }
+          
+          // Render each post
+          posts.forEach(post => {
+            feedContainer.appendChild(renderToot(post));
+          });
+        } catch (error) {
+          console.error('Error initializing feed:', error);
+          
+          // Clear the loading indicator
+          feedContainer.innerHTML = '';
+          
+          // Show error and fallback to embed if API methods fail
+          feedContainer.appendChild(displayError('Unable to load Mastodon feed via API. Falling back to embedded timeline.'));
+          
+          // Add a small delay before showing the embed
+          setTimeout(() => {
+            feedContainer.appendChild(embedMastodonTimeline());
+          }, 1500);
+        }
+      }
+      
+      // Start loading posts when the page is ready
+      document.addEventListener('DOMContentLoaded', initializeFeed);
+    </script>
+	</body>
+</html>
+
+<style>
+  main {
+    width: 800px;
+    max-width: calc(100% - 2em);
+  }
+  
+  h1 {
+    margin-bottom: 0.5em;
+    color: var(--color-theme-1);
+  }
+  
+  .mastodon-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  /* Loading indicator */
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid var(--color-theme-2);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Error message */
+  .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+    color: #ff6b6b;
+    margin-bottom: 2rem;
+  }
+  
+  .error-icon {
+    margin-bottom: 1rem;
+  }
+  
+  .retry-button {
+    background: var(--color-theme-2);
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .retry-button:hover {
+    background: var(--color-theme-1);
+  }
+  
+  /* Empty feed */
+  .empty-feed {
+    padding: 2rem;
+    text-align: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+  }
+  
+  /* Embedded timeline */
+  .mastodon-embed-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .mastodon-embed {
+    border-radius: 8px;
+    background: #1a1a1a;
+    width: 100%;
+    height: 800px;
+  }
+  
+  /* Toot styling */
+  .toot {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+  
+  .toot:hover {
+    transform: translateY(-3px);
+  }
+  
+  .toot-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .avatar {
+    border-radius: 50%;
+    margin-right: 0.8rem;
+  }
+  
+  .toot-meta {
+    flex: 1;
+  }
+  
+  .display-name {
+    font-weight: bold;
+    font-family: 'Jost', sans-serif;
+  }
+  
+  .username {
+    font-size: 0.85rem;
+    color: #ccc;
+  }
+  
+  .toot-date {
+    font-size: 0.85rem;
+  }
+  
+  .toot-date a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .toot-date a:hover {
+    color: var(--color-theme-2);
+    text-decoration: underline;
+  }
+  
+  .toot-content {
+    margin-bottom: 1rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+  
+  .toot-content a {
+    color: var(--color-theme-2);
+  }
+  
+  .toot-content a:hover {
+    text-decoration: underline;
+  }
+  
+  .toot-content p {
+    margin-bottom: 0.7rem;
+  }
+  
+  .toot-media {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .media-attachment {
+    width: 100%;
+    border-radius: 6px;
+    transition: opacity 0.2s ease;
+  }
+  
+  .media-attachment:hover {
+    opacity: 0.9;
+  }
+  
+  .media-not-displayed {
+    padding: 1rem;
+    background: #2a2a2a;
+    border-radius: 6px;
+    text-align: center;
+  }
+  
+  @media (max-width: 720px) {
+    .toot {
+      padding: 1rem;
+    }
+    
+    .toot-media {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
