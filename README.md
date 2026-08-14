@@ -2,6 +2,11 @@
 
 A stripped-down Astro application with just the essentials.
 
+## Requirements
+
+Node 24 (see `.nvmrc`). This is also the version Vercel builds with, pinned via
+`engines.node` in `package.json`.
+
 ## Commands
 
 | Command       | Action                           |

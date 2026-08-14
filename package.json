@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,6 +13,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^5.4.2"
+    "astro": "^7.2.2"
   }
 }

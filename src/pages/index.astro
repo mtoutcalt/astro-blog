@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import goldenTeeGolf from "../assets/goldenteegolf.jpg";
 ---
 
 <html lang="en">
@@ -6,11 +8,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Minimal Astro App</title>
+    <style>
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
     <main>
       <h1>Hello World</h1>
       <p>This is a minimal Astro application.</p>
+      <Image
+        src={goldenTeeGolf}
+        alt="Golden Tee Golf: a golfer in a white visor beside arcade gameplay screenshots"
+        widths={[640, 960, 1280, 1920]}
+        sizes="(max-width: 960px) 100vw, 960px"
+        width={1920}
+        format="webp"
+        quality={80}
+        loading="eager"
+        fetchpriority="high"
+      />
     </main>
   </body>
 </html>
