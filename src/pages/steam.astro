@@ -1,0 +1,550 @@
+---
+import eventsData from "../data/steam-events.json";
+import stateData from "../data/steam-state.json";
+import {
+  formatDateTime,
+  formatDayLabel,
+  formatHours,
+  formatMinutes,
+  formatTime,
+  groupByDay,
+  headerImage,
+  rollupGames,
+  storeUrl,
+  totals,
+  type SteamEvent,
+  type SteamState,
+} from "../lib/steam";
+
+const events = (eventsData.events ?? []) as SteamEvent[];
+const state = stateData as SteamState;
+
+const days = groupByDay(events);
+const games = rollupGames(events);
+const stats = totals(days, games);
+
+const maxGameMinutes = games[0]?.minutes ?? 0;
+const lastPolled = state.last_polled_at;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Steam Activity</title>
+    <meta
+      name="description"
+      content="An automatically collected log of what I have been playing on Steam."
+    />
+    <style>
+      :root {
+        --bg: #fbfbfd;
+        --surface: #ffffff;
+        --border: #e3e5ea;
+        --text: #14161a;
+        --muted: #656b76;
+        --faint: #9aa0ab;
+        --accent: #1b6fd4;
+        --accent-soft: #e8f0fc;
+        --rail: #dfe2e8;
+        --radius: 12px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1116;
+          --surface: #171a21;
+          --border: #262b35;
+          --text: #e9ecf1;
+          --muted: #99a1b0;
+          --faint: #6b7382;
+          --accent: #66c0f4;
+          --accent-soft: #16283a;
+          --rail: #262b35;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 6rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .back {
+        display: inline-block;
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-decoration: none;
+        margin-bottom: 2rem;
+      }
+      .back:hover {
+        color: var(--accent);
+      }
+
+      h1 {
+        margin: 0 0 0.4rem;
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+      }
+
+      .lede {
+        margin: 0;
+        color: var(--muted);
+        max-width: 52ch;
+      }
+
+      /* ---------- stats ---------- */
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.75rem;
+        margin: 2.5rem 0;
+      }
+
+      .stat {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.9rem 1rem;
+      }
+
+      .stat b {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .stat span {
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ---------- now playing ---------- */
+
+      .now {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--accent-soft);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.75rem 1rem;
+        margin-bottom: 2.5rem;
+        font-size: 0.92rem;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #57cc5a;
+        flex: none;
+      }
+
+      /* ---------- timeline ---------- */
+
+      .day {
+        position: relative;
+        padding-left: 1.6rem;
+        padding-bottom: 2rem;
+      }
+
+      .day::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 0.65rem;
+        bottom: 0;
+        width: 2px;
+        background: var(--rail);
+      }
+
+      .day:last-child::before {
+        bottom: auto;
+        height: calc(100% - 0.65rem);
+      }
+
+      .day::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.5rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--bg);
+      }
+
+      .day-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .day-head h2 {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 620;
+      }
+
+      .day-total {
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .play {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.7rem;
+        margin-bottom: 0.6rem;
+        text-decoration: none;
+        transition: border-color 0.15s ease;
+      }
+
+      .play:hover {
+        border-color: var(--accent);
+      }
+
+      .capsule {
+        width: 92px;
+        aspect-ratio: 460 / 215;
+        border-radius: 6px;
+        object-fit: cover;
+        flex: none;
+        background: linear-gradient(135deg, var(--rail), var(--border));
+      }
+
+      .play-body {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .play-name {
+        font-weight: 560;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .play-meta {
+        font-size: 0.82rem;
+        color: var(--faint);
+      }
+
+      .play-time {
+        font-variant-numeric: tabular-nums;
+        font-weight: 560;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      .moment {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.4rem 0.15rem;
+        font-size: 0.88rem;
+      }
+
+      .moment img {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        flex: none;
+      }
+
+      .badge {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        background: var(--accent-soft);
+        font-size: 0.8rem;
+      }
+
+      .moment-text {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .moment-text b {
+        font-weight: 560;
+      }
+
+      .moment-text span {
+        color: var(--faint);
+      }
+
+      .moment-time {
+        color: var(--faint);
+        font-size: 0.8rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      /* ---------- top games ---------- */
+
+      section.totals {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+      }
+
+      section.totals h2 {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 0 0 1.2rem;
+      }
+
+      .bar-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.35rem 1rem;
+        margin-bottom: 0.9rem;
+        font-size: 0.9rem;
+      }
+
+      .bar-row .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .bar-row .val {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .bar {
+        grid-column: 1 / -1;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--rail);
+        overflow: hidden;
+      }
+
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+        border-radius: 3px;
+      }
+
+      /* ---------- empty + footer ---------- */
+
+      .empty {
+        background: var(--surface);
+        border: 1px dashed var(--border);
+        border-radius: var(--radius);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      .empty b {
+        display: block;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+      }
+
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.8rem;
+        color: var(--faint);
+      }
+
+      @media (max-width: 480px) {
+        .capsule {
+          width: 68px;
+        }
+        h1 {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <a class="back" href="/">&larr; Home</a>
+
+      <h1>Steam Activity</h1>
+      <p class="lede">
+        An automatic log of what I have been playing. A job checks Steam once a day and records
+        what moved since the day before.
+      </p>
+
+      {
+        state.now_playing && (
+          <div class="now">
+            <span class="dot" />
+            <span>
+              Playing <b>{state.now_playing.name}</b> as of the last check
+            </span>
+          </div>
+        )
+      }
+
+      {
+        events.length > 0 && (
+          <div class="stats">
+            <div class="stat">
+              <b>{formatHours(stats.minutes)}</b>
+              <span>Hours logged</span>
+            </div>
+            <div class="stat">
+              <b>{stats.games}</b>
+              <span>{stats.games === 1 ? "Game" : "Games"}</span>
+            </div>
+            <div class="stat">
+              <b>{stats.activeDays}</b>
+              <span>Active days</span>
+            </div>
+            {stats.achievements > 0 && (
+              <div class="stat">
+                <b>{stats.achievements}</b>
+                <span>Achievements</span>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      {
+        days.length === 0 ? (
+          <div class="empty">
+            <b>Nothing logged yet.</b>
+            The log starts empty and fills in going forward — the first entries appear after the
+            next daily check picks up playtime that moved.
+          </div>
+        ) : (
+          days.map((day) => (
+            <div class="day">
+              <div class="day-head">
+                <h2>{formatDayLabel(day.day)}</h2>
+                {day.minutes > 0 && <span class="day-total">{formatMinutes(day.minutes)}</span>}
+              </div>
+
+              {day.plays.map((play) => (
+                <a class="play" href={storeUrl(play.appid)} rel="noopener">
+                  <img
+                    class="capsule"
+                    src={headerImage(play.appid)}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    onerror="this.style.visibility='hidden'"
+                  />
+                  <div class="play-body">
+                    <div class="play-name">{play.name}</div>
+                    {state.apps[String(play.appid)] && (
+                      <div class="play-meta">
+                        {formatHours(state.apps[String(play.appid)].playtime_forever)}h lifetime
+                      </div>
+                    )}
+                  </div>
+                  <div class="play-time">{formatMinutes(play.minutes)}</div>
+                </a>
+              ))}
+
+              {day.moments.map((moment) => (
+                <div class="moment">
+                  {moment.type === "achievement" && moment.icon ? (
+                    <img src={moment.icon} alt="" loading="lazy" decoding="async" />
+                  ) : (
+                    <div class="badge">{moment.type === "milestone" ? "★" : "✦"}</div>
+                  )}
+                  <div class="moment-text">
+                    {moment.type === "achievement" && (
+                      <>
+                        <b>{moment.achievement}</b> <span>in {moment.name}</span>
+                      </>
+                    )}
+                    {moment.type === "milestone" && (
+                      <>
+                        <b>{moment.hours} hours</b> <span>in {moment.name}</span>
+                      </>
+                    )}
+                    {moment.type === "first_play" && (
+                      <>
+                        <span>Started playing</span> <b>{moment.name}</b>
+                      </>
+                    )}
+                  </div>
+                  {moment.type === "achievement" && (
+                    <span class="moment-time">{formatTime(moment.at)}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))
+        )
+      }
+
+      {
+        games.length > 1 && (
+          <section class="totals">
+            <h2>Most played</h2>
+            {games.slice(0, 8).map((game) => (
+              <div class="bar-row">
+                <span class="name">{game.name}</span>
+                <span class="val">
+                  {formatMinutes(game.minutes)} &middot; {game.days} {game.days === 1 ? "day" : "days"}
+                </span>
+                <div class="bar">
+                  <i style={`width:${Math.max(2, (game.minutes / maxGameMinutes) * 100)}%`} />
+                </div>
+              </div>
+            ))}
+          </section>
+        )
+      }
+
+      <footer>
+        <p>
+          Steam has no session-history API, so playtime here is derived by diffing each game's
+          cumulative total once a day. A day's entry covers the 24 hours ending at the check, which
+          means durations are accurate but start and end times are not recorded. Achievement unlocks
+          are the exception — those carry real timestamps.
+        </p>
+        {lastPolled && <p>Last checked {formatDateTime(lastPolled)}.</p>}
+      </footer>
+    </main>
+  </body>
+</html>

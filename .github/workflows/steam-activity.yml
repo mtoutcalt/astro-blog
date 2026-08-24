@@ -1,0 +1,53 @@
+name: Steam activity
+
+# Steam has no session-history API, so activity is reconstructed by diffing
+# cumulative playtime. This runs at 09:00 UTC (~5am US Eastern) so each 24-hour
+# window lines up with a "gaming day" rather than splitting late-night play
+# across two entries.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: steam-activity
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Poll Steam
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
+          STEAM_TIMEZONE: America/New_York
+        run: node scripts/poll-steam.mjs
+
+      - name: Commit
+        run: |
+          if git diff --quiet -- src/data; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+
+          if git diff --quiet -- src/data/steam-events.json; then
+            message="steam: no activity $(date -u +%Y-%m-%d)"
+          else
+            message="steam: activity $(date -u +%Y-%m-%d)"
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data
+          git commit -m "$message"
+          git push

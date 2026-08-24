@@ -10,7 +10,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "steam:poll": "node --env-file-if-exists=.env scripts/poll-steam.mjs",
+    "steam:dry-run": "node --env-file-if-exists=.env scripts/poll-steam.mjs --dry-run",
+    "steam:whoami": "node --env-file-if-exists=.env scripts/steam-whoami.mjs"
   },
   "dependencies": {
     "astro": "^7.2.2"

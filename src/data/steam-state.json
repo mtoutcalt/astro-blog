@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "last_polled_at": "2026-08-24T23:41:38.715Z",
+  "profile": {
+    "persona": "Farks",
+    "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
+    "profile_url": "https://steamcommunity.com/profiles/76561197960415359/"
+  },
+  "now_playing": null,
+  "apps": {
+    "976730": {
+      "name": "Halo: The Master Chief Collection",
+      "img_icon_url": "196a45d8df1981ff6b6b1872a38dc38f6c22875d",
+      "playtime_forever": 2534,
+      "first_seen_at": "2026-08-24T23:41:38.715Z",
+      "last_played_at": "2026-08-24T23:41:38.715Z",
+      "achievements_since": 1787614898,
+      "milestones": [
+        1,
+        5,
+        10,
+        25
+      ]
+    },
+    "2807960": {
+      "name": "Battlefield™ 6",
+      "img_icon_url": "195cfd006af0fc4ab13b35bbb0c1a4f46416d303",
+      "playtime_forever": 4706,
+      "first_seen_at": "2026-08-24T23:41:38.715Z",
+      "last_played_at": "2026-08-24T23:41:38.715Z",
+      "achievements_since": 1787614898,
+      "milestones": [
+        1,
+        5,
+        10,
+        25,
+        50
+      ]
+    },
+    "3698680": {
+      "name": "Golden Tee Arcade Classics",
+      "img_icon_url": "515d1efd9c213110228f7a06a3734e5d1f90eb08",
+      "playtime_forever": 724,
+      "first_seen_at": "2026-08-24T23:41:38.715Z",
+      "last_played_at": "2026-08-24T23:41:38.715Z",
+      "achievements_since": 1787614898,
+      "milestones": [
+        1,
+        5,
+        10
+      ]
+    }
+  }
+}
