@@ -9,6 +9,7 @@ import {
   formatTime,
   groupByDay,
   headerImage,
+  iconImage,
   rollupGames,
   storeUrl,
   totals,
@@ -235,13 +236,44 @@ const lastPolled = state.last_polled_at;
         border-color: var(--accent);
       }
 
+      /*
+       * Layered fallback: capsule art on top, small game icon beneath it, and a
+       * lettered tile underneath both. Not every app publishes capsule art —
+       * newer titles frequently 404 — so each layer removes itself on error and
+       * reveals the next one down.
+       */
       .capsule {
+        position: relative;
         width: 92px;
         aspect-ratio: 460 / 215;
         border-radius: 6px;
-        object-fit: cover;
+        overflow: hidden;
         flex: none;
         background: linear-gradient(135deg, var(--rail), var(--border));
+        display: grid;
+        place-items: center;
+      }
+
+      .capsule-art {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .capsule-icon {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+      }
+
+      .capsule-letter {
+        font-size: 1.1rem;
+        font-weight: 620;
+        color: var(--faint);
+        user-select: none;
       }
 
       .play-body {
@@ -434,7 +466,7 @@ const lastPolled = state.last_polled_at;
             </div>
             <div class="stat">
               <b>{stats.activeDays}</b>
-              <span>Active days</span>
+              <span>{stats.activeDays === 1 ? "Active day" : "Active days"}</span>
             </div>
             {stats.achievements > 0 && (
               <div class="stat">
@@ -463,14 +495,27 @@ const lastPolled = state.last_polled_at;
 
               {day.plays.map((play) => (
                 <a class="play" href={storeUrl(play.appid)} rel="noopener">
-                  <img
-                    class="capsule"
-                    src={headerImage(play.appid)}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    onerror="this.style.visibility='hidden'"
-                  />
+                  <div class="capsule">
+                    <span class="capsule-letter">{play.name.trim()[0] ?? "?"}</span>
+                    {iconImage(play.appid, state.apps[String(play.appid)]?.img_icon_url) && (
+                      <img
+                        class="capsule-icon"
+                        src={iconImage(play.appid, state.apps[String(play.appid)]?.img_icon_url)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        onerror="this.remove()"
+                      />
+                    )}
+                    <img
+                      class="capsule-art"
+                      src={headerImage(play.appid)}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      onerror="this.remove()"
+                    />
+                  </div>
                   <div class="play-body">
                     <div class="play-name">{play.name}</div>
                     {state.apps[String(play.appid)] && (

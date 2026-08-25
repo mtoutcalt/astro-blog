@@ -77,6 +77,15 @@ export function headerImage(appid: number): string {
   return `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 }
 
+/**
+ * Small square game icon. Not every app publishes capsule art — newer ones
+ * often 404 — but the icon hash comes straight from the API and resolves.
+ */
+export function iconImage(appid: number, hash: string | null | undefined): string | null {
+  if (!hash) return null;
+  return `https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/${appid}/${hash}.jpg`;
+}
+
 export function storeUrl(appid: number): string {
   return `https://store.steampowered.com/app/${appid}/`;
 }

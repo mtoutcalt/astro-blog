@@ -77,6 +77,23 @@ function makePlayEvent(game, minutes, coversFrom, coversTo) {
 async function main() {
   const key = process.env.STEAM_API_KEY;
   const steamId = process.env.STEAM_ID;
+
+  const missing = [!key && "STEAM_API_KEY", !steamId && "STEAM_ID"].filter(Boolean);
+  if (missing.length) {
+    const help = process.env.GITHUB_ACTIONS
+      ? [
+          "In CI these come from repository secrets. Add them under",
+          "Settings > Secrets and variables > Actions > New repository secret.",
+          "",
+          "They must be Secrets, not Variables. A secret that exists shows as",
+          "*** in the log; a blank value means it was never set.",
+        ]
+      : ["Locally these come from .env — copy .env.example and fill it in."];
+
+    console.error([`Missing ${missing.join(" and ")}.`, "", ...help].join("\n"));
+    process.exit(1);
+  }
+
   const steam = createSteamClient({ key, steamId });
 
   const state = await readJson(STATE_PATH, emptyState());

@@ -26,6 +26,25 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      - name: Check secrets are set
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
+        run: |
+          missing=""
+          if [ -z "$STEAM_API_KEY" ]; then missing="$missing STEAM_API_KEY"; fi
+          if [ -z "$STEAM_ID" ]; then missing="$missing STEAM_ID"; fi
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secret(s):$missing"
+            echo "Add them under Settings > Secrets and variables > Actions."
+            echo "They must be Secrets, not Variables. An existing secret prints as *** in this log."
+            echo
+            echo "If they are Environment secrets, this job cannot see them unless it declares"
+            echo "the matching 'environment:' key. Move them to Repository secrets, or add it."
+            exit 1
+          fi
+          echo "Both secrets are present."
+
       - name: Poll Steam
         env:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
