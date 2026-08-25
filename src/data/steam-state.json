@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-08-24T23:41:38.715Z",
+  "last_polled_at": "2026-08-25T11:34:53.903Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -40,9 +40,9 @@
     "3698680": {
       "name": "Golden Tee Arcade Classics",
       "img_icon_url": "515d1efd9c213110228f7a06a3734e5d1f90eb08",
-      "playtime_forever": 724,
+      "playtime_forever": 744,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-08-24T23:41:38.715Z",
+      "last_played_at": "2026-08-25T11:34:53.903Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,

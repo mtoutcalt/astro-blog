@@ -1,4 +1,16 @@
 {
   "version": 1,
-  "events": []
+  "events": [
+    {
+      "id": "play:3698680:2026-08-25T11:34:53.903Z",
+      "type": "play",
+      "appid": 3698680,
+      "name": "Golden Tee Arcade Classics",
+      "minutes": 20,
+      "covers_from": "2026-08-24T23:41:38.715Z",
+      "covers_to": "2026-08-25T11:34:53.903Z",
+      "at": "2026-08-25T11:34:53.903Z",
+      "day": "2026-08-24"
+    }
+  ]
 }
