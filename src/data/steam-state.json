@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-08-26T09:36:12.898Z",
+  "last_polled_at": "2026-08-27T19:23:48.465Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -8,6 +8,15 @@
   },
   "now_playing": null,
   "apps": {
+    "17480": {
+      "name": "Command & Conquer™ Red Alert™ 3",
+      "img_icon_url": "02f2c2f9e3511f7c6d4a0afa184cc0a121581a13",
+      "playtime_forever": 1,
+      "first_seen_at": "2026-08-27T19:23:48.465Z",
+      "last_played_at": "2026-08-27T19:23:48.465Z",
+      "achievements_since": 1787858628,
+      "milestones": []
+    },
     "976730": {
       "name": "Halo: The Master Chief Collection",
       "img_icon_url": "196a45d8df1981ff6b6b1872a38dc38f6c22875d",
