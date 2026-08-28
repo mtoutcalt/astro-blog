@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-08-27T19:23:48.465Z",
+  "last_polled_at": "2026-08-28T20:38:45.621Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -29,6 +29,17 @@
         5,
         10,
         25
+      ]
+    },
+    "1424330": {
+      "name": "Wobbledogs",
+      "img_icon_url": "c8eea8a31d64262f43268465b4c1dad046bc3b1e",
+      "playtime_forever": 172,
+      "first_seen_at": "2026-08-28T20:38:45.621Z",
+      "last_played_at": "2026-08-28T20:38:45.621Z",
+      "achievements_since": 1787949525,
+      "milestones": [
+        1
       ]
     },
     "2807960": {
