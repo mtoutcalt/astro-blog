@@ -49,6 +49,28 @@
       "covers_to": "2026-08-28T20:38:45.621Z",
       "at": "2026-08-28T20:38:45.621Z",
       "day": "2026-08-27"
+    },
+    {
+      "id": "achievement:1424330:ACH_CRACK",
+      "type": "achievement",
+      "appid": 1424330,
+      "name": "Wobbledogs",
+      "achievement": "Crrrrack!",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1424330/96fdc5a6d609b60e616efc1f8e3ab24355554e41.jpg",
+      "at": "2026-08-29T12:19:20.000Z",
+      "day": "2026-08-29"
+    },
+    {
+      "id": "play:1424330:2026-08-29T14:08:08.879Z",
+      "type": "play",
+      "appid": 1424330,
+      "name": "Wobbledogs",
+      "minutes": 50,
+      "covers_from": "2026-08-28T20:38:45.621Z",
+      "covers_to": "2026-08-29T14:08:08.879Z",
+      "at": "2026-08-29T14:08:08.879Z",
+      "day": "2026-08-28"
     }
   ]
 }
