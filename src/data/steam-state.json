@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-08-29T14:08:08.879Z",
+  "last_polled_at": "2026-08-30T14:14:35.821Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -34,10 +34,10 @@
     "1424330": {
       "name": "Wobbledogs",
       "img_icon_url": "c8eea8a31d64262f43268465b4c1dad046bc3b1e",
-      "playtime_forever": 222,
+      "playtime_forever": 296,
       "first_seen_at": "2026-08-28T20:38:45.621Z",
-      "last_played_at": "2026-08-29T14:08:08.879Z",
-      "achievements_since": 1788005960,
+      "last_played_at": "2026-08-30T14:14:35.821Z",
+      "achievements_since": 1788052454,
       "milestones": [
         1
       ]
@@ -45,9 +45,9 @@
     "2807960": {
       "name": "Battlefield™ 6",
       "img_icon_url": "195cfd006af0fc4ab13b35bbb0c1a4f46416d303",
-      "playtime_forever": 4706,
+      "playtime_forever": 4733,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-08-24T23:41:38.715Z",
+      "last_played_at": "2026-08-30T14:14:35.821Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
@@ -60,9 +60,9 @@
     "3698680": {
       "name": "Golden Tee Arcade Classics",
       "img_icon_url": "515d1efd9c213110228f7a06a3734e5d1f90eb08",
-      "playtime_forever": 744,
+      "playtime_forever": 756,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-08-25T11:34:53.903Z",
+      "last_played_at": "2026-08-30T14:14:35.821Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
