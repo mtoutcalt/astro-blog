@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-09-03T13:12:16.607Z",
+  "last_polled_at": "2026-09-04T13:06:06.052Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -8,6 +8,23 @@
   },
   "now_playing": null,
   "apps": {
+    "730": {
+      "name": "Counter-Strike 2",
+      "img_icon_url": "8dbc71957312bbd3baea65848b545be9eae2a355",
+      "playtime_forever": 26207,
+      "first_seen_at": "2026-09-04T13:06:06.052Z",
+      "last_played_at": "2026-09-04T13:06:06.052Z",
+      "achievements_since": 1788527166,
+      "milestones": [
+        1,
+        5,
+        10,
+        25,
+        50,
+        100,
+        250
+      ]
+    },
     "8400": {
       "name": "Geometry Wars: Retro Evolved",
       "img_icon_url": "87a445064f7e92af24d3dd1b79ec2d725d4033a2",
