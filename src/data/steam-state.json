@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-09-06T12:33:59.367Z",
+  "last_polled_at": "2026-09-07T14:43:28.056Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -40,11 +40,13 @@
     "17480": {
       "name": "Command & Conquer™ Red Alert™ 3",
       "img_icon_url": "02f2c2f9e3511f7c6d4a0afa184cc0a121581a13",
-      "playtime_forever": 1,
+      "playtime_forever": 100,
       "first_seen_at": "2026-08-27T19:23:48.465Z",
-      "last_played_at": "2026-08-27T19:23:48.465Z",
+      "last_played_at": "2026-09-07T14:43:28.056Z",
       "achievements_since": 1787858628,
-      "milestones": []
+      "milestones": [
+        1
+      ]
     },
     "553850": {
       "name": "HELLDIVERS™ 2",

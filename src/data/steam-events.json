@@ -271,6 +271,26 @@
       "covers_to": "2026-09-06T12:33:59.367Z",
       "at": "2026-09-06T12:33:59.367Z",
       "day": "2026-09-05"
+    },
+    {
+      "id": "play:17480:2026-09-07T14:43:28.056Z",
+      "type": "play",
+      "appid": 17480,
+      "name": "Command & Conquer™ Red Alert™ 3",
+      "minutes": 99,
+      "covers_from": "2026-09-06T12:33:59.367Z",
+      "covers_to": "2026-09-07T14:43:28.056Z",
+      "at": "2026-09-07T14:43:28.056Z",
+      "day": "2026-09-06"
+    },
+    {
+      "id": "milestone:17480:1",
+      "type": "milestone",
+      "appid": 17480,
+      "name": "Command & Conquer™ Red Alert™ 3",
+      "hours": 1,
+      "at": "2026-09-07T14:43:28.056Z",
+      "day": "2026-09-07"
     }
   ]
 }
