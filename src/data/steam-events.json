@@ -335,6 +335,25 @@
       "covers_to": "2026-09-15T14:07:09.195Z",
       "at": "2026-09-15T14:07:09.195Z",
       "day": "2026-09-14"
+    },
+    {
+      "id": "first_play:813780:2026-09-21T15:36:24.336Z",
+      "type": "first_play",
+      "appid": 813780,
+      "name": "Age of Empires II: Definitive Edition",
+      "at": "2026-09-21T15:36:24.336Z",
+      "day": "2026-09-20"
+    },
+    {
+      "id": "play:813780:2026-09-21T15:36:24.336Z",
+      "type": "play",
+      "appid": 813780,
+      "name": "Age of Empires II: Definitive Edition",
+      "minutes": 111,
+      "covers_from": "2026-09-20T13:25:06.366Z",
+      "covers_to": "2026-09-21T15:36:24.336Z",
+      "at": "2026-09-21T15:36:24.336Z",
+      "day": "2026-09-20"
     }
   ]
 }

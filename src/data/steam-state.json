@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-09-20T13:25:06.366Z",
+  "last_polled_at": "2026-09-21T15:36:24.336Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -61,6 +61,19 @@
         10,
         25,
         50
+      ]
+    },
+    "813780": {
+      "name": "Age of Empires II: Definitive Edition",
+      "img_icon_url": "e2b5a7beb58136b892e517cb93ae08b36065363c",
+      "playtime_forever": 833,
+      "first_seen_at": "2026-09-21T15:36:24.336Z",
+      "last_played_at": "2026-09-21T15:36:24.336Z",
+      "achievements_since": 1790004984,
+      "milestones": [
+        1,
+        5,
+        10
       ]
     },
     "976730": {
