@@ -384,6 +384,94 @@
       "covers_to": "2026-09-25T14:23:19.535Z",
       "at": "2026-09-25T14:23:19.535Z",
       "day": "2026-09-24"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_46",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Astral Construction",
+      "description": "Purchase an Aberrant Upgrade.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/4196ce76e63b6478639282c4bb416857f18e77a8.jpg",
+      "at": "2026-09-26T19:05:31.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_42",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Field Work",
+      "description": "Reach level 3 in any Zone.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/0b16788095adf21084c84f749b6f508ea733768d.jpg",
+      "at": "2026-09-26T20:06:47.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_45",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Promising Recruit",
+      "description": "Unlock a Talent.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/7df02ac9f2283269fa206b18c79560e66cd0d5ec.jpg",
+      "at": "2026-09-26T20:06:47.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_39",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Up to the Task",
+      "description": "Complete a World Feat.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/5edd52f315c65875cf3d17a2ac2360a6836b5bc6.jpg",
+      "at": "2026-09-26T20:56:08.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_43",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Finalization Protocol",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/168eace4bed393d8fae942fec2ab0946eec25be8.jpg",
+      "at": "2026-09-26T21:09:47.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_41",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Core Competency",
+      "description": "Obtain a Health Upgrade or Power Upgrade.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/e0a8d270547b693cf914a1dbe06208479ab240af.jpg",
+      "at": "2026-09-26T21:45:13.000Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "play:3669870:2026-09-27T14:31:19.204Z",
+      "type": "play",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "minutes": 186,
+      "covers_from": "2026-09-26T13:35:32.830Z",
+      "covers_to": "2026-09-27T14:31:19.204Z",
+      "at": "2026-09-27T14:31:19.204Z",
+      "day": "2026-09-26"
+    },
+    {
+      "id": "play:2807960:2026-09-27T14:31:19.204Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 103,
+      "covers_from": "2026-09-26T13:35:32.830Z",
+      "covers_to": "2026-09-27T14:31:19.204Z",
+      "at": "2026-09-27T14:31:19.204Z",
+      "day": "2026-09-26"
     }
   ]
 }
