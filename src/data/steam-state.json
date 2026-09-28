@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-09-27T14:31:19.204Z",
+  "last_polled_at": "2026-09-28T17:17:44.479Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -104,9 +104,9 @@
     "2807960": {
       "name": "Battlefield™ 6",
       "img_icon_url": "195cfd006af0fc4ab13b35bbb0c1a4f46416d303",
-      "playtime_forever": 5178,
+      "playtime_forever": 5242,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-09-27T14:31:19.204Z",
+      "last_played_at": "2026-09-28T17:17:44.479Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
@@ -119,12 +119,13 @@
     "3669870": {
       "name": "CONTROL Resonant",
       "img_icon_url": "f9f541b67c42a9503467f44072ef9193c135ff33",
-      "playtime_forever": 270,
+      "playtime_forever": 435,
       "first_seen_at": "2026-09-25T14:23:19.535Z",
-      "last_played_at": "2026-09-27T14:31:19.204Z",
-      "achievements_since": 1790459113,
+      "last_played_at": "2026-09-28T17:17:44.479Z",
+      "achievements_since": 1790540046,
       "milestones": [
-        1
+        1,
+        5
       ]
     },
     "3698680": {

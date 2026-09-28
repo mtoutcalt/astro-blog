@@ -472,6 +472,92 @@
       "covers_to": "2026-09-27T14:31:19.204Z",
       "at": "2026-09-27T14:31:19.204Z",
       "day": "2026-09-26"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_35",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Paranatural Agility ",
+      "description": "Perform 3 Perfect Dodges in less than 6 seconds.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/593fdd233c5f24173ed38277c58f57669a43bfb3.jpg",
+      "at": "2026-09-27T17:52:14.000Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_11",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Curtain Fall",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/ac25ff2f83c8e91970ebf6111d2160c8154d41f1.jpg",
+      "at": "2026-09-27T17:57:31.000Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_10",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Thermal Termination",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/0d623437cb530f380ed323c31c7fc0115398a65d.jpg",
+      "at": "2026-09-27T18:41:08.000Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_38",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Out of Uniform",
+      "description": "Equip an outfit item in every customization slot.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/68a6fb6a8c7393ce1f4beeafac08d25d14ca93d9.jpg",
+      "at": "2026-09-27T20:00:42.000Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_6",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Rescue Mission",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/7a7bd75c81605d169601921f5bba5926a99ac569.jpg",
+      "at": "2026-09-27T20:14:06.000Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "play:3669870:2026-09-28T17:17:44.479Z",
+      "type": "play",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "minutes": 165,
+      "covers_from": "2026-09-27T14:31:19.204Z",
+      "covers_to": "2026-09-28T17:17:44.479Z",
+      "at": "2026-09-28T17:17:44.479Z",
+      "day": "2026-09-27"
+    },
+    {
+      "id": "milestone:3669870:5",
+      "type": "milestone",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "hours": 5,
+      "at": "2026-09-28T17:17:44.479Z",
+      "day": "2026-09-28"
+    },
+    {
+      "id": "play:2807960:2026-09-28T17:17:44.479Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 64,
+      "covers_from": "2026-09-27T14:31:19.204Z",
+      "covers_to": "2026-09-28T17:17:44.479Z",
+      "at": "2026-09-28T17:17:44.479Z",
+      "day": "2026-09-27"
     }
   ]
 }
