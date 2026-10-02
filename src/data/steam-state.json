@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-10-01T15:57:19.976Z",
+  "last_polled_at": "2026-10-02T15:17:51.543Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -101,12 +101,21 @@
         1
       ]
     },
+    "2743850": {
+      "name": "Tricky Madness",
+      "img_icon_url": "be553b167e88570652d3c177655d2a74d7fae669",
+      "playtime_forever": 50,
+      "first_seen_at": "2026-10-02T15:17:51.543Z",
+      "last_played_at": "2026-10-02T15:17:51.543Z",
+      "achievements_since": 1790954271,
+      "milestones": []
+    },
     "2807960": {
       "name": "Battlefield™ 6",
       "img_icon_url": "195cfd006af0fc4ab13b35bbb0c1a4f46416d303",
-      "playtime_forever": 5383,
+      "playtime_forever": 5435,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-09-30T15:33:26.925Z",
+      "last_played_at": "2026-10-02T15:17:51.543Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
@@ -131,9 +140,9 @@
     "3698680": {
       "name": "Golden Tee Arcade Classics",
       "img_icon_url": "515d1efd9c213110228f7a06a3734e5d1f90eb08",
-      "playtime_forever": 814,
+      "playtime_forever": 826,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-09-14T15:36:11.490Z",
+      "last_played_at": "2026-10-02T15:17:51.543Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
