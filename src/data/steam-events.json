@@ -632,6 +632,37 @@
       "covers_to": "2026-10-03T14:07:05.185Z",
       "at": "2026-10-03T14:07:05.185Z",
       "day": "2026-10-02"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_5",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Enemy of My Enemy",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/28aadab0aee6a0d6058836b62ea79c699234fb1b.jpg",
+      "at": "2026-10-03T22:19:58.000Z",
+      "day": "2026-10-03"
+    },
+    {
+      "id": "play:3669870:2026-10-04T14:34:21.874Z",
+      "type": "play",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "minutes": 165,
+      "covers_from": "2026-10-03T14:07:05.185Z",
+      "covers_to": "2026-10-04T14:34:21.874Z",
+      "at": "2026-10-04T14:34:21.874Z",
+      "day": "2026-10-03"
+    },
+    {
+      "id": "milestone:3669870:10",
+      "type": "milestone",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "hours": 10,
+      "at": "2026-10-04T14:34:21.874Z",
+      "day": "2026-10-04"
     }
   ]
 }
