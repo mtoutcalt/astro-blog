@@ -1,12 +1,16 @@
 {
   "version": 1,
-  "last_polled_at": "2026-10-09T15:47:07.650Z",
+  "last_polled_at": "2026-10-10T14:59:14.358Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
     "profile_url": "https://steamcommunity.com/profiles/76561197960415359/"
   },
-  "now_playing": null,
+  "now_playing": {
+    "name": "Battlefield™ 6",
+    "appid": 2807960,
+    "at": "2026-10-10T14:59:14.358Z"
+  },
   "apps": {
     "730": {
       "name": "Counter-Strike 2",
@@ -113,9 +117,9 @@
     "2807960": {
       "name": "Battlefield™ 6",
       "img_icon_url": "195cfd006af0fc4ab13b35bbb0c1a4f46416d303",
-      "playtime_forever": 5648,
+      "playtime_forever": 5659,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-10-09T15:47:07.650Z",
+      "last_played_at": "2026-10-10T14:59:14.358Z",
       "achievements_since": 1787614898,
       "milestones": [
         1,
