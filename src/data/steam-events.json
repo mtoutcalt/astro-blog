@@ -740,6 +740,61 @@
       "covers_to": "2026-10-11T15:18:01.248Z",
       "at": "2026-10-11T15:18:01.248Z",
       "day": "2026-10-10"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_44",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Paranatural Apprentice",
+      "description": "Craft an Artifact.",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/b997f662ba00a0ba97b03d93edca10b48f38ecf1.jpg",
+      "at": "2026-10-11T18:13:08.000Z",
+      "day": "2026-10-11"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_8",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Astral Reconfiguration",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/15be19042a23ea2d3da4b174e92a1f47d39d5268.jpg",
+      "at": "2026-10-11T18:13:39.000Z",
+      "day": "2026-10-11"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_4",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Sibling Reunion",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/2545c4657471f9d4e0c3ac165ceb24b5d98b8556.jpg",
+      "at": "2026-10-12T00:12:25.000Z",
+      "day": "2026-10-11"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_3",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "The First Link",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/1fd489e23b4e586a919a984aa66bff25e88cdff0.jpg",
+      "at": "2026-10-12T00:37:02.000Z",
+      "day": "2026-10-11"
+    },
+    {
+      "id": "play:3669870:2026-10-12T18:31:07.867Z",
+      "type": "play",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "minutes": 340,
+      "covers_from": "2026-10-11T15:18:01.248Z",
+      "covers_to": "2026-10-12T18:31:07.867Z",
+      "at": "2026-10-12T18:31:07.867Z",
+      "day": "2026-10-11"
     }
   ]
 }

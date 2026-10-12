@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-10-11T15:18:01.248Z",
+  "last_polled_at": "2026-10-12T18:31:07.867Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -128,10 +128,10 @@
     "3669870": {
       "name": "CONTROL Resonant",
       "img_icon_url": "f9f541b67c42a9503467f44072ef9193c135ff33",
-      "playtime_forever": 690,
+      "playtime_forever": 1030,
       "first_seen_at": "2026-09-25T14:23:19.535Z",
-      "last_played_at": "2026-10-05T17:47:00.056Z",
-      "achievements_since": 1791065998,
+      "last_played_at": "2026-10-12T18:31:07.867Z",
+      "achievements_since": 1791765422,
       "milestones": [
         1,
         5,
