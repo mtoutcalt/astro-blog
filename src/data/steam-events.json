@@ -839,6 +839,37 @@
       "covers_to": "2026-10-16T13:42:29.348Z",
       "at": "2026-10-16T13:42:29.348Z",
       "day": "2026-10-15"
+    },
+    {
+      "id": "achievement:2807960:ACHIEVEMENT29",
+      "type": "achievement",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "achievement": "Front line ",
+      "description": "Take or Defend 41 sectors in Breakthrough",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/2807960/f08b5a858f485391372524615ede3680d8e12543.jpg",
+      "at": "2026-10-16T23:26:20.000Z",
+      "day": "2026-10-16"
+    },
+    {
+      "id": "play:2807960:2026-10-17T12:39:28.159Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 82,
+      "covers_from": "2026-10-16T13:42:29.348Z",
+      "covers_to": "2026-10-17T12:39:28.159Z",
+      "at": "2026-10-17T12:39:28.159Z",
+      "day": "2026-10-16"
+    },
+    {
+      "id": "milestone:2807960:100",
+      "type": "milestone",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "hours": 100,
+      "at": "2026-10-17T12:39:28.159Z",
+      "day": "2026-10-17"
     }
   ]
 }
