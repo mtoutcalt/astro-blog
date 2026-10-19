@@ -881,6 +881,39 @@
       "covers_to": "2026-10-18T12:56:38.877Z",
       "at": "2026-10-18T12:56:38.877Z",
       "day": "2026-10-17"
+    },
+    {
+      "id": "achievement:3669870:NEW_ACHIEVEMENT_1_9",
+      "type": "achievement",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "achievement": "Insidious Growth",
+      "description": null,
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3669870/8f21a7142f7829a9cbd93e8c6102a23b8d2697a5.jpg",
+      "at": "2026-10-18T18:26:00.000Z",
+      "day": "2026-10-18"
+    },
+    {
+      "id": "play:2807960:2026-10-19T16:08:24.226Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 143,
+      "covers_from": "2026-10-18T12:56:38.877Z",
+      "covers_to": "2026-10-19T16:08:24.226Z",
+      "at": "2026-10-19T16:08:24.226Z",
+      "day": "2026-10-18"
+    },
+    {
+      "id": "play:3669870:2026-10-19T16:08:24.226Z",
+      "type": "play",
+      "appid": 3669870,
+      "name": "CONTROL Resonant",
+      "minutes": 102,
+      "covers_from": "2026-10-18T12:56:38.877Z",
+      "covers_to": "2026-10-19T16:08:24.226Z",
+      "at": "2026-10-19T16:08:24.226Z",
+      "day": "2026-10-18"
     }
   ]
 }
