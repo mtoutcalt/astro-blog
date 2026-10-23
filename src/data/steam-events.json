@@ -914,6 +914,25 @@
       "covers_to": "2026-10-19T16:08:24.226Z",
       "at": "2026-10-19T16:08:24.226Z",
       "day": "2026-10-18"
+    },
+    {
+      "id": "first_play:47810:2026-10-23T14:01:17.595Z",
+      "type": "first_play",
+      "appid": 47810,
+      "name": "Dragon Age: Origins - Ultimate Edition",
+      "at": "2026-10-23T14:01:17.595Z",
+      "day": "2026-10-22"
+    },
+    {
+      "id": "play:47810:2026-10-23T14:01:17.595Z",
+      "type": "play",
+      "appid": 47810,
+      "name": "Dragon Age: Origins - Ultimate Edition",
+      "minutes": 24,
+      "covers_from": "2026-10-22T14:18:21.955Z",
+      "covers_to": "2026-10-23T14:01:17.595Z",
+      "at": "2026-10-23T14:01:17.595Z",
+      "day": "2026-10-22"
     }
   ]
 }
