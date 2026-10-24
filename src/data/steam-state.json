@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-10-23T14:01:17.595Z",
+  "last_polled_at": "2026-10-24T13:03:40.797Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -11,9 +11,9 @@
     "730": {
       "name": "Counter-Strike 2",
       "img_icon_url": "8dbc71957312bbd3baea65848b545be9eae2a355",
-      "playtime_forever": 26207,
+      "playtime_forever": 26230,
       "first_seen_at": "2026-09-04T13:06:06.052Z",
-      "last_played_at": "2026-09-04T13:06:06.052Z",
+      "last_played_at": "2026-10-24T13:03:40.797Z",
       "achievements_since": 1788527166,
       "milestones": [
         1,
