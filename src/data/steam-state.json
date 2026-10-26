@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-10-25T13:31:38.549Z",
+  "last_polled_at": "2026-10-26T15:47:02.424Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -124,9 +124,9 @@
     "2807960": {
       "name": "Battlefield™ 6",
       "img_icon_url": "3059e94fb89816fe1929a238ac2b55e8be348408",
-      "playtime_forever": 6219,
+      "playtime_forever": 6254,
       "first_seen_at": "2026-08-24T23:41:38.715Z",
-      "last_played_at": "2026-10-25T13:31:38.549Z",
+      "last_played_at": "2026-10-26T15:47:02.424Z",
       "achievements_since": 1792193180,
       "milestones": [
         1,
