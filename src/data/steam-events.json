@@ -1029,6 +1029,39 @@
       "covers_to": "2026-10-30T15:29:08.269Z",
       "at": "2026-10-30T15:29:08.269Z",
       "day": "2026-10-29"
+    },
+    {
+      "id": "achievement:3414580:BurnJoker",
+      "type": "achievement",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "achievement": "Immolate",
+      "description": "Sacrifice a joker for mana",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3414580/9aa5c5991bafe42741a54efc71829324f39e2d9e.jpg",
+      "at": "2026-10-31T18:01:57.000Z",
+      "day": "2026-10-31"
+    },
+    {
+      "id": "play:2807960:2026-11-01T15:42:28.126Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 50,
+      "covers_from": "2026-10-31T14:58:04.451Z",
+      "covers_to": "2026-11-01T15:42:28.126Z",
+      "at": "2026-11-01T15:42:28.126Z",
+      "day": "2026-10-31"
+    },
+    {
+      "id": "play:3414580:2026-11-01T15:42:28.126Z",
+      "type": "play",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "minutes": 43,
+      "covers_from": "2026-10-31T14:58:04.451Z",
+      "covers_to": "2026-11-01T15:42:28.126Z",
+      "at": "2026-11-01T15:42:28.126Z",
+      "day": "2026-10-31"
     }
   ]
 }
