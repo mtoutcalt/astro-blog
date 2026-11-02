@@ -1062,6 +1062,61 @@
       "covers_to": "2026-11-01T15:42:28.126Z",
       "at": "2026-11-01T15:42:28.126Z",
       "day": "2026-10-31"
+    },
+    {
+      "id": "achievement:3414580:StealthGoal",
+      "type": "achievement",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "achievement": "Close Call",
+      "description": "Complete a stealth level after alerting the enemy 5 times",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3414580/f368968da66718c966c77929c725f296cb491ffe.jpg",
+      "at": "2026-11-01T22:04:26.000Z",
+      "day": "2026-11-01"
+    },
+    {
+      "id": "achievement:3414580:CleanseCards",
+      "type": "achievement",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "achievement": "Spotless",
+      "description": "Remove 5 malign cards with a single exorcism",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3414580/adb08b59b606b457e2c38d912af5db6ac769c7ec.jpg",
+      "at": "2026-11-01T22:12:13.000Z",
+      "day": "2026-11-01"
+    },
+    {
+      "id": "achievement:3414580:HeartExhibit",
+      "type": "achievement",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "achievement": "Cursed Love",
+      "description": "Complete the Heart Exhibit",
+      "icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3414580/58f696790d776ba359b06b340193f6028cb19e7c.jpg",
+      "at": "2026-11-01T22:13:27.000Z",
+      "day": "2026-11-01"
+    },
+    {
+      "id": "play:2807960:2026-11-02T19:05:17.070Z",
+      "type": "play",
+      "appid": 2807960,
+      "name": "Battlefield™ 6",
+      "minutes": 39,
+      "covers_from": "2026-11-01T15:42:28.126Z",
+      "covers_to": "2026-11-02T19:05:17.070Z",
+      "at": "2026-11-02T19:05:17.070Z",
+      "day": "2026-11-01"
+    },
+    {
+      "id": "play:3414580:2026-11-02T19:05:17.070Z",
+      "type": "play",
+      "appid": 3414580,
+      "name": "Forbidden Solitaire",
+      "minutes": 15,
+      "covers_from": "2026-11-01T15:42:28.126Z",
+      "covers_to": "2026-11-02T19:05:17.070Z",
+      "at": "2026-11-02T19:05:17.070Z",
+      "day": "2026-11-01"
     }
   ]
 }
