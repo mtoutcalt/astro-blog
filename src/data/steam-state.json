@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-11-02T19:05:17.070Z",
+  "last_polled_at": "2026-11-03T16:47:26.119Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -140,9 +140,9 @@
     "3414580": {
       "name": "Forbidden Solitaire",
       "img_icon_url": "f0e27f3c62946a319120798033a8fd36203c46b0",
-      "playtime_forever": 461,
+      "playtime_forever": 503,
       "first_seen_at": "2026-10-29T15:48:07.579Z",
-      "last_played_at": "2026-11-02T19:05:17.070Z",
+      "last_played_at": "2026-11-03T16:47:26.119Z",
       "achievements_since": 1793571207,
       "milestones": [
         1,
