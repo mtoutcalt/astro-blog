@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_polled_at": "2026-11-10T16:44:28.872Z",
+  "last_polled_at": "2026-11-11T16:50:53.521Z",
   "profile": {
     "persona": "Farks",
     "avatar": "https://avatars.steamstatic.com/f047a8f361c48ee4c2d5384969f5e00b7b305d2b_full.jpg",
@@ -136,6 +136,15 @@
         50,
         100
       ]
+    },
+    "3314060": {
+      "name": "The Sims™ Legacy Collection",
+      "img_icon_url": "8ad6fcc837f1a895a5a634a6afd5c61b5a6bbff0",
+      "playtime_forever": 16,
+      "first_seen_at": "2026-11-11T16:50:53.521Z",
+      "last_played_at": "2026-11-11T16:50:53.521Z",
+      "achievements_since": 1794415853,
+      "milestones": []
     },
     "3414580": {
       "name": "Forbidden Solitaire",
